@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('api')->get('/hello', function (Request $request) {
-    return config('database.connections.mysql.host');
-    return env('');
+    return \App\Models\User::all();
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

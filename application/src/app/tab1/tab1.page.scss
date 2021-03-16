@@ -1,0 +1,22 @@
+.container {
+  padding: 20px;
+
+  &:hover {
+    background-color: blue;
+  }
+  .card {
+    border: 1px grey solid;
+    box-shadow: 5px 10px #888888;
+    padding: 5px;
+
+    .header {
+      border-bottom: 1px gray solid;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .card-body {
+
+    }
+  }
+}

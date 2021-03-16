@@ -4,30 +4,46 @@ php:
    - ".:/var/www"
    - "./docker/php/init.sh:/init.sh"
   links:
-   - sql
+   - db
+  ports:
+     - "80:8080"
+     - "8080:8080"
   environment:
     - COMPOSER_MEMORY_LIMIT=-1
+#
+#web:
+#  build: "./docker/nginx"
+#  ports:
+#   - "80:80"
+#   - "8000:80"
+#  volumes:
+#     - ".:/var/www"
+#     - "./docker/nginx/main.conf:/etc/nginx/nginx.conf"
+#     - "./docker/nginx/ext.ini:/etc/php8/conf.d/ext.ini"
+#  links:
+#   - php
 
-web:
-  image: khromov/alpine-nginx-php8
-  ports:
-   - "80:8080"
-   - "8000:8080"
-  volumes:
-     - ".:/var/www"
-     - "./docker/nginx/main.conf:/etc/nginx/nginx.conf"
-  links:
-   - php
-
-sql:
-  image: mysql:5.7
+db:
+  image: mongo:4.4
   environment:
-    MYSQL_DATABASE: 'flashcards'
-    MYSQL_USER: 'user'
-    MYSQL_PASSWORD: 'password'
-    MYSQL_ROOT_PASSWORD: 'password'
+    MONGO_INITDB_ROOT_USERNAME: 'user'
+    MONGO_INITDB_ROOT_PASSWORD: 'password'
+    AUTH: 'no'
+    MONGO_INITDB_DATABASE: 'flashcards'
   ports:
-    - '3306:3306'
+    - 27017:27017
   expose:
-    - '3306'
+    - 27017
+#
+#sql:
+#  image: mysql:5.7
+#  environment:
+#    MYSQL_DATABASE: 'flashcards'
+#    MYSQL_USER: 'user'
+#    MYSQL_PASSWORD: 'password'
+#    MYSQL_ROOT_PASSWORD: 'password'
+#  ports:
+#    - '3306:3306'
+#  expose:
+#    - '3306'
 
