@@ -1,0 +1,39 @@
+<ng-container [ngSwitch]="currentView">
+  <ion-list #mainList *ngSwitchCase="'main'">
+    <ion-list-header>Actions</ion-list-header>
+    <ion-item
+      button
+      (click)="changeView('types')"
+      [detail]="true"
+    >
+      <ion-text color="primary">Change Type</ion-text>
+    </ion-item>
+    <ion-item button (click)="delete()">
+      <ion-text color="danger">Delete</ion-text>
+    </ion-item>
+    <ion-item
+      lines="none"
+      button
+      (click)="dismissPopover()"
+    >
+      Close
+    </ion-item>
+  </ion-list>
+  <ion-list #typeList *ngSwitchDefault>
+    <ion-list-header>Select type</ion-list-header>
+    <ion-item
+      button
+      *ngFor="let type of types"
+      (click)="selectType(type)"
+    >
+      <ion-text color="primary">{{ typesMap[type] }}</ion-text>
+    </ion-item>
+    <ion-item
+      lines="none"
+      button
+      (click)="dismissPopover()"
+    >
+      Close
+    </ion-item>
+  </ion-list>
+</ng-container>
