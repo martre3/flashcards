@@ -24,17 +24,11 @@
         "prettier/prettier": [
           "error",
           {
-            "singleQuote": true
+            "singleQuote": true,
+            "printWidth": 100
           }
         ],
-        "import/extensions": [
-          "error",
-          "ignorePackages",
-          {
-            "js": "never",
-            "ts": "never"
-          }
-        ],
+        "import/extensions": "off",
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": [
           "error",
@@ -62,7 +56,9 @@
           }
         ],
         "no-return-assign": "off",
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "no-use-before-define": "off",
+        "no-empty-function": "off"
       }
     },
     {

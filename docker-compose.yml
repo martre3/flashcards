@@ -26,9 +26,9 @@ php:
 db:
   image: mongo:4.4
   environment:
-    MONGO_INITDB_ROOT_USERNAME: 'user'
-    MONGO_INITDB_ROOT_PASSWORD: 'password'
-    AUTH: 'no'
+    MONGO_INITDB_ROOT_USERNAME: 'root'
+    MONGO_INITDB_ROOT_PASSWORD: 'rootPassword'
+#    AUTH: 'no'
     MONGO_INITDB_DATABASE: 'flashcards'
   ports:
     - 27017:27017

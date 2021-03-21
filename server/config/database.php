@@ -93,6 +93,7 @@ return [
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => 'mongodb://user@db:27017',
+//            'dsn' => 'mongodb://user@db:27017',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', 27017),
             'database' => env('DB_DATABASE', 'homestead'),

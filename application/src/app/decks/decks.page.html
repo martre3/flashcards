@@ -1,0 +1,12 @@
+<app-main-header></app-main-header>
+<ion-content>
+  <a routerLink="/decks/new">
+    New
+  </a>
+  <ion-card *ngFor="let deck of decks">
+    <ion-card-header>{{ deck.title }}</ion-card-header>
+    <ion-card-content>
+      <a routerLink="/decks/{{ deck._id }}">edit</a>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
