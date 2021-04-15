@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { AnimationController, PopoverController } from '@ionic/angular';
-import { CardType } from '../../models/types/card-type';
+import { CardType } from '../../../models/types/card-type';
 
 type View = 'main' | 'types' | 'delete';
 

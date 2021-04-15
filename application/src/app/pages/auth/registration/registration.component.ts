@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../services/auth.service';
-import { AppState } from '../../store/app.states';
-import { Login, Logout, SignUp } from '../../store/auth/auth.actions';
+import { AuthService } from '../../../services/auth.service';
+import { AppState } from '../../../store/app.states';
+import { Login, Logout, SignUp } from '../../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-registration',

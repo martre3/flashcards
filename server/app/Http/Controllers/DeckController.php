@@ -42,7 +42,8 @@ class DeckController extends Controller
      */
     public function create(DeckRequest $request, Deck $deck): Deck
     {
-        $deck->fill($request->validated())->save();
+        $deck->fill($request->validated());
+        $request->user()->decks()->save($deck);
 
         return $deck;
     }

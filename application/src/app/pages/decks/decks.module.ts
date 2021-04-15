@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DecksPageRoutingModule } from './decks-routing.module';
 
 import { DecksPage } from './decks.page';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
 import { ModifyDeckCardComponent } from './modify-deck-card/modify-deck-card.component';
 import { CardPopoverComponent } from './card-popover/card-popover.component';

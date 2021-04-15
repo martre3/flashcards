@@ -4,11 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'decks',
-    loadChildren: () => import('./decks/decks.module').then((m) => m.DecksPageModule),
+    loadChildren: () => import('./pages/decks/decks.module').then((m) => m.DecksPageModule),
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '**',

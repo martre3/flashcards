@@ -54,7 +54,7 @@ class AuthController extends Controller
             ->getToken($config->signer(), $config->signingKey());
 
         return response()->json([
-            'userId' => $user->_id,
+            'user' => $user,
             'jwt' => $token->toString(),
         ]);
     }

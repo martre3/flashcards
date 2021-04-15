@@ -5,10 +5,10 @@ import { fromPromise } from 'rxjs/internal-compatibility';
 import { switchMap, tap } from 'rxjs/operators';
 import { OnChange } from 'property-watch-decorator';
 import { CardPopoverComponent } from '../card-popover/card-popover.component';
-import { Card } from '../../models/card';
-import { CardsService } from '../../services/cards.service';
-import { CardType } from '../../models/types/card-type';
-import { CardUpdatedEvent } from '../../models/events/card-updated-event';
+import { Card } from '../../../models/card';
+import { CardsService } from '../../../services/cards.service';
+import { CardType } from '../../../models/types/card-type';
+import { CardUpdatedEvent } from '../../../models/events/card-updated-event';
 
 @Component({
   selector: 'app-modify-deck-card',

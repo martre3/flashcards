@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { filter, switchMap, tap } from 'rxjs/operators';
-import { DecksService } from '../../services/decks.service';
-import { FormState } from '../../models/types/form-state';
-import { Card } from '../../models/card';
-import { CardType } from '../../models/types/card-type';
-import { CardUpdatedEvent } from '../../models/events/card-updated-event';
+import { DecksService } from '../../../services/decks.service';
+import { FormState } from '../../../models/types/form-state';
+import { Card } from '../../../models/card';
+import { CardType } from '../../../models/types/card-type';
+import { CardUpdatedEvent } from '../../../models/events/card-updated-event';
 
 @Component({
   selector: 'app-modify-deck',

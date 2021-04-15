@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DecksService } from '../services/decks.service';
-import { Deck } from '../models/deck';
+import { DecksService } from '../../services/decks.service';
+import { Deck } from '../../models/deck';
 
 @Component({
   selector: 'app-decks',

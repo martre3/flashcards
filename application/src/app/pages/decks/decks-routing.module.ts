@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DecksPage } from './decks.page';
 import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
-import { FormState } from '../models/types/form-state';
+import { FormState } from '../../models/types/form-state';
 
 const routes: Routes = [
   {
