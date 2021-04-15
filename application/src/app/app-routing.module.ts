@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
   {
+    path: 'groups',
+    loadChildren: () => import('./pages/groups/groups.module').then((m) => m.GroupsPageModule),
+  },
+  {
     path: '**',
     redirectTo: '/decks',
   },

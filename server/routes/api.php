@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::middleware('api')->group( function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
@@ -20,6 +9,17 @@ Route::middleware('api')->group( function () {
     });
 
     Route::group(['prefix' => 'users'], function () {
+    });
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('me', [\App\Http\Controllers\UserController::class, 'me']);
+    });
+
+    Route::group(['prefix' => 'groups'], function () {
+        Route::get('', [\App\Http\Controllers\GroupController::class, 'list']);
+        Route::post('', [\App\Http\Controllers\GroupController::class, 'create']);
     });
 
     Route::group(['prefix' => 'decks'], function () {
@@ -43,8 +43,3 @@ Route::middleware('api')->group( function () {
     });
 });
 
-Route::middleware('auth:api')->group(function () {
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('me', [\App\Http\Controllers\UserController::class, 'me']);
-    });
-});

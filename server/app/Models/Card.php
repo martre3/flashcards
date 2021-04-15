@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model;
+use App\Models\Base\Model;
 use Jenssegers\Mongodb\Relations\BelongsTo;
 
 /**
+ * @property string $_id
  * @property string $question
  * @property string $type
+ * @property Deck $deck
  * @property string[] $correctAnswers
- * @property string[] $posibleAnswers
+ * @property string[] $possibleAnswers
  */
 class Card extends Model
 {
@@ -19,6 +21,6 @@ class Card extends Model
 
     public function deck(): BelongsTo
     {
-        return $this->belongsTo(Deck::class);
+        return $this->belongsTo(Deck::class, 'deckId');
     }
 }

@@ -4,6 +4,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { EffectsModule } from '@ngrx/effects';
 import { appStates, actions } from './app.states';
 import { AuthEffects } from './auth/auth.effects';
+import { GroupsEffects } from './groups/groups.effects';
 
 export function localStorageSyncReducer(reducer: ActionReducer<unknown>): ActionReducer<unknown> {
   return localStorageSync({
@@ -14,7 +15,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<unknown>): Action
 const metaReducers: MetaReducer<unknown, Action>[] = [localStorageSyncReducer];
 
 @NgModule({
-  imports: [StoreModule.forRoot(appStates, { metaReducers }), EffectsModule.forRoot([AuthEffects])],
+  imports: [
+    StoreModule.forRoot(appStates, { metaReducers }),
+    EffectsModule.forRoot([AuthEffects, GroupsEffects]),
+  ],
   declarations: [],
   exports: [],
   providers: [...actions],

@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model;
+use App\Models\Base\Model;
 use Jenssegers\Mongodb\Relations\BelongsTo;
 use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
+ * @property string $_id
  * @property string $title
  * @property string $description
+ * @property Card[] $cards
+ * @property User $owner
  * @property boolean $isPublic
  */
 class Deck extends Model
@@ -19,11 +22,11 @@ class Deck extends Model
 
     public function cards(): HasMany
     {
-        return $this->hasMany(Card::class);
+        return $this->hasMany(Card::class, 'cardId');
     }
 
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'ownerId');
     }
 }

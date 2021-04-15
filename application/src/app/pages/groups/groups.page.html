@@ -1,0 +1,13 @@
+<app-main-header></app-main-header>
+
+<ion-content>
+  <a routerLink="/groups/new">New</a>
+  <ng-container *ngIf="page">
+    <ion-card *ngFor="let group of page.data">
+      <ion-card-header>{{ group.title }}</ion-card-header>
+      <ion-card-content>
+        <a routerLink="/groups/{{ group._id }}">View</a>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+</ion-content>

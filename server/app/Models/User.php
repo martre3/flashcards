@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Base\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jenssegers\Mongodb\Relations\HasMany;
 
@@ -11,6 +11,7 @@ use Jenssegers\Mongodb\Relations\HasMany;
  * @property string $_id
  * @property string $email
  * @property string $password
+ * @property Deck[] $decks
  */
 class User extends Authenticatable
 {
@@ -40,8 +41,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function decks(): HasMany
+    public function ownedDecks(): HasMany
     {
-        return $this->hasMany(Deck::class);
+        return $this->hasMany(Deck::class, 'ownerId');
+    }
+
+    public function ownedGroups(): HasMany
+    {
+        return $this->hasMany(Group::class, 'ownerId');
     }
 }
