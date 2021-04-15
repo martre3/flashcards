@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property string $_id
+ * @property string $email
+ * @property string $password
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;

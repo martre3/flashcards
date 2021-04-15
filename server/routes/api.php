@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('api')->group( function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+        Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+    });
+
     Route::group(['prefix' => 'decks'], function () {
         Route::post('', [\App\Http\Controllers\DeckController::class, 'create']);
         Route::get('', [\App\Http\Controllers\DeckController::class, 'all']);
@@ -36,6 +43,8 @@ Route::middleware('api')->group( function () {
     });
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('me', [\App\Http\Controllers\UserController::class, 'me']);
+    });
 });
