@@ -1,4 +1,9 @@
-import { AuthActions, AuthActionTypes, LoginSuccess } from './auth.actions';
+import {
+  AuthActions,
+  AuthActionTypes,
+  LoginSuccess,
+  UpdateCurrentUserSuccess,
+} from './auth.actions';
 import { restoreState } from '../store-utils';
 import { User } from '../../models/user';
 
@@ -22,8 +27,12 @@ export const authReducer = (state: AuthState = initialState, action: AuthActions
       return {
         ...state,
         isAuthenticated: true,
-        user: (action as LoginSuccess).payload.user,
         jwt: (action as LoginSuccess).payload.jwt,
+      };
+    case AuthActionTypes.UPDATE_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        user: { ...(action as UpdateCurrentUserSuccess).payload },
       };
     case AuthActionTypes.LOGOUT:
       return {

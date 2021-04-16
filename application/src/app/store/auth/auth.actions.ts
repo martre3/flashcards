@@ -8,6 +8,8 @@ export enum AuthActionTypes {
   SIGNUP = '[AUTH] SIGNUP',
   SIGNUP_SUCCESS = '[AUTH] SIGNUP_SUCCESS',
   LOGOUT = '[AUTH] LOGOUT',
+  UPDATE_CURRENT_USER = '[AUTH] UPDATE_CURRENT_USER',
+  UPDATE_CURRENT_USER_SUCCESS = '[AUTH] UPDATE_CURRENT_USER_SUCCESS',
 }
 
 export class Login implements Action {
@@ -36,4 +38,21 @@ export class SignUpSuccess implements Action {
   public type = AuthActionTypes.SIGNUP_SUCCESS;
 }
 
-export type AuthActions = Login | LoginSuccess | Logout | SignUp | SignUpSuccess;
+export class UpdateCurrentUser implements Action {
+  public type = AuthActionTypes.UPDATE_CURRENT_USER;
+}
+
+export class UpdateCurrentUserSuccess implements Action {
+  public type = AuthActionTypes.UPDATE_CURRENT_USER_SUCCESS;
+
+  constructor(public payload: User) {}
+}
+
+export type AuthActions =
+  | Login
+  | LoginSuccess
+  | Logout
+  | SignUp
+  | SignUpSuccess
+  | UpdateCurrentUser
+  | UpdateCurrentUserSuccess;

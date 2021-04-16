@@ -3,18 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupRequest;
+use App\Http\Requests\InviteToGroupRequest;
 use App\Models\Group;
+use App\Models\GroupInvitation;
 use App\Repositories\GroupRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\JsonResponse;
 
 class GroupController extends Controller
 {
-    public function __construct(private GroupRepository $repository) {}
+    public function __construct(private GroupRepository $repository)
+    {
+    }
 
     public function list(): LengthAwarePaginator
     {
         return $this->repository->listPage();
     }
+
+    public function get(Group $group): Group
+    {
+        return $group->load('invitations');
+    }
+
 //
 //    public function update(CardRequest $request, Deck $deck, Card $card): Card
 //    {

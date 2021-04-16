@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import { AuthActionTypes, LoginSuccess, SignUpSuccess } from './auth.actions';
+import { Store } from '@ngrx/store';
+import {
+  AuthActionTypes,
+  LoginSuccess,
+  SignUpSuccess,
+  UpdateCurrentUserSuccess,
+} from './auth.actions';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { toPayload } from '../store-utils';
+import { AppState } from '../app.states';
+import { selectAuthenticationToken } from './auth.selectors';
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions: Actions,
     private authService: AuthService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private store: Store<AppState>
   ) {}
 
   login$ = createEffect(() =>
@@ -51,5 +60,15 @@ export class AuthEffects {
         map((toast) => toast.present())
       ),
     { dispatch: false }
+  );
+
+  updateCurrentUser$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActionTypes.UPDATE_CURRENT_USER),
+      switchMap(() => this.store.select(selectAuthenticationToken)),
+      filter((token) => !!token),
+      switchMap(() => this.authService.me()),
+      map((user) => new UpdateCurrentUserSuccess(user))
+    )
   );
 }

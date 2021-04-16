@@ -5,6 +5,7 @@ import { PaginationOptions } from '../models/pagination/pagination-options';
 import { Group } from '../models/group';
 import { toHttpParams } from '../utils/to-http-params';
 import { Page } from '../models/pagination/page';
+import { GroupInvitation } from '../models/group-invitation';
 
 @Injectable({
   providedIn: 'root',

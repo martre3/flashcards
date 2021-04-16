@@ -5,13 +5,17 @@ namespace App\Models;
 use App\Models\Base\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Jenssegers\Mongodb\Relations\BelongsToMany;
 use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
  * @property string $_id
  * @property string $email
  * @property string $password
- * @property Deck[] $decks
+ * @property Deck[] $ownedDecks
+ * @property Group[] $ownedGroups
+ * @property Group[] $groups
+ * @property GroupInvitation[] $groupInvitations
  */
 class User extends Authenticatable
 {
@@ -49,5 +53,15 @@ class User extends Authenticatable
     public function ownedGroups(): HasMany
     {
         return $this->hasMany(Group::class, 'ownerId');
+    }
+
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, null, 'userIds', 'groupIds');
+    }
+
+    public function groupInvitations(): HasMany
+    {
+        return $this->hasMany(GroupInvitation::class, 'inviteeId');
     }
 }

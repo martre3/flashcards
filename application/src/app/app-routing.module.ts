@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/decks',
+    redirectTo: '/groups',
   },
 ];
 @NgModule({

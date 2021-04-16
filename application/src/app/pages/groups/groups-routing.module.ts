@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'new',
     component: ModifyGroupComponent,
   },
+  {
+    path: ':id',
+    component: ModifyGroupComponent,
+  },
 ];
 
 @NgModule({

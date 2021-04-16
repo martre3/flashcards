@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Models\Base\Model;
 use Jenssegers\Mongodb\Relations\BelongsTo;
+use Jenssegers\Mongodb\Relations\BelongsToMany;
+use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
  * @property string $_id
  * @property User $owner
+ * @property GroupInvitation[] $invitations
  */
 class Group extends Model
 {
@@ -18,5 +21,15 @@ class Group extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'ownerId');
+    }
+
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(GroupInvitation::class, 'groupId');
+    }
+
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, null, 'groupIds', 'userIds');
     }
 }
