@@ -10,6 +10,7 @@ use Jenssegers\Mongodb\Relations\HasMany;
 /**
  * @property string $_id
  * @property User $owner
+ * @property Deck[] $decks
  * @property GroupInvitation[] $invitations
  */
 class Group extends Model
@@ -31,5 +32,10 @@ class Group extends Model
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, null, 'groupIds', 'userIds');
+    }
+
+    public function decks(): BelongsToMany
+    {
+        return $this->belongsToMany(Deck::class, null, 'groupIds', 'deckIds');
     }
 }

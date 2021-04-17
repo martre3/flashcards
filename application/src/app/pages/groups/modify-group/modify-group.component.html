@@ -42,20 +42,22 @@
       </ion-card>
     </ion-col>
     <ion-col size="4">
-      <ion-card *ngFor="let invite of userInvites">
-        <ion-card-content>
-          <ion-row class="ion-justify-content-between">
-            <div>
-              {{ invite.group.title }}
-            </div>
-            <div>
-              <ion-button (click)="setStatus(invite, 'accepted')">Accept</ion-button>
-              <ion-button (click)="setStatus(invite, 'declined')">Decline</ion-button>
-              <ion-button (click)="setStatus(invite, 'blocked')">Block</ion-button>
-            </div>
-          </ion-row>
-        </ion-card-content>
-      </ion-card>
+      <app-group-decks></app-group-decks>
+<!--      THIS IS CURRENT USER INVITES-->
+<!--      <ion-card *ngFor="let invite of userInvites">-->
+<!--        <ion-card-content>-->
+<!--          <ion-row class="ion-justify-content-between">-->
+<!--            <div>-->
+<!--              {{ invite.group.title }}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              <ion-button (click)="setStatus(invite, 'accepted')">Accept</ion-button>-->
+<!--              <ion-button (click)="setStatus(invite, 'declined')">Decline</ion-button>-->
+<!--              <ion-button (click)="setStatus(invite, 'blocked')">Block</ion-button>-->
+<!--            </div>-->
+<!--          </ion-row>-->
+<!--        </ion-card-content>-->
+<!--      </ion-card>-->
     </ion-col>
   </ion-row>
 </ion-content>

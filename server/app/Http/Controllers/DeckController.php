@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DeckRequest;
+use App\Http\Requests\SetGroupDecksRequest;
 use App\Models\Deck;
+use App\Models\Group;
 use App\Repositories\DeckRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 
 class DeckController extends Controller
 {
@@ -17,11 +21,23 @@ class DeckController extends Controller
     ) {}
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function all(): Collection
+    public function all(): LengthAwarePaginator
     {
-        return $this->deckRepository->all();
+        return $this->deckRepository->listPage();
+    }
+
+    public function listGroupDecks(Group $group): LengthAwarePaginator
+    {
+        return $group->decks()->paginate();
+    }
+
+    public function setGroupDecks(SetGroupDecksRequest $request, Group $group): JsonResponse
+    {
+        $group->decks()->sync($request->get('ids'));
+
+        return response()->json([], 204);
     }
 
     /**

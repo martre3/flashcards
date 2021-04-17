@@ -5,17 +5,23 @@ import {
   groupInvitationsReducer,
   GroupInvitationsState,
 } from './group-invitations/group-invitations.reducer';
+import { routerReducer, RouterState } from './router/router.reducer';
+import { decksReducer, DecksState } from './decks/decks.reducer';
 
 export interface AppState {
   auth: AuthState;
   groups: GroupsState;
   groupInvitations: GroupInvitationsState;
+  router: RouterState;
+  decks: DecksState;
 }
 
 export const appStates: ActionReducerMap<AppState> = {
   auth: authReducer,
   groups: groupsReducer,
   groupInvitations: groupInvitationsReducer,
+  router: routerReducer,
+  decks: decksReducer,
 };
 
 export const actions = [];

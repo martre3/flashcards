@@ -8,6 +8,7 @@ import { GroupsPageRoutingModule } from './groups-routing.module';
 import { GroupsPage } from './groups.page';
 import { SharedModule } from '../../shared/shared.module';
 import { ModifyGroupComponent } from './modify-group/modify-group.component';
+import { GroupDecksComponent } from './group-decks/group-decks.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { ModifyGroupComponent } from './modify-group/modify-group.component';
     GroupsPageRoutingModule,
     SharedModule,
   ],
-  declarations: [GroupsPage, ModifyGroupComponent],
+  declarations: [GroupsPage, ModifyGroupComponent, GroupDecksComponent],
 })
 export class GroupsPageModule {}

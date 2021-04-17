@@ -3,12 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\Deck;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class DeckRepository
 {
-    public function all(): Collection
+    public function listPage(): LengthAwarePaginator
     {
-        return Deck::all();
+        return Deck::query()->paginate();
     }
 }

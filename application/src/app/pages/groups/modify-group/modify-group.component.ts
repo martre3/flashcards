@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AppState } from '../../../store/app.states';
-import { CreateGroup, GetGroup } from '../../../store/groups/groups.actions';
+import { CreateGroup, GroupsActions } from '../../../store/groups/groups.actions';
 import { selectActiveGroup } from '../../../store/groups/groups.selectors';
 import { GroupInvitation } from '../../../models/group-invitation';
 import {
@@ -75,7 +75,7 @@ export class ModifyGroupComponent implements OnInit {
       .pipe(
         filter((params) => !!params.get('id')),
         tap((params: ParamMap) => (this.id = params.get('id'))),
-        tap(() => this.store.dispatch(new GetGroup(this.id))),
+        tap(() => this.store.dispatch(GroupsActions.get({ id: this.id }))),
         switchMap(() => this.store.select(selectActiveGroup))
       )
       .subscribe((group) => {

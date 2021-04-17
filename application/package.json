@@ -27,6 +27,7 @@
     "@ionic/angular": "^5.0.0",
     "@ionic/pwa-elements": "^3.0.2",
     "@ngrx/effects": "^11.1.0",
+    "@ngrx/router-store": "^11.1.0",
     "@ngrx/store": "^11.1.0",
     "ngrx-store-localstorage": "^11.0.0",
     "property-watch-decorator": "^1.2.5",

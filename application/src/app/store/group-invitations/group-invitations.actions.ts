@@ -2,8 +2,7 @@ import { Action } from '@ngrx/store';
 import { Page } from '../../models/pagination/page';
 import { GroupInvitation } from '../../models/group-invitation';
 import { GroupInvitationPayload } from '../../models/store/group-invitation.payload';
-import { GetGroupInvitesPayload } from '../../models/store/get-group-invites-payload';
-import { GetUserGroupInvitationsPayload } from '../../models/store/get-user-group-invitations.payload';
+import { GetPagePayload } from '../../models/store/get-page.payload';
 
 export enum GroupInvitationsActionTypes {
   CREATE = '[GROUP_INVITES] CREATE',
@@ -30,7 +29,7 @@ export class InviteToGroupSuccess implements Action {
 export class GetGroupInvites implements Action {
   public type = GroupInvitationsActionTypes.GET_GROUP_LIST;
 
-  constructor(public payload: GetGroupInvitesPayload) {}
+  constructor(public payload: GetPagePayload) {}
 }
 
 export class GetGroupInvitesSuccess implements Action {
@@ -48,7 +47,7 @@ export class ChangeGroupInvitationStatus implements Action {
 export class GetUserGroupInvitations implements Action {
   public type = GroupInvitationsActionTypes.GET_USER_LIST;
 
-  constructor(public payload: GetUserGroupInvitationsPayload) {}
+  constructor(public payload: GetPagePayload) {}
 }
 
 export class GetUserGroupInvitationsSuccess implements Action {

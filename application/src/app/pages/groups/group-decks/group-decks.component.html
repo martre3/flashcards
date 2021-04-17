@@ -1,0 +1,4 @@
+<ion-button (click)="addNewDecks()">Add</ion-button>
+<ion-card *ngFor="let deck of decks.data">
+  <ion-card-content>{{ deck.title }}</ion-card-content>
+</ion-card>

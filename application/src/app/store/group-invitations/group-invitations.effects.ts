@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 import { toPayload } from '../store-utils';
-import { GroupsService } from '../../services/groups.service';
 import { GroupInvitationPayload } from '../../models/store/group-invitation.payload';
-import { GetGroupInvitesPayload } from '../../models/store/get-group-invites-payload';
 import { GroupInvitationsService } from '../../services/group-invitations.service';
 import {
   GetGroupInvitesSuccess,
@@ -13,7 +11,7 @@ import {
   InviteToGroupSuccess,
 } from './group-invitations.actions';
 import { GroupInvitation } from '../../models/group-invitation';
-import { GetUserGroupInvitationsPayload } from '../../models/store/get-user-group-invitations.payload';
+import { GetPagePayload } from '../../models/store/get-page.payload';
 
 @Injectable()
 export class GroupInvitationsEffects {
@@ -34,7 +32,7 @@ export class GroupInvitationsEffects {
     this.actions.pipe(
       ofType(GroupInvitationsActionTypes.GET_GROUP_LIST),
       map(toPayload),
-      switchMap((payload: GetGroupInvitesPayload) =>
+      switchMap((payload: GetPagePayload) =>
         this.groupInvitationService.getGroup(payload.groupId, payload.options)
       ),
       map((page) => new GetGroupInvitesSuccess(page))
@@ -45,7 +43,7 @@ export class GroupInvitationsEffects {
     this.actions.pipe(
       ofType(GroupInvitationsActionTypes.GET_USER_LIST),
       map(toPayload),
-      switchMap((payload: GetUserGroupInvitationsPayload) =>
+      switchMap((payload: GetPagePayload) =>
         this.groupInvitationService.getUser(payload.userId, payload.options)
       ),
       map((page) => new GetUserGroupInvitationsSuccess(page))
