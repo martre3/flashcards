@@ -31,8 +31,12 @@ Route::middleware('auth:api')->group(function () {
             Route::get('', [\App\Http\Controllers\GroupController::class, 'get']);
 
             Route::group(['prefix' => 'decks'], function () {
-                Route::get('', [\App\Http\Controllers\DeckController::class, 'listGroupDecks']);
-                Route::put('', [\App\Http\Controllers\DeckController::class, 'setGroupDecks']);
+                Route::get('', [\App\Http\Controllers\GroupController::class, 'listGroupDecks']);
+                Route::put('', [\App\Http\Controllers\GroupController::class, 'setGroupDecks']);
+            });
+
+            Route::group(['prefix' => 'users'], function () {
+                Route::get('', [\App\Http\Controllers\GroupController::class, 'listGroupUsers']);
             });
 
             Route::group(['prefix' => 'invitations'], function () {

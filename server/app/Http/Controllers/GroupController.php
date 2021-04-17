@@ -3,19 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupRequest;
-use App\Http\Requests\InviteToGroupRequest;
+use App\Http\Requests\SetGroupDecksRequest;
 use App\Models\Group;
-use App\Models\GroupInvitation;
 use App\Repositories\GroupRepository;
-use App\Repositories\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 
 class GroupController extends Controller
 {
-    public function __construct(private GroupRepository $repository)
-    {
-    }
+    public function __construct(private GroupRepository $repository) {}
 
     public function list(): LengthAwarePaginator
     {
@@ -41,6 +37,23 @@ class GroupController extends Controller
         $request->user()->ownedGroups()->save($group);
 
         return $group;
+    }
+
+    public function listGroupDecks(Group $group): LengthAwarePaginator
+    {
+        return $group->decks()->paginate();
+    }
+
+    public function setGroupDecks(SetGroupDecksRequest $request, Group $group): JsonResponse
+    {
+        $group->decks()->sync($request->get('ids'));
+
+        return response()->json([], 204);
+    }
+
+    public function listGroupUsers(Group $group): LengthAwarePaginator
+    {
+        return $group->members()->paginate();
     }
 //
 //    public function delete(Deck $deck, Card $card): JsonResponse

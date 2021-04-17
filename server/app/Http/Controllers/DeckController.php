@@ -28,18 +28,6 @@ class DeckController extends Controller
         return $this->deckRepository->listPage();
     }
 
-    public function listGroupDecks(Group $group): LengthAwarePaginator
-    {
-        return $group->decks()->paginate();
-    }
-
-    public function setGroupDecks(SetGroupDecksRequest $request, Group $group): JsonResponse
-    {
-        $group->decks()->sync($request->get('ids'));
-
-        return response()->json([], 204);
-    }
-
     /**
      * @param Deck $deck
      *

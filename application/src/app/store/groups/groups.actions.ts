@@ -5,6 +5,7 @@ import { Group } from '../../models/group';
 import { GetPagePayload } from '../../models/store/get-page.payload';
 import { Deck } from '../../models/deck';
 import { GetPayload } from '../../models/store/get.payload';
+import { User } from '../../models/user';
 
 export enum GroupsActionTypes {
   CREATE = '[GROUPS] CREATE',
@@ -15,6 +16,8 @@ export enum GroupsActionTypes {
   GET_SUCCESS = '[GROUPS] GET_SUCCESS',
   LIST_DECKS = '[GROUPS] LIST_DECKS',
   LIST_DECKS_SUCCESS = '[GROUPS] LIST_DECKS_SUCCESS',
+  LIST_USERS = '[GROUPS] LIST_USERS',
+  LIST_USERS_SUCCESS = '[GROUPS] LIST_USERS_SUCCESS',
 }
 
 export const listGroups = createAction(GroupsActionTypes.LIST, props<PaginationOptions>());
@@ -22,6 +25,8 @@ export const listReceived = createAction(GroupsActionTypes.LIST_RECEIVED, props<
 export const GroupsActions = {
   get: createAction(GroupsActionTypes.GET, props<GetPayload>()),
   getSuccess: createAction(GroupsActionTypes.GET_SUCCESS, props<Group>()),
+  listUsers: createAction(GroupsActionTypes.LIST_USERS, props<GetPagePayload>()),
+  listUsersSuccess: createAction(GroupsActionTypes.LIST_USERS_SUCCESS, props<Page<User>>()),
 };
 
 export class CreateGroup implements Action {

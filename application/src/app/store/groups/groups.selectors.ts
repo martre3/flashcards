@@ -6,4 +6,5 @@ export const selectGroupList = createSelector(selectGroupsState, (state) => stat
 
 export const fromGroup = {
   selectDecks: createSelector(selectGroupsState, (state) => state.decks),
+  selectUsers: createSelector(selectGroupsState, (state) => state.users),
 };

@@ -1,0 +1,5 @@
+<ng-container *ngIf="users">
+  <ion-card *ngFor="let user of users.data">
+    <ion-card-content>{{ user.email }}</ion-card-content>
+  </ion-card>
+</ng-container>

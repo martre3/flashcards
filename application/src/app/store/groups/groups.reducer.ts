@@ -9,17 +9,20 @@ import {
 import { Group } from '../../models/group';
 import { Page } from '../../models/pagination/page';
 import { Deck } from '../../models/deck';
+import { User } from '../../models/user';
 
 export interface GroupsState {
   groups: Page<Group>;
   activeGroup: Group;
   decks: Page<Deck>;
+  users: Page<User>;
 }
 
 const initialStateTemplate: GroupsState = {
   groups: undefined,
   activeGroup: undefined,
   decks: undefined,
+  users: undefined,
 };
 
 const initialState: GroupsState = restoreState<GroupsState>(
@@ -33,30 +36,9 @@ export const groupsReducer = createReducer(
   on(getGroupDeckList, (state) => ({ ...state })),
   on(getGroupDeckListSuccess, (state, page) => ({ ...state, decks: page })),
   on(GroupsActions.getSuccess, (state, group) => ({ ...state, activeGroup: group })),
+  on(GroupsActions.listUsersSuccess, (state, page) => ({ ...state, users: page })),
   on(listReceived, (state, page) => ({
     ...state,
     groups: { ...page },
   }))
 );
-//
-// export const groupsReducer = (
-//   state: GroupsState = initialState,
-//   action: GroupsActions
-// ): GroupsState => {
-//   switch (action.type) {
-//     case GroupsActionTypes.LIST_RECEIVED:
-//       return {
-//         ...state,
-//         groups: { ...(action as GroupListReceived).payload },
-//       };
-//     case GroupsActionTypes.GET_RECEIVED:
-//       return {
-//         ...state,
-//         activeGroup: { ...(action as GroupReceived).payload },
-//       };
-//     default:
-//       return {
-//         ...state,
-//       };
-//   }
-// };

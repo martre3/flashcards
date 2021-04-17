@@ -53,13 +53,23 @@ export class GroupsEffects {
     )
   );
 
-  getDecks$ = createEffect(() =>
+  listDecks$ = createEffect(() =>
     this.actions.pipe(
       ofType(GroupsActionTypes.LIST_DECKS),
       switchMap((payload: GetPagePayload) =>
         this.groupsService.listDecks(payload.groupId, payload.options)
       ),
       map((page) => getGroupDeckListSuccess(page))
+    )
+  );
+
+  listUsers$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(GroupsActions.listUsers),
+      switchMap((payload: GetPagePayload) =>
+        this.groupsService.listUsers(payload.groupId, payload.options)
+      ),
+      map((page) => GroupsActions.listUsersSuccess(page))
     )
   );
 

@@ -6,6 +6,7 @@ import { Group } from '../models/group';
 import { toHttpParams } from '../utils/to-http-params';
 import { Page } from '../models/pagination/page';
 import { Deck } from '../models/deck';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,10 @@ export class GroupsService {
 
   listDecks(id: string, options: PaginationOptions): Observable<Page<Deck>> {
     return this.http.get<Page<Deck>>(`/api/groups/${id}/decks`, { params: toHttpParams(options) });
+  }
+
+  listUsers(id: string, options: PaginationOptions): Observable<Page<User>> {
+    return this.http.get<Page<User>>(`/api/groups/${id}/users`, { params: toHttpParams(options) });
   }
 
   setDecks(id: string, deckIds: string[]): Observable<void> {
