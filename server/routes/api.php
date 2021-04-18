@@ -33,6 +33,10 @@ Route::middleware('auth:api')->group(function () {
             Route::group(['prefix' => 'decks'], function () {
                 Route::get('', [\App\Http\Controllers\GroupController::class, 'listGroupDecks']);
                 Route::put('', [\App\Http\Controllers\GroupController::class, 'setGroupDecks']);
+
+                Route::group(['prefix' => '{deck}'], function () {
+                    Route::put('active', [\App\Http\Controllers\GroupController::class, 'setDeckActive']);
+                });
             });
 
             Route::group(['prefix' => 'users'], function () {

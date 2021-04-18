@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { AppState } from '../../../store/app.states';
-import { getGroupDeckList } from '../../../store/groups/groups.actions';
+import { getGroupDeckList, GroupsActions } from '../../../store/groups/groups.actions';
 import { selectRouterState } from '../../../store/router/router.selectors';
 import { DecksActions } from '../../../store/decks/decks.actions';
 import { fromGroup } from '../../../store/groups/groups.selectors';
 import { Page } from '../../../models/pagination/page';
 import { Deck } from '../../../models/deck';
+import { GroupDeck } from '../../../models/group-deck';
 
 @Component({
   selector: 'app-group-decks',
@@ -15,7 +16,7 @@ import { Deck } from '../../../models/deck';
   styleUrls: ['./group-decks.component.scss'],
 })
 export class GroupDecksComponent implements OnInit {
-  decks: Page<Deck>;
+  groupDecks: Page<GroupDeck>;
 
   constructor(private store: Store<AppState>) {}
 
@@ -27,10 +28,14 @@ export class GroupDecksComponent implements OnInit {
         this.store.dispatch(getGroupDeckList({ groupId: state.params.id, options: { page: 1 } }))
       );
 
-    this.store.select(fromGroup.selectDecks).subscribe((page) => (this.decks = page));
+    this.store.select(fromGroup.selectDecks).subscribe((page) => (this.groupDecks = page));
   }
 
   addNewDecks(): void {
     this.store.dispatch(DecksActions.toggleAssignToGroup({ open: true }));
+  }
+
+  toggleActive(deck: Deck): void {
+    this.store.dispatch(GroupsActions.toggleDeckActive({ deckId: deck._id, active: true }));
   }
 }

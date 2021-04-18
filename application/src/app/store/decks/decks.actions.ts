@@ -5,7 +5,6 @@ import { Deck } from '../../models/deck';
 import { GetPayload } from '../../models/store/get.payload';
 import { ToggleAssignToGroupPayload } from '../../models/store/toggle-assign-to-group.payload';
 import { IdMap } from '../../models/other/id-map';
-import { Payload } from '../../models/store/payload';
 
 export enum DecksActionTypes {
   CREATE = '[DECKS] CREATE',

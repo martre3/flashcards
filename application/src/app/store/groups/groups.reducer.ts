@@ -8,13 +8,13 @@ import {
 } from './groups.actions';
 import { Group } from '../../models/group';
 import { Page } from '../../models/pagination/page';
-import { Deck } from '../../models/deck';
 import { User } from '../../models/user';
+import { GroupDeck } from '../../models/group-deck';
 
 export interface GroupsState {
   groups: Page<Group>;
   activeGroup: Group;
-  decks: Page<Deck>;
+  decks: Page<GroupDeck>;
   users: Page<User>;
 }
 

@@ -32,8 +32,8 @@ class Deck extends Model
         return $this->belongsTo(User::class, 'ownerId');
     }
 
-    public function groups(): BelongsToMany
+    public function groups(): HasMany
     {
-        return $this->belongsToMany(Group::class, null, 'deckIds', 'groupIds');
+        return $this->hasMany(GroupDeck::class,'deckId');
     }
 }

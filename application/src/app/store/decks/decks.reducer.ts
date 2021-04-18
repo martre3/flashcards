@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import _ from 'underscore';
 import { restoreState } from '../store-utils';
 import { Page } from '../../models/pagination/page';
 import { Deck } from '../../models/deck';
@@ -36,7 +37,7 @@ export const decksReducer = createReducer(
   })),
   on(DecksActions.deselect, (state, deck) => ({
     ...state,
-    selection: { ...state.selection, [deck._id]: null },
+    selection: _.omit(state.selection, deck._id),
   })),
   on(DecksActions.setSelection, (state, action) => ({
     ...state,

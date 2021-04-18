@@ -1,4 +1,7 @@
 <ion-button (click)="addNewDecks()">Add</ion-button>
-<ion-card *ngFor="let deck of decks.data">
-  <ion-card-content>{{ deck.title }}</ion-card-content>
+<ion-card *ngFor="let groupDeck of groupDecks.data">
+  <ion-card-content>
+    {{ groupDeck.deck.title }}
+    <ion-button (click)="toggleActive(groupDeck.deck)">{{ groupDeck.active ? 'Not' : 'Active' }}</ion-button>
+  </ion-card-content>
 </ion-card>

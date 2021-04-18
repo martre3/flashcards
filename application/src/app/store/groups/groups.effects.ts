@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { toPayload } from '../store-utils';
 import {
@@ -14,7 +14,7 @@ import { GroupsService } from '../../services/groups.service';
 import { PaginationOptions } from '../../models/pagination/pagination-options';
 import { Group } from '../../models/group';
 import { GetPagePayload } from '../../models/store/get-page.payload';
-import { DecksActions, DecksActionTypes } from '../decks/decks.actions';
+import { DecksActions } from '../decks/decks.actions';
 import { AppState } from '../app.states';
 import { fromDecks } from '../decks/decks.selectors';
 import { selectActiveGroup } from './groups.selectors';
@@ -97,6 +97,18 @@ export class GroupsEffects {
           this.store.select(selectActiveGroup)
         ),
         switchMap(([, idMap, group]) => this.groupsService.setDecks(group._id, Object.keys(idMap)))
+      ),
+    { dispatch: false }
+  );
+
+  toggleDeckActive$ = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(GroupsActions.toggleDeckActive),
+        withLatestFrom(this.store.select(selectActiveGroup)),
+        switchMap(([payload, group]) =>
+          this.groupsService.setActiveDeck(group._id, payload.deckId, payload.active)
+        )
       ),
     { dispatch: false }
   );

@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Models\Base\Model;
+use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Relations\BelongsTo;
 use Jenssegers\Mongodb\Relations\BelongsToMany;
+use Jenssegers\Mongodb\Relations\EmbedsMany;
 use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
  * @property string $_id
  * @property User $owner
- * @property Deck[] $decks
+ * @property Collection|GroupDeck[] $decks
  * @property GroupInvitation[] $invitations
  */
 class Group extends Model
@@ -18,6 +20,10 @@ class Group extends Model
     protected $fillable = [
         'title',
     ];
+
+    protected $appends = ['deckIds'];
+
+    protected $hidden = ['decks'];
 
     public function owner(): BelongsTo
     {
@@ -34,8 +40,16 @@ class Group extends Model
         return $this->belongsToMany(User::class, null, 'groupIds', 'userIds');
     }
 
-    public function decks(): BelongsToMany
+    public function decks(): HasMany
     {
-        return $this->belongsToMany(Deck::class, null, 'groupIds', 'deckIds');
+        return $this->hasMany(GroupDeck::class, 'groupId', '_id');
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getDeckIdsAttribute(): Collection
+    {
+        return $this->decks->map(fn (GroupDeck $groupDeck) => $groupDeck->deckId);
     }
 }

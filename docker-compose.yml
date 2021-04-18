@@ -23,6 +23,17 @@ php:
 #  links:
 #   - php
 
+#postgres:
+#  image: postgres
+#  volumes:
+#    - ".:/var/www"
+#  ports:
+#    - "5433:5432"
+#  environment:
+#    - POSTGRES_DB=solver
+#    - POSTGRES_USER=solver
+#    - POSTGRES_PASSWORD=s3cr3t
+#
 db:
   image: mongo:4.4
   environment:
@@ -34,7 +45,7 @@ db:
     - 27017:27017
   expose:
     - 27017
-#
+
 #sql:
 #  image: mysql:5.7
 #  environment:
