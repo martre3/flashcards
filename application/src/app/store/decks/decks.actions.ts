@@ -17,6 +17,10 @@ export enum DecksActionTypes {
   SELECT = '[DECKS] SELECT',
   DESELECT = '[DECKS] DESELECT',
   SET_SELECTION = '[DECKS] SET_SELECTION',
+  SUBSCRIBE = '[DECKS] SUBSCRIBE',
+  UNSUBSCRIBE = '[DECKS] UNSUBSCRIBE',
+  GET_SUBSCRIPTIONS = '[DECKS] GET_SUBSCRIPTIONS',
+  GET_SUBSCRIPTIONS_SUCCESS = '[DECKS] GET_SUBSCRIPTIONS_SUCCESS',
 }
 
 export const DecksActions = {
@@ -33,4 +37,11 @@ export const DecksActions = {
   select: createAction(DecksActionTypes.SELECT, props<Deck>()),
   deselect: createAction(DecksActionTypes.DESELECT, props<Deck>()),
   setSelection: createAction(DecksActionTypes.SET_SELECTION, props<{ ids: IdMap<Deck> }>()),
+  subscribe: createAction(DecksActionTypes.SUBSCRIBE, props<Deck>()),
+  unsubscribe: createAction(DecksActionTypes.UNSUBSCRIBE, props<Deck>()),
+  getSubscriptions: createAction(DecksActionTypes.GET_SUBSCRIPTIONS),
+  getSubscriptionsSuccess: createAction(
+    DecksActionTypes.GET_SUBSCRIPTIONS_SUCCESS,
+    props<IdMap<string>>()
+  ),
 };

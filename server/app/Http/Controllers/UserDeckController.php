@@ -8,12 +8,14 @@ use App\Http\Requests\UpdateDeckStatusRequest;
 use App\Models\Deck;
 use App\Models\Group;
 use App\Models\GroupDeck;
+use App\Models\UserDeckSubscription;
 use App\Repositories\GroupRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
-class GroupController extends Controller
+class UserDeckController extends Controller
 {
     public function __construct(private GroupRepository $repository) {}
 
@@ -22,46 +24,23 @@ class GroupController extends Controller
         return $this->repository->listPage();
     }
 
-    public function get(Group $group): Group
-    {
-        return $group->load('invitations');
-    }
-
-    public function getSubscriptions(Group $group)
-    {
-        return $group->load('decks')->decks->map(fn (GroupDeck $groupDeck) => $groupDeck->deckId);
-    }
-//
-//    public function update(CardRequest $request, Deck $deck, Card $card): Card
-//    {
-//        $card->update($request->validated());
-//
-//        return $card;
-//    }
-//
-    public function create(GroupRequest $request, Group $group): Group
-    {
-        $group->fill($request->validated());
-        $request->user()->ownedGroups()->save($group);
-
-        return $group;
-    }
-
     public function listGroupDecks(Group $group): LengthAwarePaginator
     {
         return $group->decks()->with('deck')->orderByDesc('active')->paginate();
     }
 
-    public function setGroupDecks(SetGroupDecksRequest $request, string $group): JsonResponse
-    {
-        $this->repository->associateDecks($group, $request->get('ids'))->refresh()->load('decks');
-
-        return response()->json([], 204);
-    }
-
     public function listGroupUsers(Group $group): LengthAwarePaginator
     {
         return $group->members()->paginate();
+    }
+
+    public function subscribeToDeck(Request $request, Deck $deck, UserDeckSubscription $subscription): JsonResponse
+    {
+        $subscription->user()->associate($request->user());
+        $subscription->active = true;
+        $deck->subscriptions()->save($subscription);
+
+        return response()->json([], 204);
     }
 
     public function setDeckActive(UpdateDeckStatusRequest $request, Group $group, string $deck)

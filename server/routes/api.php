@@ -30,9 +30,14 @@ Route::middleware('auth:api')->group(function () {
         Route::group(['prefix' => '{group}'], function () {
             Route::get('', [\App\Http\Controllers\GroupController::class, 'get']);
 
+
             Route::group(['prefix' => 'decks'], function () {
                 Route::get('', [\App\Http\Controllers\GroupController::class, 'listGroupDecks']);
                 Route::put('', [\App\Http\Controllers\GroupController::class, 'setGroupDecks']);
+
+                Route::group(['prefix' => 'subscriptions'], function () {
+                    Route::get('', [\App\Http\Controllers\GroupController::class, 'getSubscriptions']);
+                });
 
                 Route::group(['prefix' => '{deck}'], function () {
                     Route::put('active', [\App\Http\Controllers\GroupController::class, 'setDeckActive']);
@@ -56,11 +61,17 @@ Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => 'decks'], function () {
         Route::post('', [\App\Http\Controllers\DeckController::class, 'create']);
-        Route::get('', [\App\Http\Controllers\DeckController::class, 'all']);
+        Route::get('', [\App\Http\Controllers\DeckController::class, 'list']);
+
+        Route::group(['prefix' => 'subscriptions'], function () {
+            Route::get('', [\App\Http\Controllers\UserController::class, 'getSubscriptions']);
+        });
+
 
         Route::group(['prefix' => '{deck}'], function () {
             Route::get('', [\App\Http\Controllers\DeckController::class, 'get']);
             Route::patch('', [\App\Http\Controllers\DeckController::class, 'update']);
+            Route::post('subscribe', [\App\Http\Controllers\UserDeckController::class, 'subscribeToDeck']);
 
             Route::group(['prefix' => 'cards'], function () {
                 Route::post('', [\App\Http\Controllers\CardController::class, 'create']);

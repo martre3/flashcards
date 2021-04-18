@@ -28,7 +28,11 @@ export class DecksPage implements OnInit {
 
   select(deck: Deck): void {
     this.store.dispatch(
-      this.selected[deck._id] ? DecksActions.deselect(deck) : DecksActions.select(deck)
+      this.selected[deck._id] ? DecksActions.unsubscribe(deck) : DecksActions.subscribe(deck)
     );
+  }
+
+  closeGroupSelection(): void {
+    this.store.dispatch(DecksActions.toggleAssignToGroup({ open: false }));
   }
 }

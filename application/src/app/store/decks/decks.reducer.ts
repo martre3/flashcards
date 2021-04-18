@@ -30,12 +30,13 @@ export const decksReducer = createReducer(
   on(DecksActions.toggleAssignToGroup, (state, payload) => ({
     ...state,
     isAssignToGroupOpen: payload.open,
+    selection: {},
   })),
-  on(DecksActions.select, (state, deck) => ({
+  on(DecksActions.subscribe, (state, deck) => ({
     ...state,
     selection: { ...state.selection, [deck._id]: deck },
   })),
-  on(DecksActions.deselect, (state, deck) => ({
+  on(DecksActions.unsubscribe, (state, deck) => ({
     ...state,
     selection: _.omit(state.selection, deck._id),
   })),

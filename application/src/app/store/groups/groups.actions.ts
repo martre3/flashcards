@@ -7,7 +7,7 @@ import { Deck } from '../../models/deck';
 import { GetPayload } from '../../models/store/get.payload';
 import { User } from '../../models/user';
 import { ToggleDeckActivePayload } from '../../models/store/toggle-deck-active.payload';
-import { GroupDeck } from '../../models/group-deck';
+import { DeckSubscription } from '../../models/deck-subscription';
 
 export enum GroupsActionTypes {
   CREATE = '[GROUPS] CREATE',
@@ -51,7 +51,7 @@ export class CreateGroupSuccess implements Action {
 export const getGroupDeckList = createAction(GroupsActionTypes.LIST_DECKS, props<GetPagePayload>());
 export const getGroupDeckListSuccess = createAction(
   GroupsActionTypes.LIST_DECKS_SUCCESS,
-  props<Page<GroupDeck>>()
+  props<Page<DeckSubscription>>()
 );
 
 export type GroupsActions = CreateGroup | CreateGroupSuccess;

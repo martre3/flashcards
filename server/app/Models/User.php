@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(GroupInvitation::class, 'inviteeId');
     }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(UserDeckSubscription::class, 'userId');
+    }
 }

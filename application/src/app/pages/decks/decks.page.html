@@ -3,12 +3,12 @@
   <a routerLink="/decks/new">
     New
   </a>
+  <ion-button (click)="closeGroupSelection()">User</ion-button>
   <ion-card *ngFor="let deck of decks">
     <ion-card-header>{{ deck.title }}</ion-card-header>
     <ion-card-content>
       <a routerLink="/decks/{{ deck._id }}">edit</a>
       <ion-button
-        *ngIf="isAssignToGroupOpened$ | async"
         (click)="select(deck)">{{ selected[deck._id] ? 'Remove' : 'Add' }}</ion-button>
     </ion-card-content>
   </ion-card>

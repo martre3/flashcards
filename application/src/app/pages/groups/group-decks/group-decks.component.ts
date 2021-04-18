@@ -8,7 +8,7 @@ import { DecksActions } from '../../../store/decks/decks.actions';
 import { fromGroup } from '../../../store/groups/groups.selectors';
 import { Page } from '../../../models/pagination/page';
 import { Deck } from '../../../models/deck';
-import { GroupDeck } from '../../../models/group-deck';
+import { DeckSubscription } from '../../../models/deck-subscription';
 
 @Component({
   selector: 'app-group-decks',
@@ -16,7 +16,7 @@ import { GroupDeck } from '../../../models/group-deck';
   styleUrls: ['./group-decks.component.scss'],
 })
 export class GroupDecksComponent implements OnInit {
-  groupDecks: Page<GroupDeck>;
+  groupDecks: Page<DeckSubscription>;
 
   constructor(private store: Store<AppState>) {}
 

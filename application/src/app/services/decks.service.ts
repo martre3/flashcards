@@ -33,4 +33,23 @@ export class DecksService {
   update(deck: Deck): Observable<Deck> {
     return this.http.patch<Deck>(`/api/decks/${deck._id}`, deck);
   }
+
+  getUserSubscriptions(): Observable<string[]> {
+    return this.http.get<string[]>(`/api/decks/subscriptions`);
+  }
+
+  getGroupSubscriptions(groupId: string): Observable<string[]> {
+    return this.http.get<string[]>(`/api/groups/${groupId}/decks/subscriptions`);
+  }
+
+  subscribe(id: string, groupId: string = undefined): Observable<void> {
+    return this.http.post<void>(`${this.getGroupOrDefaultUrl(id, groupId)}/subscribe`, {});
+  }
+
+  unsubscribe(id: string, groupId: string = undefined): Observable<void> {
+    return this.http.post<void>(`${this.getGroupOrDefaultUrl(id, groupId)}/unsubscribe`, {});
+  }
+
+  private getGroupOrDefaultUrl = (id: string, groupId: string = undefined): string =>
+    groupId ? `/api/groups/${groupId}/decks/${id}` : `/api/decks/${id}`;
 }

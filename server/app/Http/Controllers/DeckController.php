@@ -10,6 +10,7 @@ use App\Repositories\DeckRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class DeckController extends Controller
 {
@@ -23,7 +24,7 @@ class DeckController extends Controller
     /**
      * @return LengthAwarePaginator
      */
-    public function all(): LengthAwarePaginator
+    public function list(): LengthAwarePaginator
     {
         return $this->deckRepository->listPage();
     }

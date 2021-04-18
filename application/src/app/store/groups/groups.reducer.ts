@@ -9,12 +9,12 @@ import {
 import { Group } from '../../models/group';
 import { Page } from '../../models/pagination/page';
 import { User } from '../../models/user';
-import { GroupDeck } from '../../models/group-deck';
+import { DeckSubscription } from '../../models/deck-subscription';
 
 export interface GroupsState {
   groups: Page<Group>;
   activeGroup: Group;
-  decks: Page<GroupDeck>;
+  decks: Page<DeckSubscription>;
   users: Page<User>;
 }
 

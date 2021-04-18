@@ -7,7 +7,7 @@ import { toHttpParams } from '../utils/to-http-params';
 import { Page } from '../models/pagination/page';
 import { Deck } from '../models/deck';
 import { User } from '../models/user';
-import { GroupDeck } from '../models/group-deck';
+import { DeckSubscription } from '../models/deck-subscription';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +27,8 @@ export class GroupsService {
     return this.http.post<Group>('/api/groups/', group);
   }
 
-  listDecks(id: string, options: PaginationOptions): Observable<Page<GroupDeck>> {
-    return this.http.get<Page<GroupDeck>>(`/api/groups/${id}/decks`, {
+  listDecks(id: string, options: PaginationOptions): Observable<Page<DeckSubscription>> {
+    return this.http.get<Page<DeckSubscription>>(`/api/groups/${id}/decks`, {
       params: toHttpParams(options),
     });
   }

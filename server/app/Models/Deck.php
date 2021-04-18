@@ -24,7 +24,7 @@ class Deck extends Model
 
     public function cards(): HasMany
     {
-        return $this->hasMany(Card::class, 'cardId');
+        return $this->hasMany(Card::class, 'deckId');
     }
 
     public function owner(): BelongsTo
@@ -35,5 +35,10 @@ class Deck extends Model
     public function groups(): HasMany
     {
         return $this->hasMany(GroupDeck::class,'deckId');
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(UserDeckSubscription::class, 'deckId');
     }
 }
