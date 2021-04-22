@@ -10,11 +10,19 @@ use Illuminate\Support\Collection;
 
 class BoxRepository
 {
+    /**
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|Box
+     */
     public function all()
     {
         return Box::query()->orderBy('order')->get();
     }
 
+    /**
+     * @param string $userId
+     * @param string $deckId
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|Box[]
+     */
     public function getNonEmptyBoxes(string $userId, string $deckId)
     {
         return Box::query()
@@ -24,18 +32,5 @@ class BoxRepository
                     ->where('userId', '=', $userId)
                     ->whereHas('card', fn (Builder $builder) => $builder->where('deckId', '=', $deckId))
             )->get();
-
-//        $total = $notSeenCardsQuery->count();
-//
-//        if ($total === 0) {
-//            /**
-//             * @var Box $box
-//             */
-//            $box = $boxes->first();
-//
-//            return $box->userCards()->with('card')->first()->card;
-//        }
-//
-//        return $notSeenCardsQuery->skip(rand(0, $total - 1))->first();
     }
 }

@@ -23,7 +23,5 @@ class BoxController extends Controller
     public function create(Request $request, Box $box)
     {
         $box->fill(['interval' => 1, 'order' => 1])->save();
-
-//        return $this->boxRepository->getRandomCard($request->user(), $deck);
     }
 }

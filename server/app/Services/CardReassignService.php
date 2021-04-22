@@ -21,6 +21,13 @@ class CardReassignService
         $this->boxes = $this->boxRepository->all();
     }
 
+    /**
+     * @param string $userId
+     * @param string $cardId
+     * @param array $answers
+     *
+     * @return bool
+     */
     public function reassignCard(string $userId, string $cardId, array $answers): bool
     {
         $userCard = $this->cardRepository->getOrCreateUserCard($userId, $cardId);
@@ -32,7 +39,11 @@ class CardReassignService
         return $isCorrect;
     }
 
-    private function moveCard(UserCard $userCard, int $moveBy)
+    /**
+     * @param UserCard $userCard
+     * @param int $moveBy
+     */
+    private function moveCard(UserCard $userCard, int $moveBy): void
     {
         $box = $this->boxes->first();
 
@@ -43,6 +54,11 @@ class CardReassignService
         $box->userCards()->save($userCard);
     }
 
+    /**
+     * @param int $order
+     * 
+     * @return Box
+     */
     private function getBoxWithOrder(int $order): Box
     {
         if ($order <= 1) {

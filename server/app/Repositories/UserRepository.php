@@ -23,6 +23,9 @@ class UserRepository
             ->first();
     }
 
+    /**
+     * @return Collection
+     */
     public function get(): Collection
     {
         return Deck::all();

@@ -16,18 +16,30 @@ use Jenssegers\Mongodb\Relations\BelongsTo;
  */
 class UserCard extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = ['boxId', 'cardId', 'userId'];
 
+    /**
+     * @return BelongsTo
+     */
     public function box(): BelongsTo
     {
         return $this->belongsTo(Box::class, 'boxId');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function card(): BelongsTo
     {
         return $this->belongsTo(Card::class, 'cardId');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'userId');

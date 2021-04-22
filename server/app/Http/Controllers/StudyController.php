@@ -31,6 +31,12 @@ class StudyController extends Controller
         return $this->cardPickerService->getNextCard($request->user()->_id, $deck);
     }
 
+    /**
+     * @param Request $request
+     * @param string $deck
+     *
+     * @return JsonResponse
+     */
     public function submit(Request $request, string $deck): JsonResponse
     {
         $isCorrect = $this->cardReassignService->reassignCard(

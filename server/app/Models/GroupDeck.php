@@ -14,15 +14,24 @@ use Jenssegers\Mongodb\Relations\BelongsTo;
  */
 class GroupDeck extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'active', 'deckId', 'groupId'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function deck(): BelongsTo
     {
         return $this->belongsTo(Deck::class,'deckId');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class,'groupId');

@@ -13,6 +13,12 @@ class BoxPickerService
         private DeckRepository $deckRepository
     ) {}
 
+    /**
+     * @param string $userId
+     * @param string $deckId
+     *
+     * @return Box|null
+     */
     public function getNextBox(string $userId, string $deckId): ?Box
     {
         $intervals = [];

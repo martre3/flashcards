@@ -15,16 +15,34 @@ class GroupInvitationController extends Controller
 {
     public function __construct(private GroupInvitationRepository $repository) {}
 
+    /**
+     * @param string $group
+     *
+     * @return LengthAwarePaginator
+     */
     public function listGroup(string $group): LengthAwarePaginator
     {
         return $this->repository->listGroupsPage($group);
     }
 
+    /**
+     * @param string $user
+     *
+     * @return LengthAwarePaginator
+     */
     public function listUser(string $user): LengthAwarePaginator
     {
         return $this->repository->listUsersPage($user);
     }
 
+    /**
+     * @param InviteToGroupRequest $request
+     * @param Group $group
+     * @param GroupInvitation $invitation
+     * @param UserRepository $userRepository
+     *
+     * @return JsonResponse
+     */
     public function create(
         InviteToGroupRequest $request,
         Group $group,
@@ -45,6 +63,13 @@ class GroupInvitationController extends Controller
         return response()->json($invitation);
     }
 
+    /**
+     * @param UpdateInvitationToGroupRequest $request
+     * @param Group $group
+     * @param GroupInvitation $invitation
+     *
+     * @return GroupInvitation
+     */
     public function update(
         UpdateInvitationToGroupRequest $request,
         Group $group,

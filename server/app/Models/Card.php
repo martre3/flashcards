@@ -16,15 +16,24 @@ use Jenssegers\Mongodb\Relations\HasMany;
  */
 class Card extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'question', 'type', 'correctAnswers', 'possibleAnswers',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function deck(): BelongsTo
     {
         return $this->belongsTo(Deck::class, 'deckId');
     }
 
+    /**
+     * @return HasMany
+     */
     public function users(): HasMany
     {
         return $this->hasMany(UserCard::class, 'cardId');

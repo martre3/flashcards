@@ -17,29 +17,50 @@ use Jenssegers\Mongodb\Relations\HasMany;
  */
 class Group extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'title',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $appends = ['deckIds'];
 
+    /**
+     * @var string[]
+     */
     protected $hidden = ['decks'];
 
+    /**
+     * @return BelongsTo
+     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'ownerId');
     }
 
+    /**
+     * @return HasMany
+     */
     public function invitations(): HasMany
     {
         return $this->hasMany(GroupInvitation::class, 'groupId');
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, null, 'groupIds', 'userIds');
     }
 
+    /**
+     * @return HasMany
+     */
     public function decks(): HasMany
     {
         return $this->hasMany(GroupDeck::class, 'groupId', '_id');

@@ -14,10 +14,16 @@ use Jenssegers\Mongodb\Relations\HasMany;
  */
 class Box extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'interval', 'order'
     ];
 
+    /**
+     * @return HasMany
+     */
     public function userCards(): HasMany
     {
         return $this->hasMany(UserCard::class, 'boxId');

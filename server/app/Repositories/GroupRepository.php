@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Deck;
 use App\Models\Group;
 use App\Models\GroupDeck;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -35,19 +34,15 @@ class GroupRepository
         $newDecks = collect($deckIds)
             ->filter(fn ($id) => !$existingDecks->has($id))
             ->map(fn (string $id) => new GroupDeck(['groupId' => $groupId, 'deckId' => $id, 'active' => false]));
-//            ->each(fn (string $id) => $group->decks()->create(['deckId' => $id, 'active' => false]));
-//            ->each(function (string $id) use ($group) {
-////                dump('save');
-//               $group->decks()->save(new GroupDeck(['active' => false]));
-//        });
-        $group->decks()->saveMany($newDecks);
 
-//        $group->decks()->push;
-//        dd($group->decks);
+        $group->decks()->saveMany($newDecks);
 
         return $group;
     }
 
+    /**
+     * @return LengthAwarePaginator
+     */
     public function listPage(): LengthAwarePaginator
     {
         return Group::query()

@@ -17,16 +17,29 @@ class GroupController extends Controller
 {
     public function __construct(private GroupRepository $repository) {}
 
+    /**
+     * @return LengthAwarePaginator
+     */
     public function list(): LengthAwarePaginator
     {
         return $this->repository->listPage();
     }
 
+    /**
+     * @param Group $group
+     *
+     * @return Group
+     */
     public function get(Group $group): Group
     {
         return $group->load('invitations');
     }
 
+    /**
+     * @param Group $group
+     *
+     * @return GroupDeck[]|\Illuminate\Support\Collection
+     */
     public function getSubscriptions(Group $group)
     {
         return $group->load('decks')->decks->map(fn (GroupDeck $groupDeck) => $groupDeck->deckId);
@@ -39,6 +52,12 @@ class GroupController extends Controller
 //        return $card;
 //    }
 //
+    /**
+     * @param GroupRequest $request
+     * @param Group $group
+     *
+     * @return Group
+     */
     public function create(GroupRequest $request, Group $group): Group
     {
         $group->fill($request->validated());
@@ -47,11 +66,22 @@ class GroupController extends Controller
         return $group;
     }
 
+    /**
+     * @param Group $group
+     *
+     * @return LengthAwarePaginator
+     */
     public function listGroupDecks(Group $group): LengthAwarePaginator
     {
         return $group->decks()->with('deck')->orderByDesc('active')->paginate();
     }
 
+    /**
+     * @param SetGroupDecksRequest $request
+     * @param string $group
+     *
+     * @return JsonResponse
+     */
     public function setGroupDecks(SetGroupDecksRequest $request, string $group): JsonResponse
     {
         $this->repository->associateDecks($group, $request->get('ids'))->refresh()->load('decks');
@@ -59,11 +89,23 @@ class GroupController extends Controller
         return response()->json([], 204);
     }
 
+    /**
+     * @param Group $group
+     *
+     * @return LengthAwarePaginator
+     */
     public function listGroupUsers(Group $group): LengthAwarePaginator
     {
         return $group->members()->paginate();
     }
 
+    /**
+     * @param UpdateDeckStatusRequest $request
+     * @param Group $group
+     * @param string $deck
+     *
+     * @return JsonResponse
+     */
     public function setDeckActive(UpdateDeckStatusRequest $request, Group $group, string $deck)
     {
         $group->decks()

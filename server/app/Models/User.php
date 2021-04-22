@@ -45,26 +45,41 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return HasMany
+     */
     public function ownedDecks(): HasMany
     {
         return $this->hasMany(Deck::class, 'ownerId');
     }
 
+    /**
+     * @return HasMany
+     */
     public function ownedGroups(): HasMany
     {
         return $this->hasMany(Group::class, 'ownerId');
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, null, 'userIds', 'groupIds');
     }
 
+    /**
+     * @return HasMany
+     */
     public function groupInvitations(): HasMany
     {
         return $this->hasMany(GroupInvitation::class, 'inviteeId');
     }
 
+    /**
+     * @return HasMany
+     */
     public function subscriptions(): HasMany
     {
         return $this->hasMany(UserDeckSubscription::class, 'userId');

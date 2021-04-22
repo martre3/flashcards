@@ -8,6 +8,9 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class DeckRepository
 {
+    /**
+     * @return LengthAwarePaginator
+     */
     public function listPage(): LengthAwarePaginator
     {
         return Deck::query()->orderByDesc('createdAt')->paginate();

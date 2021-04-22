@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Card;
 use App\Repositories\CardRepository;
 use App\Utils\Builder;
 
@@ -12,7 +13,13 @@ class CardPickerService
         private BoxPickerService $boxPickerService
     ) {}
 
-    public function getNextCard(string $userId, string $deckId)
+    /**
+     * @param string $userId
+     * @param string $deckId
+     *
+     * @return Card|null
+     */
+    public function getNextCard(string $userId, string $deckId): ?Card
     {
         $unusedCard = $this->cardRepository->getUnusedCard($userId, $deckId);
 

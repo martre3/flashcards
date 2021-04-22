@@ -8,6 +8,12 @@ use App\Models\Card;
 
 class CardAnswersCheckerService
 {
+    /**
+     * @param Card $card
+     * @param array $answers
+     *
+     * @return bool
+     */
     public function answersValid(Card $card, array $answers): bool
     {
         $answersMap = array_flip($answers);

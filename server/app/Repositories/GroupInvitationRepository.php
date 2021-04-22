@@ -8,6 +8,11 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class GroupInvitationRepository
 {
+    /**
+     * @param string $groupId
+     *
+     * @return LengthAwarePaginator
+     */
     public function listGroupsPage(string $groupId): LengthAwarePaginator
     {
         return GroupInvitation::query()
@@ -16,6 +21,11 @@ class GroupInvitationRepository
             ->paginate();
     }
 
+    /**
+     * @param string $userId
+     *
+     * @return LengthAwarePaginator
+     */
     public function listUsersPage(string $userId): LengthAwarePaginator
     {
         return GroupInvitation::query()

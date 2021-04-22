@@ -18,24 +18,39 @@ use Jenssegers\Mongodb\Relations\BelongsTo;
  */
 class GroupInvitation extends Model
 {
+    /**
+     * @var array
+     */
     protected $attributes = [
       'status' => GroupInvitationStatus::PENDING,
     ];
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'status'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class, 'groupId');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'ownerId');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function invitee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'inviteeId');
