@@ -12,10 +12,31 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item routerLink="/groups"><ion-text color="primary">Groups</ion-text></ion-item>
-      <ion-item routerLink="/decks"><ion-text color="primary">Decks</ion-text></ion-item>
-      <ion-item routerLink="/invites"><ion-text color="primary">Invites</ion-text></ion-item>
-      <ion-item routerLink="/admin"><ion-text color="primary">Admin</ion-text></ion-item>
+      <ng-container *ngIf="!isAuthenticated">
+        <ion-item routerLink="/auth/login">
+          <ion-text color="primary">Login</ion-text>
+        </ion-item>
+        <ion-item routerLink="/auth/register">
+          <ion-text color="primary">Register</ion-text>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="isAuthenticated">
+        <ion-item routerLink="/groups">
+          <ion-text color="primary">Groups</ion-text>
+        </ion-item>
+        <ion-item routerLink="/decks">
+          <ion-text color="primary">Decks</ion-text>
+        </ion-item>
+        <ion-item routerLink="/invites">
+          <ion-text color="primary">Invites</ion-text>
+        </ion-item>
+        <ion-item routerLink="/admin">
+          <ion-text color="primary">Admin</ion-text>
+        </ion-item>
+        <ion-item (click)="logout()">
+          <ion-text color="primary">Log Out</ion-text>
+        </ion-item>
+      </ng-container>
     </ion-list>
   </ion-content>
 </ion-menu>

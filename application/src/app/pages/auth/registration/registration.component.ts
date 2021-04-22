@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../../services/auth.service';
 import { AppState } from '../../../store/app.states';
-import { Login, Logout, SignUp } from '../../../store/auth/auth.actions';
+import { SignUp } from '../../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-registration',
@@ -12,25 +11,13 @@ import { Login, Logout, SignUp } from '../../../store/auth/auth.actions';
 })
 export class RegistrationComponent {
   userForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.min(7)]),
   });
 
-  constructor(private store: Store<AppState>, private authService: AuthService) {}
+  constructor(private store: Store<AppState>) {}
 
   register(): void {
     this.store.dispatch(new SignUp(this.userForm.value));
-  }
-
-  login(): void {
-    this.store.dispatch(new Login(this.userForm.value));
-  }
-
-  me(): void {
-    this.authService.me().subscribe(() => {});
-  }
-
-  logout(): void {
-    this.store.dispatch(new Logout());
   }
 }

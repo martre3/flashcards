@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import {
   AuthActionTypes,
   LoginSuccess,
@@ -22,6 +23,7 @@ export class AuthEffects {
     private actions: Actions,
     private authService: AuthService,
     private toastController: ToastController,
+    private router: Router,
     private store: Store<AppState>
   ) {}
 
@@ -30,6 +32,7 @@ export class AuthEffects {
       ofType(AuthActionTypes.LOGIN),
       map(toPayload),
       switchMap((user: User) => this.authService.login(user)),
+      tap(() => this.router.navigate(['/decks'])),
       map((response) => new LoginSuccess(response))
     )
   );
@@ -57,7 +60,8 @@ export class AuthEffects {
             })
           )
         ),
-        map((toast) => toast.present())
+        map((toast) => toast.present()),
+        tap(() => this.router.navigate(['/auth/login']))
       ),
     { dispatch: false }
   );

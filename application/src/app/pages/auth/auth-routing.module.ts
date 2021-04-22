@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FormState } from '../../models/types/form-state';
 import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
     data: {
       state: FormState.Create,
     },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
 

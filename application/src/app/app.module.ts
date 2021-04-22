@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CoreStoreModule } from './store/store.module';
+import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { CoreStoreModule } from './store/store.module';
   providers: [
     StatusBar,
     SplashScreen,
+    CanActivateRouteGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
