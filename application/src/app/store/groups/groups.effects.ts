@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { delay, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { toPayload } from '../store-utils';
 import {
@@ -40,6 +40,7 @@ export class GroupsEffects {
   listGroups$ = createEffect(() =>
     this.actions.pipe(
       ofType(GroupsActionTypes.LIST),
+      delay(1500),
       switchMap((options: PaginationOptions) => this.groupsService.list(options)),
       map((page) => listReceived(page))
     )

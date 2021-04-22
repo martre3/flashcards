@@ -14,7 +14,12 @@ import { IdMap } from '../../models/other/id-map';
 export class DecksPage implements OnInit {
   decks: Deck[] = [];
   isAssignToGroupOpened$ = this.store.select(fromDecks.selectIsAssignToGroupOpened);
+  isLoading: boolean;
   selected: IdMap<Deck> = {};
+
+  get decksToRender(): Deck[] {
+    return this.isLoading ? ([{}, {}, {}] as Deck[]) : this.decks;
+  }
 
   constructor(private store: Store<AppState>) {}
 
@@ -24,6 +29,10 @@ export class DecksPage implements OnInit {
     this.store
       .select(fromDecks.selectSelectedDecks)
       .subscribe((selected) => (this.selected = selected));
+
+    this.store
+      .select(fromDecks.selectIsLoading)
+      .subscribe((isLoading) => (this.isLoading = isLoading));
   }
 
   select(deck: Deck): void {

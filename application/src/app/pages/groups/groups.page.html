@@ -1,13 +1,21 @@
-<app-main-header></app-main-header>
+<app-main-header>My groups</app-main-header>
 
 <ion-content>
-  <a routerLink="/groups/new">New</a>
-  <ng-container *ngIf="page">
-    <ion-card *ngFor="let group of page.data">
-      <ion-card-header>{{ group.title }}</ion-card-header>
+  <ng-container>
+    <ion-card *ngFor="let group of groups">
+      <ion-card-header>
+        <ion-skeleton-text *ngIf="isLoading" style="width: 40%" animated></ion-skeleton-text>
+        <ion-text *ngIf="!isLoading">{{ group.title }}</ion-text>
+      </ion-card-header>
       <ion-card-content>
-        <a routerLink="/groups/{{ group._id }}">View</a>
+        <ion-skeleton-text *ngIf="isLoading" style="width: 20%" animated></ion-skeleton-text>
+        <a *ngIf="!isLoading" routerLink="/groups/{{ group._id }}">View</a>
       </ion-card-content>
     </ion-card>
   </ng-container>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/groups/new">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

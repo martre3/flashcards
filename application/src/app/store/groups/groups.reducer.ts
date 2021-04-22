@@ -4,6 +4,7 @@ import {
   getGroupDeckList,
   getGroupDeckListSuccess,
   GroupsActions,
+  listGroups,
   listReceived,
 } from './groups.actions';
 import { Group } from '../../models/group';
@@ -15,6 +16,7 @@ export interface GroupsState {
   groups: Page<Group>;
   activeGroup: Group;
   decks: Page<DeckSubscription>;
+  isLoading: boolean;
   users: Page<User>;
 }
 
@@ -22,6 +24,7 @@ const initialStateTemplate: GroupsState = {
   groups: undefined,
   activeGroup: undefined,
   decks: undefined,
+  isLoading: false,
   users: undefined,
 };
 
@@ -37,8 +40,10 @@ export const groupsReducer = createReducer(
   on(getGroupDeckListSuccess, (state, page) => ({ ...state, decks: page })),
   on(GroupsActions.getSuccess, (state, group) => ({ ...state, activeGroup: group })),
   on(GroupsActions.listUsersSuccess, (state, page) => ({ ...state, users: page })),
+  on(listGroups, (state) => ({ ...state, isLoading: true })),
   on(listReceived, (state, page) => ({
     ...state,
     groups: { ...page },
+    isLoading: false,
   }))
 );

@@ -1,15 +1,23 @@
 <app-main-header></app-main-header>
 <ion-content>
-  <a routerLink="/decks/new">
-    New
-  </a>
   <ion-button (click)="closeGroupSelection()">User</ion-button>
-  <ion-card *ngFor="let deck of decks">
-    <ion-card-header>{{ deck.title }}</ion-card-header>
+  <ion-card *ngFor="let deck of decksToRender" routerLink="/decks/{{ deck._id }}">
+    <ion-card-header>
+      <ion-skeleton-text *ngIf="isLoading" style="width: 60%" animated></ion-skeleton-text>
+      <ion-text *ngIf="!isLoading">{{ deck.title }}</ion-text>
+    </ion-card-header>
     <ion-card-content>
-      <a routerLink="/decks/{{ deck._id }}">edit</a>
-      <ion-button
-        (click)="select(deck)">{{ selected[deck._id] ? 'Remove' : 'Add' }}</ion-button>
+      <ion-skeleton-text *ngIf="isLoading" animated style="width: 20%"></ion-skeleton-text>
+      <ion-text *ngIf="!isLoading">{{ deck.totalCards }} Cards</ion-text>
+<!--      <a routerLink="/decks/{{ deck._id }}">edit</a>-->
+<!--      <ion-button-->
+<!--        (click)="select(deck)">{{ selected[deck._id] ? 'Remove' : 'Add' }}-->
+<!--      </ion-button>-->
     </ion-card-content>
   </ion-card>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/decks/new">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

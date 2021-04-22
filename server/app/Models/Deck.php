@@ -6,6 +6,7 @@ use App\Models\Base\Model;
 use Jenssegers\Mongodb\Relations\BelongsTo;
 use Jenssegers\Mongodb\Relations\BelongsToMany;
 use Jenssegers\Mongodb\Relations\HasMany;
+use PhpParser\Node\Scalar\DNumber;
 
 /**
  * @property string $_id
@@ -20,6 +21,10 @@ class Deck extends Model
 {
     protected $fillable = [
         'title', 'description', 'isPublic',
+    ];
+
+    protected $appends = [
+        'totalCards',
     ];
 
     public function cards(): HasMany
@@ -40,5 +45,10 @@ class Deck extends Model
     public function subscriptions(): HasMany
     {
         return $this->hasMany(UserDeckSubscription::class, 'deckId');
+    }
+
+    public function getTotalCardsAttribute(): int
+    {
+        return $this->cards()->count();
     }
 }

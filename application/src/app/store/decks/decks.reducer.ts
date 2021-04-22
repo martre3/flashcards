@@ -10,6 +10,7 @@ export interface DecksState {
   deck: Deck;
   decks: Page<Deck>;
   isAssignToGroupOpen: boolean;
+  isLoading: boolean;
   selection: IdMap<Deck>;
 }
 
@@ -17,6 +18,7 @@ const initialStateTemplate: DecksState = {
   deck: undefined,
   decks: undefined,
   isAssignToGroupOpen: false,
+  isLoading: true,
   selection: {},
 };
 
@@ -29,7 +31,8 @@ const initialState: DecksState = restoreState<DecksState>(
 export const decksReducer = createReducer(
   initialState,
   on(DecksActions.getSuccess, (state, deck) => ({ ...state, deck })),
-  on(DecksActions.listSuccess, (state, page) => ({ ...state, decks: page })),
+  on(DecksActions.list, (state) => ({ ...state, isLoading: true })),
+  on(DecksActions.listSuccess, (state, page) => ({ ...state, decks: page, isLoading: false })),
   on(DecksActions.toggleAssignToGroup, (state, payload) => ({
     ...state,
     isAssignToGroupOpen: payload.open,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { delay, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DecksService } from '../../services/decks.service';
@@ -9,8 +9,6 @@ import { ToggleAssignToGroupPayload } from '../../models/store/toggle-assign-to-
 import { AppState } from '../app.states';
 import { fromDecks } from './decks.selectors';
 import { selectActiveGroup } from '../groups/groups.selectors';
-import { StudyService } from '../../services/study.service';
-import { GroupsActions, GroupsActionTypes } from '../groups/groups.actions';
 import { GetPayload } from '../../models/store/get.payload';
 
 @Injectable()
@@ -25,6 +23,7 @@ export class DecksEffects {
   list$ = createEffect(() =>
     this.actions.pipe(
       ofType(DecksActionTypes.LIST),
+      delay(1500),
       switchMap((options) => this.decksService.list(options)),
       switchMap((page) => [DecksActions.listSuccess(page), DecksActions.getSubscriptions()])
     )
