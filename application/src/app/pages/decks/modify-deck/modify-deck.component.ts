@@ -33,7 +33,7 @@ export class ModifyDeckComponent implements OnInit {
   defaultType: CardType = 'single';
   isLoading: boolean;
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400,
     allowTouchMove: false,
   };

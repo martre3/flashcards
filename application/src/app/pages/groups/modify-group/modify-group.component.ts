@@ -9,9 +9,11 @@ import { selectActiveGroup } from '../../../store/groups/groups.selectors';
 import { GroupInvitation } from '../../../models/group-invitation';
 import { selectGroupInvites } from '../../../store/group-invitations/group-invitations.selectors';
 import {
+  ChangeGroupInvitationStatus,
   GetGroupInvites,
   InviteToGroup,
 } from '../../../store/group-invitations/group-invitations.actions';
+import { GroupInvitationStatus } from '../../../models/types/group-invitation-status';
 @Component({
   selector: 'app-modify-group',
   templateUrl: './modify-group.component.html',
@@ -23,6 +25,12 @@ export class ModifyGroupComponent implements OnInit {
   inviteForm: FormGroup = new FormGroup({
     identifier: new FormControl(''),
   });
+
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+    // allowTouchMove: false,
+  };
 
   invites: GroupInvitation[] = [];
   userInvites: GroupInvitation[] = [];
@@ -71,5 +79,10 @@ export class ModifyGroupComponent implements OnInit {
 
   saveOrUpdate(): void {
     this.store.dispatch(new CreateGroup(this.form.value));
+  }
+
+  setStatus(invitation: GroupInvitation, newStatus: GroupInvitationStatus): void {
+    this.store.dispatch(new ChangeGroupInvitationStatus({ ...invitation, status: newStatus }));
+    this.userInvites = this.userInvites.filter((i) => i._id !== invitation._id);
   }
 }

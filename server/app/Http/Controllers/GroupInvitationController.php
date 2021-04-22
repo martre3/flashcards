@@ -60,7 +60,7 @@ class GroupInvitationController extends Controller
 
         $user->groupInvitations()->save($invitation);
 
-        return response()->json($invitation);
+        return response()->json($invitation->load('invitee')->refresh());
     }
 
     /**

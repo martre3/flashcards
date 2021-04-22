@@ -24,6 +24,10 @@ const routes: Routes = [
       import('./pages/group-invites/group-invites.module').then((m) => m.GroupInvitesPageModule),
   },
   {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+  },
+  {
     path: '**',
     redirectTo: '/groups',
   },

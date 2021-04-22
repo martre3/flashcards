@@ -6,6 +6,7 @@ import {
   GetUserGroupInvitationsSuccess,
   GroupInvitationsActions,
   GroupInvitationsActionTypes,
+  InviteToGroupSuccess,
 } from './group-invitations.actions';
 
 export interface GroupInvitationsState {
@@ -48,6 +49,14 @@ export const groupInvitationsReducer = (
         ...state,
         userInvitations: { ...(action as GetUserGroupInvitationsSuccess).payload },
         isLoading: false,
+      };
+    case GroupInvitationsActionTypes.CREATE_SUCCESS:
+      return {
+        ...state,
+        groupInvitations: {
+          ...state.groupInvitations,
+          data: [(action as InviteToGroupSuccess).payload, ...state.groupInvitations.data],
+        },
       };
     default:
       return {

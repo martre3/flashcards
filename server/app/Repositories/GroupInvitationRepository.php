@@ -18,6 +18,7 @@ class GroupInvitationRepository
         return GroupInvitation::query()
             ->where('groupId', '=', $groupId)
             ->with('invitee')
+            ->orderByDesc('createdAt')
             ->paginate();
     }
 

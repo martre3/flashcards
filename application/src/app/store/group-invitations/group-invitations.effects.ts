@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { delay, map, switchMap } from 'rxjs/operators';
+import { catchError, delay, map, switchMap } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { fromPromise } from 'rxjs/internal-compatibility';
+import { of } from 'rxjs';
 import { toPayload } from '../store-utils';
 import { GroupInvitationPayload } from '../../models/store/group-invitation.payload';
 import { GroupInvitationsService } from '../../services/group-invitations.service';
 import {
+  FailedAction,
   GetGroupInvitesSuccess,
   GetUserGroupInvitationsSuccess,
   GroupInvitationsActionTypes,
@@ -28,9 +30,22 @@ export class GroupInvitationsEffects {
       ofType(GroupInvitationsActionTypes.CREATE),
       map(toPayload),
       switchMap((payload: GroupInvitationPayload) =>
-        this.groupInvitationService.create(payload.groupId, payload.identifier)
-      ),
-      map((invitation) => new InviteToGroupSuccess(invitation))
+        this.groupInvitationService.create(payload.groupId, payload.identifier).pipe(
+          map((invitation) => new InviteToGroupSuccess(invitation as GroupInvitation)),
+          catchError((e) => {
+            this.toastController
+              .create({
+                message: e.error.errors.identifier[0],
+                position: 'top',
+                color: 'warning',
+                duration: 3000,
+              })
+              .then((t) => t.present());
+
+            return of(new FailedAction());
+          })
+        )
+      )
     )
   );
 
@@ -75,6 +90,7 @@ export class GroupInvitationsEffects {
                 accepted: 'You have joined a new group',
                 declined: 'Invitation has been declined',
                 blocked: 'You have blocked this group',
+                canceled: 'Invitation has been canceled',
               }[invitation.status],
               position: 'top',
               color: 'success',

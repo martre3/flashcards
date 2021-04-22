@@ -12,12 +12,17 @@ export enum GroupInvitationsActionTypes {
   GET_USER_LIST = '[GROUP_INVITES] GET_USER_LIST',
   GET_USER_LIST_SUCCESS = '[GROUP_INVITES] GET_USER_LIST_SUCCESS',
   CHANGE_STATUS = '[GROUP_INVITES] CHANGE_STATUS',
+  FAIL = '[GROUP_INVITES] FAIL',
 }
 
 export class InviteToGroup implements Action {
   public type = GroupInvitationsActionTypes.CREATE;
 
   constructor(public payload: GroupInvitationPayload) {}
+}
+
+export class FailedAction implements Action {
+  public type = GroupInvitationsActionTypes.FAIL;
 }
 
 export class InviteToGroupSuccess implements Action {
@@ -63,4 +68,5 @@ export type GroupInvitationsActions =
   | GetGroupInvitesSuccess
   | ChangeGroupInvitationStatus
   | GetUserGroupInvitations
-  | GetUserGroupInvitationsSuccess;
+  | GetUserGroupInvitationsSuccess
+  | FailedAction;
