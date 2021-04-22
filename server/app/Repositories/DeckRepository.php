@@ -10,7 +10,7 @@ class DeckRepository
 {
     public function listPage(): LengthAwarePaginator
     {
-        return Deck::query()->paginate();
+        return Deck::query()->orderByDesc('createdAt')->paginate();
     }
 
     /**

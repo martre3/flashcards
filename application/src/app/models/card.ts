@@ -7,7 +7,4 @@ export interface Card {
   possibleAnswers: string[];
   type: CardType;
   deckId: string;
-  // TODO
-  // eslint-disable-next-line camelcase
-  deck_id: string;
 }

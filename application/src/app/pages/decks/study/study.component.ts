@@ -63,8 +63,10 @@ export class StudyComponent implements OnInit {
   }
 
   nextAnswer(e: KeyboardEvent): void {
-    this.answers = [...this.answers, this.answer.value];
-    this.answer = this.fb.control('');
+    if (this.card.type === 'multiple') {
+      this.answers = [...this.answers, this.answer.value];
+      this.answer = this.fb.control('');
+    }
 
     e.preventDefault();
   }

@@ -79,13 +79,8 @@ export class ModifyDeckCardComponent {
 
   addAnswer(e: KeyboardEvent): void {
     if ((e.key === 'Enter' || e.key === ',') && this.answerControl.value !== '') {
-      if (this.editing) {
-        this.editing = false;
-        this.setActiveAnswerControl();
-      } else {
-        this.answerControl = this.fb.control('');
-        this.correctAnswersControl.push(this.answerControl);
-      }
+      this.answerControl = this.fb.control('');
+      this.correctAnswersControl.push(this.answerControl);
 
       this.save();
 
@@ -94,19 +89,16 @@ export class ModifyDeckCardComponent {
   }
 
   edit(answer: FormControl): void {
-    if (!this.editing && this.answerControl.value !== '') {
-      this.correctAnswersControl.push(this.answerControl);
-    }
-
     this.editing = true;
     this.answerControl = answer;
-    // this.answerInput.nativeElement.focus(); TODO
+    // this.answerInput.nativeElement.focus();
   }
 
   createForm(): void {
     this.group = this.fb.group({
       question: this.fb.control(''),
       type: this.fb.control(''),
+      possibleAnswers: this.fb.array([]),
       correctAnswers: this.fb.array(
         this.card?.correctAnswers.length === 0
           ? [this.fb.control('')]
@@ -147,6 +139,12 @@ export class ModifyDeckCardComponent {
     this.cardsService
       .delete(this.card, this.deckId)
       .subscribe(() => this.updated.emit({ type: 'deleted' }));
+  }
+
+  setTest(e: { detail: { checked: boolean } }, answer: FormControl): void {
+    (this.group.controls.possibleAnswers as FormArray).controls = [answer];
+
+    this.save();
   }
 
   trackAnswerBy = (index: number): number => index;

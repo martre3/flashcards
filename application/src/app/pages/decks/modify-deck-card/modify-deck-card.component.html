@@ -35,16 +35,17 @@
   </form>
   <div
     class="answers-container"
-    *ngIf="type === 'multiple' && $any(group.controls.correctAnswers).controls.length > 1"
+    *ngIf="(type === 'multiple' || type === 'test') && $any(group.controls.correctAnswers).controls.length > 0"
   >
     <ng-container
       *ngFor="let answer of $any($any(group.controls.correctAnswers).controls);
-              let last = last;
               trackBy: trackAnswerBy"
     >
       <app-multi-input-entry
-        *ngIf="!last"
+        *ngIf="answer.value !== ''"
         (click)="edit(answer)"
+        [showCheckbox]="card.type === 'test'"
+        (check)="setTest($event, answer)"
         (remove)="removeAnswer(answer, $event)"
         [label]="answer.value"
         [active]="answer === answerControl"

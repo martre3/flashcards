@@ -45,7 +45,7 @@ class CardRepository
     public function getUnusedCard(string $userId, string $deckId): ?Card
     {
         return Card::query()
-            ->where('deck_id', '=', $deckId)
+            ->where('deckId', '=', $deckId)
             ->whereDoesntHave(
                 'users',
                 fn (Builder $builder) => $builder

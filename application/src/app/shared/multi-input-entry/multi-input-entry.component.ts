@@ -10,7 +10,9 @@ export class MultiInputEntryComponent {
   @Input() label: string;
   @Input() readOnly: boolean;
   @Input() color: string;
+  @Input() showCheckbox = false;
   @Output() remove = new EventEmitter<MouseEvent>();
+  @Output() check = new EventEmitter<{ detail: { checked: boolean } }>();
 
   getColor(): string {
     if (this.readOnly) {

@@ -13,7 +13,7 @@ class BoxPickerService
         private DeckRepository $deckRepository
     ) {}
 
-    public function getNextBox(string $userId, string $deckId): Box
+    public function getNextBox(string $userId, string $deckId): ?Box
     {
         $intervals = [];
         $boxes = $this->boxRepository->getNonEmptyBoxes($userId, $deckId)->sortByDesc('interval');

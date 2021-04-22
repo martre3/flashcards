@@ -2,6 +2,12 @@
   class="answer {{ getColor() }}"
   [ngClass]="{'active': active}"
 >
+  <ion-checkbox
+    *ngIf="showCheckbox"
+    color="primary"
+    (click)="$event.stopPropagation()"
+    (ionChange)="check.emit($event)"
+  ></ion-checkbox>
   <ion-text [color]="getColor()">{{ label }}</ion-text>
   <ion-icon *ngIf="!readOnly" (click)="this.remove.emit($event)" name="close-outline"></ion-icon>
 </div>
