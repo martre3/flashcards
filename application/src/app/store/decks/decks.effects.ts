@@ -61,6 +61,14 @@ export class DecksEffects {
     )
   );
 
+  create = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.create),
+      switchMap((deck) => this.decksService.createOrUpdate(deck)),
+      map((deck) => DecksActions.createSuccess(deck))
+    )
+  );
+
   openDeckSelectionForGroup$ = createEffect(
     () =>
       this.actions.pipe(

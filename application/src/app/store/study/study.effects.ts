@@ -31,7 +31,7 @@ export class StudyEffects {
       ofType(StudyActions.submit),
       withLatestFrom(this.store.select(fromStudy.selectCard)),
       switchMap(([payload, card]) =>
-        this.studyService.submit(card._id, card.deck_id, payload.answers)
+        this.studyService.submit(card._id, card.deckId, payload.answers)
       ),
       map(() => StudyActions.getCard())
     )

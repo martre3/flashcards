@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, switchMap, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { IonSlides } from '@ionic/angular';
+import { of } from 'rxjs';
 import { DecksService } from '../../../services/decks.service';
 import { FormState } from '../../../models/types/form-state';
 import { Card } from '../../../models/card';
@@ -10,6 +12,7 @@ import { CardType } from '../../../models/types/card-type';
 import { CardUpdatedEvent } from '../../../models/events/card-updated-event';
 import { AppState } from '../../../store/app.states';
 import { DecksActions } from '../../../store/decks/decks.actions';
+import { fromDecks } from '../../../store/decks/decks.selectors';
 
 @Component({
   selector: 'app-modify-deck',
@@ -17,6 +20,8 @@ import { DecksActions } from '../../../store/decks/decks.actions';
   styleUrls: ['./modify-deck.component.scss'],
 })
 export class ModifyDeckComponent implements OnInit {
+  @ViewChild(IonSlides) slider: IonSlides;
+
   deck = this.fb.group({
     title: this.fb.control(''),
     isPublic: this.fb.control(false),
@@ -26,6 +31,12 @@ export class ModifyDeckComponent implements OnInit {
   id: string;
   state: FormState;
   defaultType: CardType = 'single';
+  isLoading: boolean;
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400,
+    allowTouchMove: false,
+  };
 
   constructor(
     private store: Store<AppState>,
@@ -43,6 +54,10 @@ export class ModifyDeckComponent implements OnInit {
       }
     });
 
+    this.store
+      .select(fromDecks.selectIsLoading)
+      .subscribe((isLoading) => (this.isLoading = isLoading));
+
     this.route.paramMap
       .pipe(
         filter((params) => !!params.get('id')),
@@ -53,7 +68,10 @@ export class ModifyDeckComponent implements OnInit {
       .subscribe((deck) => {
         this.deck.patchValue(deck);
         this.cards = [...deck.cards];
-        this.addNewCard();
+
+        if (this.cards.length > 0) {
+          this.addNewCard();
+        }
       });
   }
 
@@ -84,6 +102,15 @@ export class ModifyDeckComponent implements OnInit {
   }
 
   saveOrUpdate(): void {
-    this.decksService.createOrUpdate(this.deck.value).subscribe(() => {});
+    of({})
+      .pipe(delay(1000))
+      .subscribe(() => this.slider.slideTo(1));
+
+    this.store.dispatch(DecksActions.create(this.deck.value));
+  }
+
+  setInitialType(initialType: CardType): void {
+    this.defaultType = initialType;
+    this.addNewCard();
   }
 }

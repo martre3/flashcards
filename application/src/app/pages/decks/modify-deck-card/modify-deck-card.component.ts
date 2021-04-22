@@ -87,7 +87,6 @@ export class ModifyDeckCardComponent {
         this.correctAnswersControl.push(this.answerControl);
       }
 
-      this.updated.emit({ type: 'started' });
       this.save();
 
       e.preventDefault();
@@ -108,15 +107,19 @@ export class ModifyDeckCardComponent {
     this.group = this.fb.group({
       question: this.fb.control(''),
       type: this.fb.control(''),
-      correctAnswers: this.fb.array(this.card.correctAnswers.map(() => this.fb.control(''))),
+      correctAnswers: this.fb.array(
+        this.card?.correctAnswers.length === 0
+          ? [this.fb.control('')]
+          : this.card.correctAnswers.map(() => this.fb.control(''))
+      ),
     });
 
-    if (this.card.type === 'multiple') {
-      this.correctAnswersControl.controls = [
-        ...this.correctAnswersControl.controls,
-        this.fb.control(''),
-      ];
-    }
+    // if (this.card.type === 'multiple') {
+    //   this.correctAnswersControl.controls = [
+    //     ...this.correctAnswersControl.controls,
+    //     this.fb.control(''),
+    //   ];
+    // }
 
     this.group.patchValue(this.card);
 
@@ -137,6 +140,7 @@ export class ModifyDeckCardComponent {
     card.correctAnswers = card.correctAnswers.filter((a) => a);
 
     this.cardsService.createOrUpdate(card, this.deckId).subscribe((c) => (this.card._id = c._id));
+    this.updated.emit({ type: 'started' });
   }
 
   delete(): void {

@@ -30,8 +30,10 @@ const initialState: DecksState = restoreState<DecksState>(
 
 export const decksReducer = createReducer(
   initialState,
-  on(DecksActions.getSuccess, (state, deck) => ({ ...state, deck })),
+  on(DecksActions.getSuccess, (state, deck) => ({ ...state, deck, isLoading: false })),
   on(DecksActions.list, (state) => ({ ...state, isLoading: true })),
+  on(DecksActions.create, (state) => ({ ...state, isLoading: true })),
+  on(DecksActions.createSuccess, (state) => ({ ...state, isLoading: false })),
   on(DecksActions.listSuccess, (state, page) => ({ ...state, decks: page, isLoading: false })),
   on(DecksActions.toggleAssignToGroup, (state, payload) => ({
     ...state,

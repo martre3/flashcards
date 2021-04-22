@@ -1,0 +1,29 @@
+ion-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  &.deck-card {
+    height: calc(100vh - 105px);
+  }
+
+  &.initial-type-selection {
+    ion-card-content {
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  ion-button {
+    width: 100%;
+  }
+}
+
+.cards-container {
+  flex-direction: column;
+}

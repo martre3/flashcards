@@ -19,6 +19,7 @@
         <ion-item *ngIf="!showAnswers">
           <ion-label position="stacked">
             {{ (card.type === 'single' || card.type === 'single-look') ? 'Answer' : 'Answers' }}
+            <span *ngIf="card.type === 'multiple'">({{ remainingAnswers }} remaining)</span>
           </ion-label>
           <ion-input
             [formControl]="answer"
@@ -29,7 +30,7 @@
           <ion-item>
             <ion-text *ngIf="missingAnswers.length > 0" color="medium">Missing answers</ion-text>
             <ion-text *ngIf="missingAnswers.length === 0" color="success">Correct</ion-text>
-            <ion-text *ngFor="let missing of missingAnswers" color="success">{{ missing }}</ion-text>
+            <ion-text *ngFor="let missing of missingAnswers" color="warning">{{ missing }}</ion-text>
           </ion-item>
         </ng-container>
       </ion-card-content>

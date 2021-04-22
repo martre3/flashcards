@@ -19,6 +19,13 @@ export class StudyComponent implements OnInit {
   missingAnswers = [];
   showAnswers = false;
 
+  get remainingAnswers(): number {
+    return Math.max(
+      0,
+      this.card.correctAnswers.length - this.answers.length - (this.answer.value === '' ? 0 : 1)
+    );
+  }
+
   constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   ngOnInit(): void {

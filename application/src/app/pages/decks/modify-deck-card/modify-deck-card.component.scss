@@ -13,5 +13,12 @@ ion-card {
     display: flex;
     flex-wrap: wrap;
     padding: 10px 0;
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 576px) {
+  .answers-container {
+    flex-direction: column;
   }
 }

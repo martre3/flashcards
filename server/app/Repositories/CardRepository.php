@@ -50,7 +50,7 @@ class CardRepository
                 'users',
                 fn (Builder $builder) => $builder
                     ->where('userId', '=', $userId)
-                    ->whereHas('card', fn (Builder $builder) => $builder->where('deck_id', '=', $deckId))
+                    ->whereHas('card', fn (Builder $builder) => $builder->where('deckId', '=', $deckId))
             )->first();
     }
 }

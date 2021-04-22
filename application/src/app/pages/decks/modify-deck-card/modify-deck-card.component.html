@@ -13,7 +13,6 @@
             <ion-label position="stacked">Question</ion-label>
             <ion-input
               (keydown.tab)="updated.emit()"
-              (change)="save()"
               formControlName="question"
             ></ion-input>
           </ion-item>
@@ -30,27 +29,26 @@
               (change)="save()"
             ></ion-input>
           </ion-item>
-          <div
-            class="answers-container"
-            *ngIf="type === 'multiple' && $any(group.controls.correctAnswers).controls.length > 1"
-          >
-            <ng-container
-              *ngFor="
-                let answer of $any($any(group.controls.correctAnswers).controls);
-                let last = last;
-                trackBy: trackAnswerBy"
-            >
-              <app-multi-input-entry
-                *ngIf="!last"
-                (click)="edit(answer)"
-                (remove)="removeAnswer(answer, $event)"
-                [label]="answer.value"
-                [active]="answer === answerControl"
-              ></app-multi-input-entry>
-            </ng-container>
-          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
+  <div
+    class="answers-container"
+    *ngIf="type === 'multiple' && $any(group.controls.correctAnswers).controls.length > 1"
+  >
+    <ng-container
+      *ngFor="let answer of $any($any(group.controls.correctAnswers).controls);
+              let last = last;
+              trackBy: trackAnswerBy"
+    >
+      <app-multi-input-entry
+        *ngIf="!last"
+        (click)="edit(answer)"
+        (remove)="removeAnswer(answer, $event)"
+        [label]="answer.value"
+        [active]="answer === answerControl"
+      ></app-multi-input-entry>
+    </ng-container>
+  </div>
 </ion-card>
