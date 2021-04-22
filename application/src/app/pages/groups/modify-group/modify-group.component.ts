@@ -7,19 +7,11 @@ import { AppState } from '../../../store/app.states';
 import { CreateGroup, GroupsActions } from '../../../store/groups/groups.actions';
 import { selectActiveGroup } from '../../../store/groups/groups.selectors';
 import { GroupInvitation } from '../../../models/group-invitation';
+import { selectGroupInvites } from '../../../store/group-invitations/group-invitations.selectors';
 import {
-  selectGroupInvites,
-  selectUserGroupInvites,
-} from '../../../store/group-invitations/group-invitations.selectors';
-import {
-  ChangeGroupInvitationStatus,
   GetGroupInvites,
-  GetUserGroupInvitations,
   InviteToGroup,
 } from '../../../store/group-invitations/group-invitations.actions';
-import { selectCurrentUser } from '../../../store/auth/auth.selectors';
-import { GroupInvitationStatus } from '../../../models/types/group-invitation-status';
-
 @Component({
   selector: 'app-modify-group',
   templateUrl: './modify-group.component.html',
@@ -59,18 +51,6 @@ export class ModifyGroupComponent implements OnInit {
       .pipe(filter((page) => !!page))
       .subscribe((page) => (this.invites = page.data));
 
-    this.store
-      .select(selectUserGroupInvites)
-      .pipe(filter((page) => !!page))
-      .subscribe((page) => (this.userInvites = page.data));
-
-    this.store
-      .select(selectCurrentUser)
-      .pipe(filter((page) => !!page))
-      .subscribe((user) =>
-        this.store.dispatch(new GetUserGroupInvitations({ userId: user._id, options: { page: 1 } }))
-      );
-
     this.route.paramMap
       .pipe(
         filter((params) => !!params.get('id')),
@@ -87,10 +67,6 @@ export class ModifyGroupComponent implements OnInit {
 
   invite(): void {
     this.store.dispatch(new InviteToGroup({ groupId: this.id, ...this.inviteForm.value }));
-  }
-
-  setStatus(invitation: GroupInvitation, newStatus: GroupInvitationStatus): void {
-    this.store.dispatch(new ChangeGroupInvitationStatus({ ...invitation, status: newStatus }));
   }
 
   saveOrUpdate(): void {

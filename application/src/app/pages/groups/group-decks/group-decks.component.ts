@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { AppState } from '../../../store/app.states';
 import { getGroupDeckList, GroupsActions } from '../../../store/groups/groups.actions';
 import { selectRouterState } from '../../../store/router/router.selectors';

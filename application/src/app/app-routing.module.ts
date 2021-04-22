@@ -19,6 +19,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminPageModule),
   },
   {
+    path: 'invites',
+    loadChildren: () =>
+      import('./pages/group-invites/group-invites.module').then((m) => m.GroupInvitesPageModule),
+  },
+  {
     path: '**',
     redirectTo: '/groups',
   },

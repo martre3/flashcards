@@ -1,0 +1,41 @@
+<app-main-header>Group invites</app-main-header>
+
+<ion-content>
+  <ion-text
+    *ngIf="!isLoading && userInvites.length === 0"
+    class="no-entries-text"
+    color="medium"
+  >
+    No pending invites
+  </ion-text>
+  <ion-card *ngFor="let invite of invites">
+    <ion-card-header>
+      <ion-skeleton-text *ngIf="isLoading" style="width: 40%" animated></ion-skeleton-text>
+      <ion-text *ngIf="!isLoading">{{ invite.group.title }}</ion-text>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-skeleton-text *ngIf="isLoading" style="width: 80%" animated></ion-skeleton-text>
+      <ng-container *ngIf="!isLoading">
+        <ion-button
+          (click)="setStatus(invite, 'accepted')"
+          size="large"
+          color="success"
+        >
+          Accept
+        </ion-button>
+        <div>
+          <ion-icon
+            (click)="setStatus(invite, 'declined')"
+            color="warning"
+            name="close-circle-outline"
+          ></ion-icon>
+          <ion-icon
+            (click)="setStatus(invite, 'blocked')"
+            color="danger"
+            name="ban-outline"
+          ></ion-icon>
+        </div>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

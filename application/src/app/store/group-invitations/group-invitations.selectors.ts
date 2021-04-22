@@ -10,3 +10,7 @@ export const selectUserGroupInvites = createSelector(
   selectGroupInvitationsState,
   (state) => state.userInvitations
 );
+
+export const fromGroupInvitations = {
+  selectIsLoading: createSelector(selectGroupInvitationsState, (state) => state.isLoading),
+};

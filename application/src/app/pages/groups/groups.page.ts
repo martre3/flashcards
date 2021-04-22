@@ -18,7 +18,7 @@ export class GroupsPage implements OnInit, OnDestroy {
   subscriptions = new Subscription();
 
   get groups(): Group[] {
-    return this.isLoading ? ([{}, {}, {}] as Group[]) : this.page.data;
+    return this.isLoading ? ([{}, {}, {}, {}] as Group[]) : this.page.data;
   }
 
   constructor(private store: Store<AppState>) {}

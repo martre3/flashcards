@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { delay, map, switchMap } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
+import { fromPromise } from 'rxjs/internal-compatibility';
 import { toPayload } from '../store-utils';
 import { GroupInvitationPayload } from '../../models/store/group-invitation.payload';
 import { GroupInvitationsService } from '../../services/group-invitations.service';
@@ -15,7 +17,11 @@ import { GetPagePayload } from '../../models/store/get-page.payload';
 
 @Injectable()
 export class GroupInvitationsEffects {
-  constructor(private actions: Actions, private groupInvitationService: GroupInvitationsService) {}
+  constructor(
+    private actions: Actions,
+    private groupInvitationService: GroupInvitationsService,
+    private toastController: ToastController
+  ) {}
 
   inviteToGroup$ = createEffect(() =>
     this.actions.pipe(
@@ -43,6 +49,7 @@ export class GroupInvitationsEffects {
     this.actions.pipe(
       ofType(GroupInvitationsActionTypes.GET_USER_LIST),
       map(toPayload),
+      delay(1500),
       switchMap((payload: GetPagePayload) =>
         this.groupInvitationService.getUser(payload.userId, payload.options)
       ),
@@ -50,7 +57,7 @@ export class GroupInvitationsEffects {
     )
   );
 
-  cancel$ = createEffect(
+  changeStatus = createEffect(
     () =>
       this.actions.pipe(
         ofType(GroupInvitationsActionTypes.CHANGE_STATUS),
@@ -60,7 +67,22 @@ export class GroupInvitationsEffects {
             groupId: payload.groupId,
             status: payload.status,
           } as GroupInvitation)
-        )
+        ),
+        switchMap((invitation) =>
+          fromPromise(
+            this.toastController.create({
+              message: {
+                accepted: 'You have joined a new group',
+                declined: 'Invitation has been declined',
+                blocked: 'You have blocked this group',
+              }[invitation.status],
+              position: 'top',
+              color: 'success',
+              duration: 3000,
+            })
+          )
+        ),
+        map((toast) => toast.present())
       ),
     { dispatch: false }
   );

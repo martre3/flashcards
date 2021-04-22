@@ -1,6 +1,5 @@
-<app-main-header></app-main-header>
+<app-main-header>My Decks</app-main-header>
 <ion-content>
-  <ion-button (click)="closeGroupSelection()">User</ion-button>
   <ion-card *ngFor="let deck of decksToRender" routerLink="/decks/{{ deck._id }}">
     <ion-card-header>
       <ion-skeleton-text *ngIf="isLoading" style="width: 60%" animated></ion-skeleton-text>

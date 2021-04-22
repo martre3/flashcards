@@ -1,0 +1,19 @@
+ion-content {
+  .no-entries-text {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 50px;
+  }
+
+  ion-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ion-icon {
+      font-size: 56px;
+      margin: 0 20px;
+    }
+  }
+}

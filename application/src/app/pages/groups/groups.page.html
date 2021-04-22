@@ -2,14 +2,13 @@
 
 <ion-content>
   <ng-container>
-    <ion-card *ngFor="let group of groups">
+    <ion-card *ngFor="let group of groups" routerLink="/groups/{{ group._id }}">
       <ion-card-header>
         <ion-skeleton-text *ngIf="isLoading" style="width: 40%" animated></ion-skeleton-text>
         <ion-text *ngIf="!isLoading">{{ group.title }}</ion-text>
       </ion-card-header>
       <ion-card-content>
         <ion-skeleton-text *ngIf="isLoading" style="width: 20%" animated></ion-skeleton-text>
-        <a *ngIf="!isLoading" routerLink="/groups/{{ group._id }}">View</a>
       </ion-card-content>
     </ion-card>
   </ng-container>

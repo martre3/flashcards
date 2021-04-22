@@ -18,7 +18,7 @@ export class DecksPage implements OnInit {
   selected: IdMap<Deck> = {};
 
   get decksToRender(): Deck[] {
-    return this.isLoading ? ([{}, {}, {}] as Deck[]) : this.decks;
+    return this.isLoading ? ([{}, {}, {}, {}] as Deck[]) : this.decks;
   }
 
   constructor(private store: Store<AppState>) {}

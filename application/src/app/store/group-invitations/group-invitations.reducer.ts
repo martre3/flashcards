@@ -11,11 +11,13 @@ import {
 export interface GroupInvitationsState {
   groupInvitations: Page<GroupInvitation>;
   userInvitations: Page<GroupInvitation>;
+  isLoading: boolean;
 }
 
 const initialStateTemplate: GroupInvitationsState = {
   groupInvitations: undefined,
   userInvitations: undefined,
+  isLoading: true,
 };
 
 const initialState: GroupInvitationsState = restoreState<GroupInvitationsState>(
@@ -29,15 +31,23 @@ export const groupInvitationsReducer = (
   action: GroupInvitationsActions
 ): GroupInvitationsState => {
   switch (action.type) {
+    case GroupInvitationsActionTypes.GET_USER_LIST:
+    case GroupInvitationsActionTypes.GET_GROUP_LIST:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case GroupInvitationsActionTypes.GET_GROUP_LIST_SUCCESS:
       return {
         ...state,
         groupInvitations: { ...(action as GetGroupInvitesSuccess).payload },
+        isLoading: false,
       };
     case GroupInvitationsActionTypes.GET_USER_LIST_SUCCESS:
       return {
         ...state,
         userInvitations: { ...(action as GetUserGroupInvitationsSuccess).payload },
+        isLoading: false,
       };
     default:
       return {
