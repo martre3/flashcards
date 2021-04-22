@@ -8,6 +8,7 @@ use App\Models\Box;
 use App\Models\Deck;
 use App\Models\User;
 use App\Models\UserCard;
+use App\Models\UserDeckSubscription;
 use App\Repositories\BoxRepository;
 use App\Services\CardPickerService;
 use App\Services\CardReassignService;
@@ -44,6 +45,19 @@ class StudyController extends Controller
             $request->get('cardId'),
             $request->get('answers')
         );
+
+        /**
+         * @var UserDeckSubscription $subscription
+         */
+        $subscription = UserDeckSubscription::query()
+            ->where('deckId', '=', $deck)
+            ->where('userId', '=', $request->user()->_id)
+            ->first();
+
+        if ($subscription) {
+            $subscription->timesSubmitted++;
+            $subscription->save();
+        }
 
         return response()->json(['success' => $isCorrect]);
     }

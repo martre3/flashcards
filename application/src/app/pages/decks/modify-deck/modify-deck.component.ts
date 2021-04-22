@@ -106,7 +106,7 @@ export class ModifyDeckComponent implements OnInit {
       .pipe(delay(1000))
       .subscribe(() => this.slider.slideTo(1));
 
-    this.store.dispatch(DecksActions.create(this.deck.value));
+    this.store.dispatch(DecksActions.create({ _id: this.id, ...this.deck.value }));
   }
 
   setInitialType(initialType: CardType): void {

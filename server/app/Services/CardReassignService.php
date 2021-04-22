@@ -31,6 +31,8 @@ class CardReassignService
     public function reassignCard(string $userId, string $cardId, array $answers): bool
     {
         $userCard = $this->cardRepository->getOrCreateUserCard($userId, $cardId);
+        $userCard->touch();
+
         $isCorrect = $this->answersChecker->answersValid($userCard->card, $answers);
         $moveBy =  $isCorrect ? 1 : -1;
 

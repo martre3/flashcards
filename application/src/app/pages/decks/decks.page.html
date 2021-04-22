@@ -7,6 +7,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-skeleton-text *ngIf="isLoading" animated style="width: 20%"></ion-skeleton-text>
+      <ion-button *ngIf="!isLoading" fill="outline" (click)="$event.stopPropagation()" routerLink="/decks/{{ deck._id }}/study">Study</ion-button>
       <ion-text *ngIf="!isLoading">{{ deck.totalCards }} Cards</ion-text>
 <!--      <a routerLink="/decks/{{ deck._id }}">edit</a>-->
 <!--      <ion-button-->

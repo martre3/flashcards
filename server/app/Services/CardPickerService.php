@@ -32,9 +32,15 @@ class CardPickerService
         $userCard = $box->userCards()
             ->where('userId', '=', $userId)
             ->whereHas('card', fn (Builder $builder) => $builder->where('deckId', '=', $deckId))
-            ->orderBy('updatedAt')
             ->with('card')
+            ->orderBy('updatedAt')
             ->first();
+//
+//        dd($box->userCards()
+//            ->where('userId', '=', $userId)
+//            ->whereHas('card', fn (Builder $builder) => $builder->where('deckId', '=', $deckId))
+//            ->with('card')
+//            ->orderBy('updatedAt')->get()->map(fn ($a) => $a->updatedAt));
 
         return $userCard->card ?? null;
     }

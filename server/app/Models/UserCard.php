@@ -21,6 +21,7 @@ class UserCard extends Model
      */
     protected $fillable = ['boxId', 'cardId', 'userId'];
 
+    public $timestamps = true;
     /**
      * @return BelongsTo
      */
