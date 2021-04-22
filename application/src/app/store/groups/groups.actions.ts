@@ -3,7 +3,6 @@ import { PaginationOptions } from '../../models/pagination/pagination-options';
 import { Page } from '../../models/pagination/page';
 import { Group } from '../../models/group';
 import { GetPagePayload } from '../../models/store/get-page.payload';
-import { Deck } from '../../models/deck';
 import { GetPayload } from '../../models/store/get.payload';
 import { User } from '../../models/user';
 import { ToggleDeckActivePayload } from '../../models/store/toggle-deck-active.payload';

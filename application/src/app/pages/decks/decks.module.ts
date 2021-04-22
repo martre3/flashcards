@@ -12,6 +12,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
 import { ModifyDeckCardComponent } from './modify-deck-card/modify-deck-card.component';
 import { CardPopoverComponent } from './card-popover/card-popover.component';
+import { StudyComponent } from './study/study.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,12 @@ import { CardPopoverComponent } from './card-popover/card-popover.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  declarations: [DecksPage, ModifyDeckComponent, ModifyDeckCardComponent, CardPopoverComponent],
+  declarations: [
+    DecksPage,
+    ModifyDeckComponent,
+    ModifyDeckCardComponent,
+    CardPopoverComponent,
+    StudyComponent,
+  ],
 })
 export class DecksPageModule {}

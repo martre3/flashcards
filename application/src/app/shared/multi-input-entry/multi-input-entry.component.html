@@ -1,0 +1,7 @@
+<div
+  class="answer {{ getColor() }}"
+  [ngClass]="{'active': active}"
+>
+  <ion-text [color]="getColor()">{{ label }}</ion-text>
+  <ion-icon *ngIf="!readOnly" (click)="this.remove.emit($event)" name="close-outline"></ion-icon>
+</div>

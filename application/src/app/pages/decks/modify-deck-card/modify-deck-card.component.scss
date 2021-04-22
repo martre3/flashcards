@@ -13,26 +13,5 @@ ion-card {
     display: flex;
     flex-wrap: wrap;
     padding: 10px 0;
-
-    .answer {
-      border: 1px solid gray;
-      border-radius: 5px;
-      padding: 5px 25px 5px 10px;
-      margin: 5px;
-      position: relative;
-
-      &.active {
-        border-color: var(--ion-color-primary);
-      }
-
-      ion-icon {
-        cursor: pointer;
-        padding: 0 5px;
-        position: absolute;
-        height: 100%;
-        top: 0;
-        right: 0;
-      }
-    }
   }
 }

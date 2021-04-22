@@ -9,6 +9,8 @@ import { GroupsEffects } from './groups/groups.effects';
 import { GroupInvitationsEffects } from './group-invitations/group-invitations.effects';
 import { RouterEffects } from './router/router.effects';
 import { DecksEffects } from './decks/decks.effects';
+import { AdminEffects } from './admin/admin.effects';
+import { StudyEffects } from './study/study.effects';
 
 export function localStorageSyncReducer(reducer: ActionReducer<unknown>): ActionReducer<unknown> {
   return localStorageSync({
@@ -27,6 +29,8 @@ const metaReducers: MetaReducer<unknown, Action>[] = [localStorageSyncReducer];
       GroupInvitationsEffects,
       RouterEffects,
       DecksEffects,
+      AdminEffects,
+      StudyEffects,
     ]),
     StoreRouterConnectingModule.forRoot(),
   ],

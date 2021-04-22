@@ -9,6 +9,9 @@ import { ToggleAssignToGroupPayload } from '../../models/store/toggle-assign-to-
 import { AppState } from '../app.states';
 import { fromDecks } from './decks.selectors';
 import { selectActiveGroup } from '../groups/groups.selectors';
+import { StudyService } from '../../services/study.service';
+import { GroupsActions, GroupsActionTypes } from '../groups/groups.actions';
+import { GetPayload } from '../../models/store/get.payload';
 
 @Injectable()
 export class DecksEffects {
@@ -24,6 +27,14 @@ export class DecksEffects {
       ofType(DecksActionTypes.LIST),
       switchMap((options) => this.decksService.list(options)),
       switchMap((page) => [DecksActions.listSuccess(page), DecksActions.getSubscriptions()])
+    )
+  );
+
+  getDeck$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.get),
+      switchMap((payload: GetPayload) => this.decksService.get(payload.id)),
+      map((deck) => DecksActions.getSuccess(deck))
     )
   );
 

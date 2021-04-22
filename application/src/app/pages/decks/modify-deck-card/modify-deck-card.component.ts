@@ -100,7 +100,6 @@ export class ModifyDeckCardComponent {
     }
 
     this.editing = true;
-    console.log(answer);
     this.answerControl = answer;
     // this.answerInput.nativeElement.focus(); TODO
   }

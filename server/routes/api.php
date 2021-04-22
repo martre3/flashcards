@@ -84,5 +84,18 @@ Route::middleware('auth:api')->group(function () {
             });
         });
     });
+
+    Route::group(['prefix' => 'study'], function () {
+        Route::group(['prefix' => 'decks'], function () {
+            Route::group(['prefix' => '{deck}'], function () {
+                Route::get('', [\App\Http\Controllers\StudyController::class, 'getCard']);
+                Route::post('submit', [\App\Http\Controllers\StudyController::class, 'submit']);
+            });
+        });
+    });
+
+    Route::group(['prefix' => 'boxes'], function () {
+        Route::post('', [\App\Http\Controllers\BoxController::class, 'create']);
+    });
 });
 

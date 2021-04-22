@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Base\Model;
 use Jenssegers\Mongodb\Relations\BelongsTo;
+use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
  * @property string $_id
@@ -22,5 +23,10 @@ class Card extends Model
     public function deck(): BelongsTo
     {
         return $this->belongsTo(Deck::class, 'deckId');
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(UserCard::class, 'cardId');
     }
 }

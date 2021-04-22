@@ -7,12 +7,14 @@ import { DecksActions } from './decks.actions';
 import { IdMap } from '../../models/other/id-map';
 
 export interface DecksState {
+  deck: Deck;
   decks: Page<Deck>;
   isAssignToGroupOpen: boolean;
   selection: IdMap<Deck>;
 }
 
 const initialStateTemplate: DecksState = {
+  deck: undefined,
   decks: undefined,
   isAssignToGroupOpen: false,
   selection: {},
@@ -26,6 +28,7 @@ const initialState: DecksState = restoreState<DecksState>(
 
 export const decksReducer = createReducer(
   initialState,
+  on(DecksActions.getSuccess, (state, deck) => ({ ...state, deck })),
   on(DecksActions.listSuccess, (state, page) => ({ ...state, decks: page })),
   on(DecksActions.toggleAssignToGroup, (state, payload) => ({
     ...state,

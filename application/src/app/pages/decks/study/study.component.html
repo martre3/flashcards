@@ -1,0 +1,41 @@
+<app-main-header></app-main-header>
+<ion-content>
+  <ion-card *ngIf="card">
+    <ion-card-header>
+      <ion-card-title>{{ card.question }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="answers.length > 0" class="answers-container">
+      <ng-container *ngFor="let answer of answers">
+        <app-multi-input-entry
+          [label]="answer"
+          [readOnly]="showAnswers"
+          [color]="getAnswerColor(answer)"
+        >
+        </app-multi-input-entry>
+      </ng-container>
+    </ion-card-content>
+    <div>
+      <ion-card-content>
+        <ion-item *ngIf="!showAnswers">
+          <ion-label position="stacked">
+            {{ (card.type === 'single' || card.type === 'single-look') ? 'Answer' : 'Answers' }}
+          </ion-label>
+          <ion-input
+            [formControl]="answer"
+            (keydown.,)="nextAnswer($event)"
+          ></ion-input>
+        </ion-item>
+        <ng-container *ngIf="showAnswers">
+          <ion-item>
+            <ion-text *ngIf="missingAnswers.length > 0" color="medium">Missing answers</ion-text>
+            <ion-text *ngIf="missingAnswers.length === 0" color="success">Correct</ion-text>
+            <ion-text *ngFor="let missing of missingAnswers" color="success">{{ missing }}</ion-text>
+          </ion-item>
+        </ng-container>
+      </ion-card-content>
+      <ion-card-header>
+        <ion-button class="submit" (click)="onButton()">{{ showAnswers ? 'Next' : 'Submit' }}</ion-button>
+      </ion-card-header>
+    </div>
+  </ion-card>
+</ion-content>

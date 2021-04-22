@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/groups/groups.module').then((m) => m.GroupsPageModule),
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminPageModule),
+  },
+  {
     path: '**',
     redirectTo: '/groups',
   },

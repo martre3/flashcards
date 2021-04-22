@@ -40,15 +40,13 @@
                 let last = last;
                 trackBy: trackAnswerBy"
             >
-              <div
+              <app-multi-input-entry
                 *ngIf="!last"
-                class="answer"
-                [ngClass]="{'active': answer === answerControl}"
                 (click)="edit(answer)"
-              >
-                <ion-text [color]="answer === answerControl ? 'primary' : 'medium'">{{ answer.value }}</ion-text>
-                <ion-icon (click)="removeAnswer(answer, $event)" name="close-outline"></ion-icon>
-              </div>
+                (remove)="removeAnswer(answer, $event)"
+                [label]="answer.value"
+                [active]="answer === answerControl"
+              ></app-multi-input-entry>
             </ng-container>
           </div>
         </ion-col>

@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { filter, switchMap, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { DecksService } from '../../../services/decks.service';
 import { FormState } from '../../../models/types/form-state';
 import { Card } from '../../../models/card';
 import { CardType } from '../../../models/types/card-type';
 import { CardUpdatedEvent } from '../../../models/events/card-updated-event';
+import { AppState } from '../../../store/app.states';
+import { DecksActions } from '../../../store/decks/decks.actions';
 
 @Component({
   selector: 'app-modify-deck',
@@ -25,6 +28,7 @@ export class ModifyDeckComponent implements OnInit {
   defaultType: CardType = 'single';
 
   constructor(
+    private store: Store<AppState>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private decksService: DecksService
@@ -43,6 +47,7 @@ export class ModifyDeckComponent implements OnInit {
       .pipe(
         filter((params) => !!params.get('id')),
         tap((params) => (this.id = params.get('id'))),
+        tap(() => this.store.dispatch(DecksActions.get({ id: this.id }))),
         switchMap(() => this.decksService.get(this.id))
       )
       .subscribe((deck) => {

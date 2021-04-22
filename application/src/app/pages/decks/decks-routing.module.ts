@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DecksPage } from './decks.page';
 import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
 import { FormState } from '../../models/types/form-state';
+import { StudyComponent } from './study/study.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
     data: {
       state: FormState.Edit,
     },
+  },
+  {
+    path: ':id/study',
+    component: StudyComponent,
   },
 ];
 

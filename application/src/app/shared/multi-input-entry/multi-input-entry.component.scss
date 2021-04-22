@@ -1,0 +1,38 @@
+.answer {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px 25px 5px 10px;
+  margin: 5px;
+  position: relative;
+
+  &.active {
+    border-color: var(--ion-color-primary);
+  }
+
+  &.danger {
+    border-color: var(--ion-color-danger);
+  }
+
+  &.success {
+    border-color: var(--ion-color-success);
+  }
+
+  ion-icon {
+    cursor: pointer;
+    padding: 0 5px;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+  }
+}
+
+@media all and (max-width: 576px) {
+  .answer {
+    width: 100%;
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}

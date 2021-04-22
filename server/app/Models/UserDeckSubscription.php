@@ -12,6 +12,7 @@ use Jenssegers\Mongodb\Relations\BelongsTo;
  * @property User $user
  * @property string $userId
  * @property bool $active
+ * @property int $timesSubmitted
  */
 class UserDeckSubscription extends Model
 {

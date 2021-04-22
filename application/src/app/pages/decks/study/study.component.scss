@@ -1,0 +1,32 @@
+.answers-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+ion-card-title {
+  text-align: center;
+}
+
+ion-text {
+  padding: 0 5px;
+}
+
+
+@media all and (max-width: 576px) {
+  .answers-container {
+    flex-direction: column;
+  }
+
+  .submit {
+    width: 100%;
+  }
+
+  ion-card {
+    height: calc(100% - 20px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+
+  }
+}
