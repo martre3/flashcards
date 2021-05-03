@@ -13,6 +13,7 @@ export class RegistrationComponent {
   userForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.min(7)]),
+    passwordConfirmation: new FormControl('', [Validators.required]),
   });
 
   constructor(private store: Store<AppState>) {}

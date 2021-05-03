@@ -1,6 +1,7 @@
 <app-main-header></app-main-header>
 
 <ion-content>
+  <app-social-buttons></app-social-buttons>
   <ion-card>
     <ion-card-header>
       <ion-card-title>Login</ion-card-title>
@@ -15,7 +16,7 @@
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
       <ion-card-header>
-        <ion-button style="margin-top: 10px" (click)="login()">Login</ion-button>
+        <ion-button class="full-width" style="margin-top: 10px" (click)="login()">Login</ion-button>
       </ion-card-header>
     </form>
   </ion-card>

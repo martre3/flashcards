@@ -14,6 +14,7 @@ class CreateUserRequest extends FormRequest
         return [
             'email' => 'required|email',
             'password' => 'required',
+            'passwordConfirmation' => 'same:password',
         ];
     }
 }

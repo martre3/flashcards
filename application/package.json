@@ -29,6 +29,7 @@
     "@ngrx/effects": "^11.1.0",
     "@ngrx/router-store": "^11.1.0",
     "@ngrx/store": "^11.1.0",
+    "angularx-social-login": "^3.5.6",
     "ngrx-store-localstorage": "^11.0.0",
     "property-watch-decorator": "^1.2.5",
     "rxjs": "~6.5.5",

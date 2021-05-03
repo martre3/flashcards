@@ -1,0 +1,44 @@
+.sso-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .or-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--ion-border-color);
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    color: var(--ion-border-color);
+  }
+
+  .divider-container {
+    display: flex;
+    margin-top: 10px;
+
+    .divider {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      justify-content: center;
+
+      div {
+        content: ' ';
+        height: 1px;
+        width: 100%;
+        border-bottom: solid 1px var(--ion-border-color);
+      }
+    }
+  }
+}

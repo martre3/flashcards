@@ -7,12 +7,14 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { SocialLoginModule } from 'angularx-social-login';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CoreStoreModule } from './store/store.module';
 import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
+import { getAuthServiceConfigs } from './config/get-auth-service-configs';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +26,7 @@ import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
     AppRoutingModule,
     SharedModule,
     CoreStoreModule,
+    SocialLoginModule,
   ],
   providers: [
     StatusBar,
@@ -34,6 +37,10 @@ import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: getAuthServiceConfigs(),
     },
   ],
   bootstrap: [AppComponent],

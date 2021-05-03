@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services;
 
 use App\Models\Card;
-use App\Services\CardAnswersCheckerService;
+use App\Services\Auth\CardAnswersCheckerService;
 use Tests\TestCase;
 
 class CardAnswersCheckerTest extends TestCase

@@ -24,6 +24,18 @@ class UserRepository
     }
 
     /**
+     * @param string $email
+     *
+     * @return User|null
+     */
+    public function findByEmail(string $email): ?Model
+    {
+        return User::query()
+            ->where('email', '=', $email)
+            ->first();
+    }
+
+    /**
      * @return Collection
      */
     public function get(): Collection

@@ -18,6 +18,13 @@ export class AuthService {
     return this.http.post<AuthResponse>('/api/auth/login', user);
   }
 
+  access(provider: string, token: string): Observable<any> {
+    return this.http.post<any>(`/api/auth/access`, {
+      provider,
+      token,
+    });
+  }
+
   me(): Observable<User> {
     return this.http.get<User>('/api/users/me');
   }

@@ -10,6 +10,7 @@ use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
  * @property string $_id
+ * @property string $socialId
  * @property string $email
  * @property string $password
  * @property Deck[] $ownedDecks
@@ -27,7 +28,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
     ];
 
     /**
@@ -83,5 +83,13 @@ class User extends Authenticatable
     public function subscriptions(): HasMany
     {
         return $this->hasMany(UserDeckSubscription::class, 'userId');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function credentials(): HasMany
+    {
+        return $this->hasMany(SocialCredentials::class, 'userId');
     }
 }

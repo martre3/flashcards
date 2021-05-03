@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InvalidSocialTokenException;
+use App\Http\Requests\AuthVerificationRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Services\Auth\SocialAuthService;
+use App\Services\Auth\TokenGeneratorService;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\JsonResponse;
-use Lcobucci\JWT\Configuration;
 
 class AuthController extends Controller
 {
-    /**
-     * @param Hasher $hasher
-     */
-    public function __construct(private Hasher $hasher) {}
+    public function __construct(
+        private TokenGeneratorService $tokenGeneratorService,
+        private UserRepository $userRepository,
+        private Hasher $hasher
+    ) {}
 
     /**
      * @param CreateUserRequest $request
@@ -33,29 +38,47 @@ class AuthController extends Controller
 
     /**
      * @param LoginRequest $request
-     * @param Configuration $config
      *
      * @return JsonResponse
      */
-    public function login(LoginRequest $request, Configuration $config)
+    public function login(LoginRequest $request)
     {
-        $user = User::query()->where('email', '=', $request->get('email'))->first();
+        $user = $this->userRepository->findByEmail($request->get('email'));
 
         if (!$user || !$this->hasher->check($request->get('password'), $user->password)) {
-            return response()->json(['message' => 'Incorrect credentials'], 401);
+            return new JsonResponse(['message' => 'Incorrect credentials'], 401);
         }
 
-        $token = $config->builder()
-            ->identifiedBy('4f1g23a12aa')
-            ->issuedBy('localhost')
-            ->withHeader('foo', 'bar')
-            ->issuedAt(new \DateTimeImmutable())
-            ->withClaim('uid', $user->_id)
-            ->getToken($config->signer(), $config->signingKey());
+        return $this->getTokenResponse($user);
+    }
 
-        return response()->json([
+    /**
+     * @param AuthVerificationRequest $request
+     * @param SocialAuthService $authService
+     *
+     * @return JsonResponse
+     */
+    public function access(AuthVerificationRequest $request, SocialAuthService $authService): JsonResponse
+    {
+        try {
+            $user = $authService->getOrCreate($request->get('provider'), $request->get('token'));
+
+            return $this->getTokenResponse($user);
+        } catch (InvalidSocialTokenException $e) {
+            return new JsonResponse(['message' => 'Invalid token'], 422);
+        }
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    private function getTokenResponse(User $user): JsonResponse
+    {
+        return new JsonResponse([
             'user' => $user,
-            'jwt' => $token->toString(),
+            'jwt' => $this->tokenGeneratorService->generate($user->_id)->toString(),
         ]);
     }
 }

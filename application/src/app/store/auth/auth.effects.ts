@@ -5,7 +5,10 @@ import { ToastController } from '@ionic/angular';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { SocialAuthService } from 'angularx-social-login';
+import { of } from 'rxjs';
 import {
+  AuthActions,
   AuthActionTypes,
   LoginSuccess,
   SignUpSuccess,
@@ -16,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
 import { toPayload } from '../store-utils';
 import { AppState } from '../app.states';
 import { selectAuthenticationToken } from './auth.selectors';
+import { SocialLoginPayload } from '../../models/store/social-login.payload';
 
 @Injectable()
 export class AuthEffects {
@@ -24,7 +28,8 @@ export class AuthEffects {
     private authService: AuthService,
     private toastController: ToastController,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private socialAuthService: SocialAuthService
   ) {}
 
   login$ = createEffect(() =>
@@ -33,6 +38,26 @@ export class AuthEffects {
       map(toPayload),
       switchMap((user: User) => this.authService.login(user)),
       tap(() => this.router.navigate(['/decks'])),
+      map((response) => new LoginSuccess(response))
+    )
+  );
+
+  socialLogin$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.socialLogin),
+      switchMap((payload: SocialLoginPayload) =>
+        fromPromise(this.socialAuthService.signIn(payload.provider))
+      ),
+      map((socialUser) => AuthActions.socialLoginSuccess(socialUser))
+    )
+  );
+
+  socialLoginSuccess$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActions.socialLoginSuccess),
+      switchMap((socialUser) =>
+        this.authService.access(socialUser.provider.toLowerCase(), socialUser.authToken)
+      ),
       map((response) => new LoginSuccess(response))
     )
   );
