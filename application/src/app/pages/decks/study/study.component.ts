@@ -36,7 +36,7 @@ export class StudyComponent implements OnInit {
   onButton(): void {
     if (this.showAnswers) {
       this.nextCard();
-
+      // Todo
       return;
     }
 

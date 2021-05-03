@@ -4,7 +4,7 @@ namespace Tests\Unit\Services;
 
 use App\Models\Card;
 use App\Services\CardAnswersCheckerService;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class CardAnswersCheckerTest extends TestCase
 {

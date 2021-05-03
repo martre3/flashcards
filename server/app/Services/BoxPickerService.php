@@ -28,15 +28,11 @@ class BoxPickerService
             $intervals[] = last($intervals) + $box->interval;
         });
 
-//        dump($intervals);
         $subscription = $this->deckRepository->getSubscription($userId, $deckId);
 
         $intervals = array_reverse($intervals);
         $boxes = $boxes->reverse()->values();
 
-//        dump($intervals, $subscription->timesSubmitted);
-//
-//        $boxes->each(fn (Box $box, int $index) => dump($subscription->timesSubmitted % $intervals[$index]));
         $box = $boxes->first(fn (Box $box, int $index) => $subscription->timesSubmitted % $intervals[$index] === 0);
 
         return $box ?? $boxes->last();

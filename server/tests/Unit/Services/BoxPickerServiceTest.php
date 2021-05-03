@@ -9,7 +9,7 @@ use App\Repositories\DeckRepository;
 use App\Services\BoxPickerService;
 use Illuminate\Support\Collection;
 use Mockery\MockInterface;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class BoxPickerServiceTest extends TestCase
 {
@@ -37,7 +37,7 @@ class BoxPickerServiceTest extends TestCase
         $this->createBox(10);
 
         $boxCollection = \Mockery::mock(Collection::class);
-        $boxCollection->shouldReceive('sortByDesc')->andReturn(collect($this->boxes));
+        $boxCollection->shouldReceive('sortBy')->andReturn(collect($this->boxes));
 
         $this->boxRepository->shouldReceive('getNonEmptyBoxes')->andReturn($boxCollection);
         $this->deckRepository->shouldReceive('getSubscription')->andReturn($this->subscription);

@@ -2,9 +2,13 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends MockeryTestCase
 {
     use CreatesApplication;
+
+    protected function tearDown(): void {
+        \Mockery::close();
+    }
 }

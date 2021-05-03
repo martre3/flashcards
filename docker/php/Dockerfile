@@ -1,3 +1,6 @@
+# pecl install pcov
+# echo "extension=pcov.so" > /usr/local/etc/php/conf.d/pcov.ini
+
 #FROM chrisb9/php8-nginx:latest
 FROM keinos/php8-jit:latest
 
@@ -26,7 +29,10 @@ RUN \
 # && pecl install xdebug \
 # && docker-php-ext-enable xdebug \
 # && apk del buildDeps
+
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS
+RUN pecl install xdebug \
+ && docker-php-ext-enable xdebug
 
 #RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community mysqli php8-pdo pdo pdo_mysql php8-mysql
 RUN apk add mysql-client
@@ -38,9 +44,9 @@ RUN docker-php-ext-install zip
 RUN set -ex \
 	&& curl -L -o /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar \
 	&& chmod +x /usr/local/bin/pickle
-RUN docker-php-ext-install mysqli pdo_pgsql
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-enable pdo_mysql
+#RUN docker-php-ext-install mysqli pdo_pgsql
+#RUN docker-php-ext-install pdo_mysql
+#RUN docker-php-ext-enable pdo_mysql
 #RUN mkdir -p /usr/src/php/ext/mongodb \
 #    && curl -fsSL https://pecl.php.net/get/mongodb | tar xvz -C "/usr/src/php/ext/mongodb" --strip 1 \
 #    && docker-php-ext-install mongodb

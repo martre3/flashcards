@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Card;
+use App\Repositories\BoxRepository;
 use App\Repositories\CardRepository;
 use App\Utils\Builder;
 
@@ -10,7 +11,8 @@ class CardPickerService
 {
     public function __construct(
         private CardRepository $cardRepository,
-        private BoxPickerService $boxPickerService
+        private BoxPickerService $boxPickerService,
+        private BoxRepository $boxRepository,
     ) {}
 
     /**
@@ -28,19 +30,7 @@ class CardPickerService
         }
 
         $box = $this->boxPickerService->getNextBox($userId, $deckId);
-
-        $userCard = $box->userCards()
-            ->where('userId', '=', $userId)
-            ->whereHas('card', fn (Builder $builder) => $builder->where('deckId', '=', $deckId))
-            ->with('card')
-            ->orderBy('updatedAt')
-            ->first();
-//
-//        dd($box->userCards()
-//            ->where('userId', '=', $userId)
-//            ->whereHas('card', fn (Builder $builder) => $builder->where('deckId', '=', $deckId))
-//            ->with('card')
-//            ->orderBy('updatedAt')->get()->map(fn ($a) => $a->updatedAt));
+        $userCard = $this->boxRepository->getOldestCardFromBox($box, $userId, $deckId);
 
         return $userCard->card ?? null;
     }

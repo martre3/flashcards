@@ -11,7 +11,7 @@ use App\Services\CardAnswersCheckerService;
 use App\Services\CardReassignService;
 use Jenssegers\Mongodb\Relations\HasMany;
 use Mockery\MockInterface;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class CardReassignServiceTest extends TestCase
 {
@@ -49,6 +49,8 @@ class CardReassignServiceTest extends TestCase
         $this->userCard->shouldReceive('getAttribute')
             ->with('card')
             ->andReturn(\Mockery::mock(Card::class));
+
+        $this->userCard->shouldReceive('touch');
 
         $this->cardRepository->shouldReceive('getOrCreateUserCard')
             ->with('11', '22')
