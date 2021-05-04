@@ -1,0 +1,14 @@
+.tabs {
+  display: flex;
+
+  .tab {
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+    padding: 20px 0 5px;
+
+    &.active {
+      border-bottom: 2px solid var(--ion-border-color);
+    }
+  }
+}

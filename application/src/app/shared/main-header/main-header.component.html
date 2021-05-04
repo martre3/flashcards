@@ -1,12 +1,34 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button color="primary" menu="main-menu"></ion-menu-button>
+      <ion-menu-button *ngIf="!back" color="primary" menu="main-menu"></ion-menu-button>
+      <ion-button
+        *ngIf="back"
+        color="primary"
+        (click)="goBack()"
+      >
+        Back
+      </ion-button>
     </ion-buttons>
     <ion-title>
       <ion-text color="primary">
         <ng-content></ng-content>
       </ion-text>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        *ngIf="ellipsis"
+        color="primary"
+        class="open-more"
+        name="ellipsis-vertical-sharp"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="add"
+        color="primary"
+        class="open-more"
+        name="add-outline"
+        [routerLink]="add"
+      ></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>

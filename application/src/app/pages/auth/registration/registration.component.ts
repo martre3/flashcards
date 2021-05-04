@@ -12,6 +12,7 @@ import { SignUp } from '../../../store/auth/auth.actions';
 export class RegistrationComponent {
   userForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
+    displayName: new FormControl('', [Validators.required, Validators.min(7)]),
     password: new FormControl('', [Validators.required, Validators.min(7)]),
     passwordConfirmation: new FormControl('', [Validators.required]),
   });

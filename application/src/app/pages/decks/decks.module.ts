@@ -13,6 +13,8 @@ import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
 import { ModifyDeckCardComponent } from './modify-deck-card/modify-deck-card.component';
 import { CardPopoverComponent } from './card-popover/card-popover.component';
 import { StudyComponent } from './study/study.component';
+import { ViewDeckComponent } from './view-deck/view-deck.component';
+import { RatingComponent } from './rating/rating.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,8 @@ import { StudyComponent } from './study/study.component';
     ModifyDeckCardComponent,
     CardPopoverComponent,
     StudyComponent,
+    ViewDeckComponent,
+    RatingComponent,
   ],
 })
 export class DecksPageModule {}

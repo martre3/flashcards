@@ -1,5 +1,71 @@
 <ng-container *ngIf="users">
-  <ion-card *ngFor="let user of users.data">
-    <ion-card-content>{{ user.email }}</ion-card-content>
-  </ion-card>
+  <ion-slides pager="false" [options]="slideOpts">
+    <ion-slide>
+      <div class="invite-button-wrapper">
+        <ion-button fill="clear" (click)="scrollTo(1)">
+          <ion-icon class="invite-icon" color="primary" name="add-circle-outline"></ion-icon>
+          <ion-text color="primary">Invite</ion-text>
+        </ion-button>
+      </div>
+      <ion-card *ngFor="let user of users.data">
+        <ion-card-content class="ion-text-left">
+          <div>{{ user.email }}</div>
+          <ion-icon
+            class="member-actions"
+            size="small"
+            name="ellipsis-vertical-sharp"
+          ></ion-icon>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <div style="height: 100%; width: 100%">
+        <div class="invite-button-wrapper">
+          <ion-button fill="clear" (click)="scrollTo(0)">
+            <ion-icon class="invite-icon" color="primary" name="arrow-back-circle-outline"></ion-icon>
+            <ion-text color="primary">Back</ion-text>
+          </ion-button>
+        </div>
+        <ion-card>
+          <ion-card-header>Invite user</ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="inviteForm">
+              <ion-item>
+                <ion-label position="stacked">Display name or email</ion-label>
+                <ion-input formControlName="identifier"></ion-input>
+              </ion-item>
+              <ion-button
+                class="full-width"
+                style="padding-top: 5px"
+                (click)="invite()"
+              >
+                Invite
+              </ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngFor="let invite of invites">
+          <ion-card-content>
+            <ion-row class="ion-justify-content-between">
+              <div style="text-align: left">
+                <div>
+                  {{ invite.invitee.email }}
+                </div>
+                <ion-text [color]="colorMap[invite.status]">{{ invite.status }}</ion-text>
+              </div>
+              <div>
+                <ion-button
+                  *ngIf="invite.status === 'pending'"
+                  color="warning"
+                  (click)="setStatus(invite, 'canceled')"
+                >
+                  Cancel
+                </ion-button>
+              </div>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ng-container>

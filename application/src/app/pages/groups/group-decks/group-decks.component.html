@@ -1,7 +1,6 @@
-<ion-button (click)="addNewDecks()">Add</ion-button>
 <ng-container *ngIf="groupDecks">
   <ion-card *ngFor="let groupDeck of groupDecks.data">
-    <ion-card-content>
+    <ion-card-content *ngIf="groupDeck.deck">
       {{ groupDeck.deck.title }}
       <ion-button (click)="toggleActive(groupDeck.deck)">{{ groupDeck.active ? 'Not' : 'Active' }}</ion-button>
     </ion-card-content>

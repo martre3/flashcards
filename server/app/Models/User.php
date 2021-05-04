@@ -10,7 +10,8 @@ use Jenssegers\Mongodb\Relations\HasMany;
 
 /**
  * @property string $_id
- * @property string $socialId
+ * @property string $name
+ * @property string $displayName
  * @property string $email
  * @property string $password
  * @property Deck[] $ownedDecks
@@ -28,6 +29,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
     ];
 
     /**

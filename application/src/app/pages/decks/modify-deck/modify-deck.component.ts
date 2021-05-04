@@ -24,6 +24,7 @@ export class ModifyDeckComponent implements OnInit {
 
   deck = this.fb.group({
     title: this.fb.control(''),
+    description: this.fb.control(''),
     isPublic: this.fb.control(false),
   });
 

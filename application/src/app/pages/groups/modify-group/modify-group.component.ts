@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AppState } from '../../../store/app.states';
 import { CreateGroup, GroupsActions } from '../../../store/groups/groups.actions';
 import { selectActiveGroup } from '../../../store/groups/groups.selectors';
-import { GroupInvitation } from '../../../models/group-invitation';
-import { selectGroupInvites } from '../../../store/group-invitations/group-invitations.selectors';
-import {
-  ChangeGroupInvitationStatus,
-  GetGroupInvites,
-  InviteToGroup,
-} from '../../../store/group-invitations/group-invitations.actions';
-import { GroupInvitationStatus } from '../../../models/types/group-invitation-status';
+
 @Component({
   selector: 'app-modify-group',
   templateUrl: './modify-group.component.html',
@@ -22,26 +15,6 @@ import { GroupInvitationStatus } from '../../../models/types/group-invitation-st
 export class ModifyGroupComponent implements OnInit {
   id: string;
   form: FormGroup;
-  inviteForm: FormGroup = new FormGroup({
-    identifier: new FormControl(''),
-  });
-
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400,
-    // allowTouchMove: false,
-  };
-
-  invites: GroupInvitation[] = [];
-  userInvites: GroupInvitation[] = [];
-
-  colorMap = {
-    accepted: 'success',
-    pending: 'warning',
-    declined: 'danger',
-    blocked: 'danger',
-    canceled: 'medium',
-  };
 
   constructor(
     private store: Store<AppState>,
@@ -54,11 +27,6 @@ export class ModifyGroupComponent implements OnInit {
       title: this.fb.control(''),
     });
 
-    this.store
-      .select(selectGroupInvites)
-      .pipe(filter((page) => !!page))
-      .subscribe((page) => (this.invites = page.data));
-
     this.route.paramMap
       .pipe(
         filter((params) => !!params.get('id')),
@@ -67,22 +35,11 @@ export class ModifyGroupComponent implements OnInit {
         switchMap(() => this.store.select(selectActiveGroup))
       )
       .subscribe((group) => {
-        this.store.dispatch(new GetGroupInvites({ groupId: this.id, options: { page: 1 } }));
-
         this.form.patchValue(group);
       });
   }
 
-  invite(): void {
-    this.store.dispatch(new InviteToGroup({ groupId: this.id, ...this.inviteForm.value }));
-  }
-
   saveOrUpdate(): void {
     this.store.dispatch(new CreateGroup(this.form.value));
-  }
-
-  setStatus(invitation: GroupInvitation, newStatus: GroupInvitationStatus): void {
-    this.store.dispatch(new ChangeGroupInvitationStatus({ ...invitation, status: newStatus }));
-    this.userInvites = this.userInvites.filter((i) => i._id !== invitation._id);
   }
 }

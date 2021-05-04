@@ -1,0 +1,14 @@
+.wrapper {
+  .stars-container {
+    align-items: center;
+    display: flex;
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+
+  ion-text {
+    font-size: 12px;
+  }
+}

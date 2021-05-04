@@ -16,6 +16,7 @@ export class DecksPage implements OnInit {
   isAssignToGroupOpened$ = this.store.select(fromDecks.selectIsAssignToGroupOpened);
   isLoading: boolean;
   selected: IdMap<Deck> = {};
+  activeTab = 'Active';
 
   get decksToRender(): Deck[] {
     return this.isLoading ? ([{}, {}, {}, {}] as Deck[]) : this.decks;

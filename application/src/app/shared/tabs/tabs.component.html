@@ -1,0 +1,10 @@
+<div class="tabs">
+  <div
+    *ngFor="let tab of tabs"
+    class="tab"
+    [ngClass]="{'active': active === tab}"
+    (click)="setActive(tab)"
+  >
+    <ion-text [color]="active === tab ? 'primary' : 'medium'">{{ tab }}</ion-text>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <div class="stars-container">
+    <ion-icon
+      *ngFor="let star of stars"
+      color="primary"
+      [name]="iconMap[star.value]"
+    ></ion-icon>
+  </div>
+  <ion-text *ngIf="showInfo" color="medium">{{ rating }} from 4 votes</ion-text>
+</div>

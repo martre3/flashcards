@@ -5,6 +5,7 @@ import { DecksPage } from './decks.page';
 import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
 import { FormState } from '../../models/types/form-state';
 import { StudyComponent } from './study/study.component';
+import { ViewDeckComponent } from './view-deck/view-deck.component';
 
 const routes: Routes = [
   {
@@ -19,11 +20,15 @@ const routes: Routes = [
     },
   },
   {
-    path: ':id',
+    path: ':id/edit',
     component: ModifyDeckComponent,
     data: {
       state: FormState.Edit,
     },
+  },
+  {
+    path: ':id',
+    component: ViewDeckComponent,
   },
   {
     path: ':id/study',

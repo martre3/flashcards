@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { GroupsPage } from './groups.page';
 import { ModifyGroupComponent } from './modify-group/modify-group.component';
+import { ViewGroupComponent } from './view-group/view-group.component';
 
 const routes: Routes = [
   {
@@ -14,8 +15,12 @@ const routes: Routes = [
     component: ModifyGroupComponent,
   },
   {
-    path: ':id',
+    path: ':id/edit',
     component: ModifyGroupComponent,
+  },
+  {
+    path: ':id',
+    component: ViewGroupComponent,
   },
 ];
 

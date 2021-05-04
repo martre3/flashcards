@@ -1,0 +1,15 @@
+<app-main-header [ellipsis]="true"></app-main-header>
+<ion-content>
+  <app-tabs [tabs]="tabs" (tabChanged)="changeTab($event)"></app-tabs>
+  <ion-slides pager="false" [options]="slideOpts">
+    <ion-slide>
+      <app-group-info [group]="group"></app-group-info>
+    </ion-slide>
+    <ion-slide>
+      <app-group-users [id]="id"></app-group-users>
+    </ion-slide>
+    <ion-slide>
+      <app-group-decks></app-group-decks>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

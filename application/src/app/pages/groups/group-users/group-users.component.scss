@@ -1,0 +1,31 @@
+.invite-button-wrapper {
+  text-align: left;
+  padding-top: 20px;
+  width: 100%;
+
+  ion-button {
+    .invite-icon {
+      font-size: 24px;
+      padding-right: 5px;
+    }
+  }
+}
+
+ion-slide {
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card {
+  position: relative;
+  width: calc(100% - 20px);
+
+  .member-actions {
+    padding: 15px;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    position: absolute;
+    z-index: 2;
+  }
+}

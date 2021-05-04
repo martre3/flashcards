@@ -6,7 +6,7 @@ use App\Models\Box;
 use App\Models\UserDeckSubscription;
 use App\Repositories\BoxRepository;
 use App\Repositories\DeckRepository;
-use App\Services\Auth\BoxPickerService;
+use App\Services\BoxPickerService;
 use Illuminate\Support\Collection;
 use Mockery\MockInterface;
 use Tests\TestCase;

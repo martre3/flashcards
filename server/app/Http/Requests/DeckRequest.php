@@ -21,6 +21,7 @@ class DeckRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'description' => 'required',
             'isPublic' => 'required|boolean',
         ];
     }

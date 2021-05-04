@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\LoginRequest;
-use App\Models\Box;
-use App\Models\Deck;
-use App\Models\User;
-use App\Models\UserCard;
 use App\Models\UserDeckSubscription;
-use App\Repositories\BoxRepository;
-use App\Services\Auth\CardPickerService;
-use App\Services\Auth\CardReassignService;
-use Illuminate\Contracts\Hashing\Hasher;
+use App\Services\CardPickerService;
+use App\Services\CardReassignService;
 use Illuminate\Http\JsonResponse;
-use Lcobucci\JWT\Configuration;
 use Symfony\Component\HttpFoundation\Request;
 
 class StudyController extends Controller
