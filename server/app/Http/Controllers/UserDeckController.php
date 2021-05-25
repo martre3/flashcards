@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupRequest;
+use App\Http\Requests\RateDeckRequest;
 use App\Http\Requests\SetGroupDecksRequest;
 use App\Http\Requests\UpdateDeckStatusRequest;
 use App\Models\Deck;
@@ -78,6 +79,17 @@ class UserDeckController extends Controller
             ->update(['active' => $request->get('active')]);
 
         return response()->json([], 204);
+    }
+
+    public function rate(RateDeckRequest $request, Deck $deck)
+    {
+        $subscription = $deck->subscriptions()
+            ->where('userId', '=', $request->user()->id)
+            ->firstOrCreate();
+
+        $subscription->update($request->validated());
+
+        return response()->json($deck->refresh()->append(['subscription']), 200);
     }
 //
 //    public function delete(Deck $deck, Card $card): JsonResponse

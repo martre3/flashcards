@@ -5,6 +5,8 @@ cd ./server
 
 sleep 5
 
+composer install
+
 echo "[info] generating key"
 php artisan key:generate
 pecl config-set php_ini /etc/php.ini

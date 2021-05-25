@@ -6,6 +6,7 @@ import { ModifyDeckComponent } from './modify-deck/modify-deck.component';
 import { FormState } from '../../models/types/form-state';
 import { StudyComponent } from './study/study.component';
 import { ViewDeckComponent } from './view-deck/view-deck.component';
+import { CommentsComponent } from './comments/comments.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: ':id/study',
     component: StudyComponent,
+  },
+  {
+    path: ':id/comments',
+    component: CommentsComponent,
   },
 ];
 

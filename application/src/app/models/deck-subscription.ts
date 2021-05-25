@@ -4,4 +4,5 @@ export interface DeckSubscription {
   _id: string;
   deck: Deck;
   active: boolean;
+  rating: number;
 }

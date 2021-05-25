@@ -5,6 +5,7 @@ import { Deck } from '../../models/deck';
 import { GetPayload } from '../../models/store/get.payload';
 import { ToggleAssignToGroupPayload } from '../../models/store/toggle-assign-to-group.payload';
 import { IdMap } from '../../models/other/id-map';
+import { Comment } from '../../models/comment';
 
 export enum DecksActionTypes {
   CREATE = '[DECKS] CREATE',
@@ -21,6 +22,12 @@ export enum DecksActionTypes {
   UNSUBSCRIBE = '[DECKS] UNSUBSCRIBE',
   GET_SUBSCRIPTIONS = '[DECKS] GET_SUBSCRIPTIONS',
   GET_SUBSCRIPTIONS_SUCCESS = '[DECKS] GET_SUBSCRIPTIONS_SUCCESS',
+  RATE = '[DECKS] RATE',
+  RATE_SUCCESS = '[DECKS] RATE_SUCCESS',
+  GET_COMMENTS = '[DECKS] GET_COMMENTS',
+  GET_COMMENTS_SUCCESS = '[DECKS] GET_COMMENTS_SUCCESS',
+  CREATE_COMMENT = '[DECKS] CREATE_COMMENT',
+  CREATE_COMMENT_SUCCESS = '[DECKS] CREATE_COMMENT_SUCCESS',
 }
 
 export const DecksActions = {
@@ -44,4 +51,13 @@ export const DecksActions = {
     DecksActionTypes.GET_SUBSCRIPTIONS_SUCCESS,
     props<IdMap<string>>()
   ),
+  rate: createAction(DecksActionTypes.RATE, props<{ rating: number }>()),
+  rateSuccess: createAction(DecksActionTypes.RATE_SUCCESS, props<Deck>()),
+  getComments: createAction(DecksActionTypes.GET_COMMENTS),
+  getCommentsSuccess: createAction(
+    DecksActionTypes.GET_COMMENTS_SUCCESS,
+    props<{ comments: Comment[] }>()
+  ),
+  createComment: createAction(DecksActionTypes.CREATE_COMMENT, props<Comment>()),
+  createCommentSuccess: createAction(DecksActionTypes.CREATE_COMMENT_SUCCESS, props<Comment>()),
 };

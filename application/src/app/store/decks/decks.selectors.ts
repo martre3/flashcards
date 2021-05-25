@@ -12,4 +12,5 @@ export const fromDecks = {
     (state) => state.isAssignToGroupOpen
   ),
   selectIsLoading: createSelector(selectDecksState, (state) => state.isLoading),
+  selectComments: createSelector(selectDecksState, (state) => state.comments),
 };

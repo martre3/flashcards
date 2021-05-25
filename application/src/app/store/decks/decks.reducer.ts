@@ -5,10 +5,12 @@ import { Page } from '../../models/pagination/page';
 import { Deck } from '../../models/deck';
 import { DecksActions } from './decks.actions';
 import { IdMap } from '../../models/other/id-map';
+import { Comment } from '../../models/comment';
 
 export interface DecksState {
   deck: Deck;
   decks: Page<Deck>;
+  comments: Comment[];
   isAssignToGroupOpen: boolean;
   isLoading: boolean;
   selection: IdMap<Deck>;
@@ -17,6 +19,7 @@ export interface DecksState {
 const initialStateTemplate: DecksState = {
   deck: undefined,
   decks: undefined,
+  comments: [],
   isAssignToGroupOpen: false,
   isLoading: true,
   selection: {},
@@ -51,5 +54,13 @@ export const decksReducer = createReducer(
   on(DecksActions.setSelection, (state, action) => ({
     ...state,
     selection: { ...action.ids },
+  })),
+  on(DecksActions.rateSuccess, (state, action) => ({
+    ...state,
+    deck: { ...action },
+  })),
+  on(DecksActions.getCommentsSuccess, (state, action) => ({
+    ...state,
+    comments: [...action.comments],
   }))
 );

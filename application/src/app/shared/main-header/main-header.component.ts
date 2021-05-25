@@ -10,6 +10,7 @@ export class MainHeaderComponent {
   @Input() back = false;
   @Input() ellipsis = false;
   @Input() add: string;
+  @Input() done: string;
 
   constructor(private location: Location) {}
 

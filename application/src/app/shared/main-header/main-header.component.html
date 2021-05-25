@@ -29,6 +29,13 @@
         name="add-outline"
         [routerLink]="add"
       ></ion-icon>
+      <ion-button
+        *ngIf="done"
+        color="primary"
+        [routerLink]="done"
+      >
+        Done
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

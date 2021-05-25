@@ -1,0 +1,40 @@
+<app-main-header [back]="true">Comments</app-main-header>
+
+<ion-content>
+  <div style="height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: space-between">
+    <div style="max-height: calc(100% - 150px); overflow-y: scroll">
+      <ng-container *ngIf="comments">
+<!--        <ion-virtual-scroll [items]="comments">-->
+          <ion-card *ngFor="let item of comments">
+            <ion-card-header>
+              <ion-text color="light">{{ item.message }}</ion-text>
+            </ion-card-header>
+            <ion-card-content>
+              <div style="display: flex; justify-content: space-between">
+                <ion-text>{{ item.createdAt | date:'d/M/yy, hh:mm'}}</ion-text>
+                <ion-text>{{ item.user.name }}</ion-text>
+              </div>
+            </ion-card-content>
+          </ion-card>
+<!--        </ion-virtual-scroll>-->
+      </ng-container>
+    </div>
+    <ion-card style="min-height: 150px">
+      <ion-card-content>
+        <form [formGroup]="commentForm">
+          <ion-item>
+            <ion-label position="stacked">Message</ion-label>
+            <ion-input formControlName="message"></ion-input>
+          </ion-item>
+          <ion-button
+            class="full-width"
+            style="padding-top: 5px"
+            (click)="create()"
+          >
+            Comment
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

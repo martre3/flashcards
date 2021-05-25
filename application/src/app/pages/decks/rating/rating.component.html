@@ -6,5 +6,5 @@
       [name]="iconMap[star.value]"
     ></ion-icon>
   </div>
-  <ion-text *ngIf="showInfo" color="medium">{{ rating }} from 4 votes</ion-text>
+  <ion-text *ngIf="showInfo" color="medium">{{ rating ? (rating | number: '1.0-1') : 0 }} from {{ totalVotes }} votes</ion-text>
 </div>

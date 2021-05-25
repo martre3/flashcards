@@ -36,7 +36,7 @@ class DeckController extends Controller
      */
     public function get(Deck $deck): Deck
     {
-        return $deck->load('cards');
+        return $deck->load('cards')->append(['subscription']);
     }
 
     /**

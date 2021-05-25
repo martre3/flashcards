@@ -12,7 +12,7 @@ import { AppState } from '../store/app.states';
 import { selectIsAuthenticated } from '../store/auth/auth.selectors';
 
 @Injectable()
-export class CanActivateRouteGuard implements CanActivate {
+export class CanActivateUnauthorizedRouteGuard implements CanActivate {
   isAuthenticated = false;
 
   constructor(private store: Store<AppState>, private router: Router) {
@@ -25,10 +25,10 @@ export class CanActivateRouteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.isAuthenticated) {
-      this.router.navigate(['/auth/login']);
+    if (this.isAuthenticated) {
+      this.router.navigate(['/decks']);
     }
 
-    return this.isAuthenticated;
+    return !this.isAuthenticated;
   }
 }

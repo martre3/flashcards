@@ -73,6 +73,12 @@ Route::middleware('auth:api')->group(function () {
             Route::get('', [\App\Http\Controllers\DeckController::class, 'get']);
             Route::patch('', [\App\Http\Controllers\DeckController::class, 'update']);
             Route::post('subscribe', [\App\Http\Controllers\UserDeckController::class, 'subscribeToDeck']);
+            Route::post('rate', [\App\Http\Controllers\UserDeckController::class, 'rate']);
+
+            Route::group(['prefix' => 'comments'], function () {
+                Route::get('', [\App\Http\Controllers\CommentController::class, 'list']);
+                Route::post('', [\App\Http\Controllers\CommentController::class, 'create']);
+            });
 
             Route::group(['prefix' => 'cards'], function () {
                 Route::post('', [\App\Http\Controllers\CardController::class, 'create']);

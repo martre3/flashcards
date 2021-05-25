@@ -5,6 +5,8 @@ import { Deck } from '../models/deck';
 import { PaginationOptions } from '../models/pagination/pagination-options';
 import { toHttpParams } from '../utils/to-http-params';
 import { Page } from '../models/pagination/page';
+import { DeckSubscription } from '../models/deck-subscription';
+import { Comment } from '../models/comment';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +50,18 @@ export class DecksService {
 
   unsubscribe(id: string, groupId: string = undefined): Observable<void> {
     return this.http.post<void>(`${this.getGroupOrDefaultUrl(id, groupId)}/unsubscribe`, {});
+  }
+
+  rate(id: string, rating: number): Observable<Deck> {
+    return this.http.post<Deck>(`/api/decks/${id}/rate`, { rating });
+  }
+
+  listComments(id: string): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`/api/decks/${id}/comments`);
+  }
+
+  createComment(id: string, comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(`/api/decks/${id}/comments`, { message: comment.message });
   }
 
   private getGroupOrDefaultUrl = (id: string, groupId: string = undefined): string =>

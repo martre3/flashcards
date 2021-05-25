@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { SocialAuthService } from 'angularx-social-login';
-import { of } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import {
   AuthActions,
   AuthActionTypes,
@@ -37,9 +37,18 @@ export class AuthEffects {
       ofType(AuthActionTypes.LOGIN),
       map(toPayload),
       switchMap((user: User) => this.authService.login(user)),
-      tap(() => this.router.navigate(['/decks'])),
       map((response) => new LoginSuccess(response))
     )
+  );
+
+  loginSuccess$ = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(AuthActionTypes.LOGIN_SUCCESS),
+        delay(250),
+        tap(() => this.router.navigate(['/decks']))
+      ),
+    { dispatch: false }
   );
 
   socialLogin$ = createEffect(() =>
@@ -94,8 +103,8 @@ export class AuthEffects {
   updateCurrentUser$ = createEffect(() =>
     this.actions.pipe(
       ofType(AuthActionTypes.UPDATE_CURRENT_USER),
-      switchMap(() => this.store.select(selectAuthenticationToken)),
-      filter((token) => !!token),
+      withLatestFrom(this.store.select(selectAuthenticationToken)),
+      filter(([_, token]) => !!token && token !== ''),
       switchMap(() => this.authService.me()),
       map((user) => new UpdateCurrentUserSuccess(user))
     )

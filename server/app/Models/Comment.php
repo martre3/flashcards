@@ -7,20 +7,18 @@ use Jenssegers\Mongodb\Relations\BelongsTo;
 
 /**
  * @property string $_id
- * @property Deck $deck
- * @property string $deckId
- * @property User $user
- * @property string $userId
- * @property bool $active
- * @property int $timesSubmitted
  */
-class UserDeckSubscription extends Model
+class Comment extends Model
 {
     /**
      * @var string[]
      */
     protected $fillable = [
-        'active', 'deckId', 'userId', 'rating',
+        'message',
+    ];
+
+    protected $with = [
+        'user',
     ];
 
     /**
@@ -36,6 +34,6 @@ class UserDeckSubscription extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(Group::class,'userId');
+        return $this->belongsTo(User::class,'userId');
     }
 }

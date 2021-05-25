@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -15,6 +15,7 @@ import { CardPopoverComponent } from './card-popover/card-popover.component';
 import { StudyComponent } from './study/study.component';
 import { ViewDeckComponent } from './view-deck/view-deck.component';
 import { RatingComponent } from './rating/rating.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,8 @@ import { RatingComponent } from './rating/rating.component';
     StudyComponent,
     ViewDeckComponent,
     RatingComponent,
+    CommentsComponent,
   ],
+  providers: [DecimalPipe],
 })
 export class DecksPageModule {}

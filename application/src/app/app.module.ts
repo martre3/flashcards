@@ -15,6 +15,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CoreStoreModule } from './store/store.module';
 import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
 import { getAuthServiceConfigs } from './config/get-auth-service-configs';
+import { CanActivateUnauthorizedRouteGuard } from './guards/CanActivateUnauthorizedRouteGuard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { getAuthServiceConfigs } from './config/get-auth-service-configs';
     StatusBar,
     SplashScreen,
     CanActivateRouteGuard,
+    CanActivateUnauthorizedRouteGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

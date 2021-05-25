@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { delay, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { delay, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { ToastController } from '@ionic/angular';
 import { DecksService } from '../../services/decks.service';
 import { DecksActions, DecksActionTypes } from './decks.actions';
 import { ToggleAssignToGroupPayload } from '../../models/store/toggle-assign-to-group.payload';
@@ -17,7 +19,8 @@ export class DecksEffects {
     private actions: Actions,
     private store: Store<AppState>,
     private router: Router,
-    private decksService: DecksService
+    private decksService: DecksService,
+    private toastController: ToastController
   ) {}
 
   list$ = createEffect(() =>
@@ -105,6 +108,52 @@ export class DecksEffects {
         switchMap(([deck, isSelectOpened, group]) =>
           this.decksService.unsubscribe(deck._id, isSelectOpened ? group._id : undefined)
         )
+      ),
+    { dispatch: false }
+  );
+
+  rate$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.rate),
+      withLatestFrom(this.store.select(fromDecks.selectCurrentDeck)),
+      switchMap(([payload, deck]) => this.decksService.rate(deck._id, payload.rating)),
+      map((subscription) => DecksActions.rateSuccess(subscription))
+    )
+  );
+
+  getComments$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.getComments),
+      withLatestFrom(this.store.select(fromDecks.selectCurrentDeck)),
+      switchMap(([_, deck]) => this.decksService.listComments(deck._id)),
+      map((comments) => DecksActions.getCommentsSuccess({ comments }))
+    )
+  );
+
+  createComment$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.createComment),
+      withLatestFrom(this.store.select(fromDecks.selectCurrentDeck)),
+      switchMap(([payload, deck]) => this.decksService.createComment(deck._id, payload)),
+      map((comment) => DecksActions.createCommentSuccess(comment))
+    )
+  );
+
+  commentSuccess$ = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(DecksActions.createCommentSuccess),
+        switchMap(() =>
+          fromPromise(
+            this.toastController.create({
+              message: 'Registration successful',
+              position: 'top',
+              color: 'success',
+              duration: 3000,
+            })
+          )
+        ),
+        map((toast) => toast.present())
       ),
     { dispatch: false }
   );

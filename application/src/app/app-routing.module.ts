@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
+import { CanActivateUnauthorizedRouteGuard } from './guards/CanActivateUnauthorizedRouteGuard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [CanActivateUnauthorizedRouteGuard],
   },
   {
     path: 'groups',

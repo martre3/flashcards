@@ -1,5 +1,6 @@
 import { Card } from './card';
 import { User } from './user';
+import { DeckSubscription } from './deck-subscription';
 
 export interface Deck {
   _id: string;
@@ -9,4 +10,7 @@ export interface Deck {
   owner: User;
   ownerId: string;
   totalCards: number;
+  rating: number;
+  totalRatings: number;
+  subscription: DeckSubscription;
 }

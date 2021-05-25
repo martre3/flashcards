@@ -28,6 +28,7 @@ export const authReducer = (state: AuthState = initialState, action: AuthActions
         ...state,
         isAuthenticated: true,
         jwt: (action as LoginSuccess).payload.jwt,
+        user: (action as LoginSuccess).payload.user,
       };
     case AuthActionTypes.UPDATE_CURRENT_USER_SUCCESS:
       return {

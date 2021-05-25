@@ -2,29 +2,31 @@
 <ion-content>
   <div class="content-wrapper">
     <div class="info-wrapper">
-      <div>
+      <ng-container *ngIf="deck">
         <div>
-          <ion-text style="font-weight: bold" color="light">{{ deck.title }}</ion-text>
+          <div>
+            <ion-text style="font-weight: bold" color="light">{{ deck.title }}</ion-text>
+          </div>
+          <div class="description">
+            <ion-text color="light">{{ deck.description }}</ion-text>
+          </div>
+          <div class="info-row">
+            <ion-text color="medium">{{ deck.totalCards }} cards</ion-text>
+            <ion-text color="medium">Owned by {{ deck.owner?.displayName }}</ion-text>
+          </div>
         </div>
-        <div class="description">
-          <ion-text color="light">{{ deck.description }}</ion-text>
+        <div class="ratings-container">
+          <app-rating [rating]="deck.rating" [totalVotes]="deck.totalRatings"></app-rating>
+          <div>
+            <ion-chip color="success" [outline]="deck.subscription?.rating === 1" (click)="rate(1)">
+              <ion-icon name="thumbs-up-sharp"></ion-icon>
+            </ion-chip>
+            <ion-chip color="danger" [outline]="deck.subscription?.rating === 0" (click)="rate(0)">
+              <ion-icon name="thumbs-down-sharp"></ion-icon>
+            </ion-chip>
+          </div>
         </div>
-        <div class="info-row">
-          <ion-text color="medium">{{ deck.totalCards }} cards</ion-text>
-          <ion-text color="medium">Owned by {{ deck.owner.displayName }}</ion-text>
-        </div>
-      </div>
-      <div class="ratings-container">
-        <app-rating [rating]="3"></app-rating>
-        <div>
-          <ion-chip color="success" [outline]="true">
-            <ion-icon name="thumbs-up-sharp" (click)="rate(1)"></ion-icon>
-          </ion-chip>
-          <ion-chip color="danger" [outline]="true">
-            <ion-icon name="thumbs-down-sharp" (click)="rate(-1)"></ion-icon>
-          </ion-chip>
-        </div>
-      </div>
+      </ng-container>
     </div>
     <div class="actions-wrapper">
       <ion-grid>
@@ -59,7 +61,7 @@
           </ion-col>
           <ion-col size="6">
             <ion-card>
-              <ion-card-content class="ion-text-center">Discussion</ion-card-content>
+              <ion-card-content class="ion-text-center" routerLink="/decks/{{ deck._id }}/comments">Discussion</ion-card-content>
             </ion-card>
           </ion-col>
         </ion-row>
