@@ -2,3 +2,10 @@ ion-card-content {
   display: flex;
   justify-content: space-between;
 }
+
+.no-entries-text {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 50px;
+}

@@ -74,6 +74,7 @@ Route::middleware('auth:api')->group(function () {
             Route::patch('', [\App\Http\Controllers\DeckController::class, 'update']);
             Route::post('subscribe', [\App\Http\Controllers\UserDeckController::class, 'subscribeToDeck']);
             Route::post('rate', [\App\Http\Controllers\UserDeckController::class, 'rate']);
+            Route::put('active', [\App\Http\Controllers\UserDeckController::class, 'setUserDeckActive']);
 
             Route::group(['prefix' => 'comments'], function () {
                 Route::get('', [\App\Http\Controllers\CommentController::class, 'list']);

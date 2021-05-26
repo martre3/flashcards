@@ -64,6 +64,10 @@ export class DecksService {
     return this.http.post<Comment>(`/api/decks/${id}/comments`, { message: comment.message });
   }
 
+  setActive(id: string, active: boolean): Observable<Deck> {
+    return this.http.put<Deck>(`/api/decks/${id}/active`, { active });
+  }
+
   private getGroupOrDefaultUrl = (id: string, groupId: string = undefined): string =>
     groupId ? `/api/groups/${groupId}/decks/${id}` : `/api/decks/${id}`;
 }

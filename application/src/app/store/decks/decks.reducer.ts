@@ -38,6 +38,7 @@ export const decksReducer = createReducer(
   on(DecksActions.create, (state) => ({ ...state, isLoading: true })),
   on(DecksActions.createSuccess, (state) => ({ ...state, isLoading: false })),
   on(DecksActions.listSuccess, (state, page) => ({ ...state, decks: page, isLoading: false })),
+  on(DecksActions.setLoad, (state) => ({ ...state, isLoading: true })),
   on(DecksActions.toggleAssignToGroup, (state, payload) => ({
     ...state,
     isAssignToGroupOpen: payload.open,

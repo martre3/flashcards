@@ -28,6 +28,9 @@ export enum DecksActionTypes {
   GET_COMMENTS_SUCCESS = '[DECKS] GET_COMMENTS_SUCCESS',
   CREATE_COMMENT = '[DECKS] CREATE_COMMENT',
   CREATE_COMMENT_SUCCESS = '[DECKS] CREATE_COMMENT_SUCCESS',
+  SET_LOAD = '[DECKS] SET_LOAD',
+  SET_ACTIVE = '[DECKS] SET_ACTIVE',
+  SET_ACTIVE_SUCCESS = '[DECKS] SET_ACTIVE_SUCCESS',
 }
 
 export const DecksActions = {
@@ -60,4 +63,7 @@ export const DecksActions = {
   ),
   createComment: createAction(DecksActionTypes.CREATE_COMMENT, props<Comment>()),
   createCommentSuccess: createAction(DecksActionTypes.CREATE_COMMENT_SUCCESS, props<Comment>()),
+  setLoad: createAction(DecksActionTypes.SET_LOAD),
+  setActive: createAction(DecksActionTypes.SET_ACTIVE, props<{ active: boolean }>()),
+  setActiveSuccess: createAction(DecksActionTypes.SET_ACTIVE_SUCCESS, props<Deck>()),
 };

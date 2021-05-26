@@ -3,10 +3,10 @@ import { filter, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Deck } from '../../../models/deck';
-import { User } from '../../../models/user';
 import { DecksActions } from '../../../store/decks/decks.actions';
 import { AppState } from '../../../store/app.states';
 import { fromDecks } from '../../../store/decks/decks.selectors';
+import { DecksService } from '../../../services/decks.service';
 
 @Component({
   selector: 'app-view-deck',
@@ -17,17 +17,6 @@ export class ViewDeckComponent implements OnInit {
   id: string;
 
   deck: Deck;
-
-  // deck: Deck = {
-  //   title: 'English / Lithuanian',
-  //   totalCards: 5,
-  //   description:
-  //     'A Study set containing basic english word. Ideal for beginners. Mokymosi rinkinys skirtas mokintis anglų kalbą. Atsakymai lietuvių kalba.',
-  //   owner: {
-  //     name: 'Martynas Treinys',
-  //     displayName: 'martre3',
-  //   } as User,
-  // } as Deck;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
@@ -46,5 +35,13 @@ export class ViewDeckComponent implements OnInit {
 
   rate = (rating: number): void => {
     this.store.dispatch(DecksActions.rate({ rating }));
+  };
+
+  active = (): void => {
+    this.store.dispatch(
+      DecksActions.setActive({
+        active: this.deck.subscription ? !this.deck.subscription.active : true,
+      })
+    );
   };
 }

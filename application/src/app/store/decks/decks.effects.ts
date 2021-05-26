@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { delay, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { delay, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { fromPromise } from 'rxjs/internal-compatibility';
@@ -26,7 +26,7 @@ export class DecksEffects {
   list$ = createEffect(() =>
     this.actions.pipe(
       ofType(DecksActionTypes.LIST),
-      delay(1500),
+      delay(900),
       switchMap((options) => this.decksService.list(options)),
       switchMap((page) => [DecksActions.listSuccess(page), DecksActions.getSubscriptions()])
     )
@@ -156,5 +156,24 @@ export class DecksEffects {
         map((toast) => toast.present())
       ),
     { dispatch: false }
+  );
+
+  setActive$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.setActive),
+      withLatestFrom(this.store.select(fromDecks.selectCurrentDeck)),
+      switchMap(([payload, deck]) => this.decksService.setActive(deck._id, payload.active)),
+      tap((deck) =>
+        fromPromise(
+          this.toastController.create({
+            message: `This deck is now ${deck.subscription.active ? 'Active' : 'Inactive'}`,
+            position: 'top',
+            color: 'success',
+            duration: 3000,
+          })
+        ).subscribe((toast) => toast.present())
+      ),
+      map((deck) => DecksActions.getSuccess(deck))
+    )
   );
 }

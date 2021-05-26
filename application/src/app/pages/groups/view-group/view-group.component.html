@@ -1,5 +1,5 @@
 <app-main-header [ellipsis]="true"></app-main-header>
-<ion-content>
+<ion-content *ngIf="group">
   <app-tabs [tabs]="tabs" (tabChanged)="changeTab($event)"></app-tabs>
   <ion-slides pager="false" [options]="slideOpts">
     <ion-slide>

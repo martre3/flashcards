@@ -81,6 +81,23 @@ class UserDeckController extends Controller
         return response()->json([], 204);
     }
 
+    public function setUserDeckActive(Request $request, Deck $deck) {
+        $sub = $deck->subscriptions()
+            ->where('userId', '=', $request->user()->id)
+            ->first();
+
+        if ($sub) {
+            $sub->update(['active' => $request->get('active')]);
+        } else {
+            UserDeckSubscription::create(['active' => $request->get('active'), 'userId' => $request->user()->id, 'deckId' => $deck->id]);
+//            $deck->subscriptions()->create(['active' => $request->get('active'), 'userId' => $request->user()->id]);
+        }
+
+//        dd($deck->subscriptions()->where('userId', '=', $request->user()->id)->count());
+
+        return $deck->refresh()->append(['subscription']);
+    }
+
     public function rate(RateDeckRequest $request, Deck $deck)
     {
         $subscription = $deck->subscriptions()

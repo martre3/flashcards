@@ -1,17 +1,33 @@
 <app-main-header add="/decks/new">Decks</app-main-header>
 <ion-content>
-  <app-tabs [tabs]="['Active', 'All', 'Find']" (tabChanged)="activeTab = $event"></app-tabs>
-  <ion-card *ngFor="let deck of decksToRender" routerLink="/decks/{{ deck._id }}">
-    <ion-card-header>
-      <ion-skeleton-text *ngIf="isLoading" style="width: 60%" animated></ion-skeleton-text>
-      <ion-text *ngIf="!isLoading">{{ deck.title }}</ion-text>
-    </ion-card-header>
+  <app-tabs [tabs]="['Active', 'All', 'Find']" (tabChanged)="setTab($event)"></app-tabs>
+  <ion-card *ngIf="activeTab === 'Find'">
     <ion-card-content>
-      <ion-skeleton-text *ngIf="isLoading" animated style="width: 20%"></ion-skeleton-text>
-      <app-rating *ngIf="!isLoading" [rating]="deck.rating" [showInfo]="false"></app-rating>
-      <ion-text *ngIf="!isLoading">{{ deck.totalCards }} Cards</ion-text>
+      <ion-input placeholder="Search" [(ngModel)]="query" (ngModelChange)="search()">
+        <ion-icon style="font-size: 24px" name="search-sharp"></ion-icon>
+      </ion-input>
     </ion-card-content>
   </ion-card>
+  <ng-container *ngIf="activeTab !== 'Find' || query.length > 0">
+    <ion-card *ngFor="let deck of decksToRender" routerLink="/decks/{{ deck._id }}">
+      <ion-card-header>
+        <ion-skeleton-text *ngIf="isLoading" style="width: 60%" animated></ion-skeleton-text>
+        <ion-text *ngIf="!isLoading">{{ deck.title }}</ion-text>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text *ngIf="isLoading" animated style="width: 20%"></ion-skeleton-text>
+        <app-rating *ngIf="!isLoading" [rating]="deck.rating" [showInfo]="false"></app-rating>
+        <ion-text *ngIf="!isLoading">{{ deck.totalCards }} Cards</ion-text>
+      </ion-card-content>
+    </ion-card>
+    <ion-text
+      *ngIf="!isLoading && decksToRender.length === 0"
+      class="no-entries-text"
+      color="medium"
+    >
+      No results
+    </ion-text>
+  </ng-container>
   <ion-fab vertical="top" horizontal="end" slot="fixed">
   </ion-fab>
 </ion-content>

@@ -24,9 +24,9 @@ class DeckController extends Controller
     /**
      * @return LengthAwarePaginator
      */
-    public function list(): LengthAwarePaginator
+    public function list(Request $request): LengthAwarePaginator
     {
-        return $this->deckRepository->listPage();
+        return $this->deckRepository->listPage($request->query->get('tab'), $request->user()->id, $request->query->get('query'));
     }
 
     /**
