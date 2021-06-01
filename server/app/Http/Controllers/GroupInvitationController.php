@@ -54,7 +54,15 @@ class GroupInvitationController extends Controller
         if (!$user) {
             return response()->json(['errors' => ['identifier' => ['User does not exist']]], 422);
         }
-        
+
+        if ($group->invitations()->where('inviteeId', '=', $user->_id)->count() > 0) {
+            return response()->json(['errors' => ['identifier' => ['Cannot invite again']]], 422);
+        }
+
+        if ($group->members()->where('_id', '=', $user->_id)->count() > 0) {
+            return response()->json(['errors' => ['identifier' => ['Already member']]], 422);
+        }
+
         $invitation->group()->associate($group);
         $invitation->owner()->associate($request->user());
 

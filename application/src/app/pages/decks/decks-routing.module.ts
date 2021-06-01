@@ -7,6 +7,7 @@ import { FormState } from '../../models/types/form-state';
 import { StudyComponent } from './study/study.component';
 import { ViewDeckComponent } from './view-deck/view-deck.component';
 import { CommentsComponent } from './comments/comments.component';
+import {AssignComponent} from "./assign/assign.component";
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: ':id/comments',
     component: CommentsComponent,
+  },
+  {
+    path: ':id/assign',
+    component: AssignComponent,
   },
 ];
 

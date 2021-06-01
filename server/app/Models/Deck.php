@@ -102,6 +102,6 @@ class Deck extends Model
     {
         return $this->subscriptions()
             ->where('rating', '=', 1)
-            ->sum('rating') / ($this->totalRatings > 0 ? $this->totalRatings : 1);
+            ->sum('rating') / ($this->totalRatings > 0 ? $this->totalRatings : 1) * 5;
     }
 }

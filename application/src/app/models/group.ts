@@ -4,4 +4,5 @@ export interface Group {
   deckIds: string[];
   membersCount: number;
   deckCount: number;
+  assigned: boolean;
 }

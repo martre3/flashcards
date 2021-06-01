@@ -1,14 +1,16 @@
 <app-main-header></app-main-header>
 <ion-content>
-      <form [formGroup]="form">
+    <form [formGroup]="form">
         <ion-card>
-          <ion-card-content>
-            <ion-item>
-              <ion-label position="stacked">Title</ion-label>
-              <ion-input formControlName="title"></ion-input>
-            </ion-item>
-          </ion-card-content>
+            <ion-card-content>
+                <ion-item>
+                    <ion-label position="stacked">Title</ion-label>
+                    <ion-input formControlName="title"></ion-input>
+                </ion-item>
+            </ion-card-content>
         </ion-card>
-        <ion-button (click)="saveOrUpdate()">Save</ion-button>
-      </form>
+        <ion-row>
+            <ion-button style="margin: 10px; width: 100%;" (click)="saveOrUpdate()">Save</ion-button>
+        </ion-row>
+    </form>
 </ion-content>

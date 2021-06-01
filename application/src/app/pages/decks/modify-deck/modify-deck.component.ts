@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { delay, filter, switchMap, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { IonSlides } from '@ionic/angular';
-import { of } from 'rxjs';
+import {from, of} from 'rxjs';
 import { DecksService } from '../../../services/decks.service';
 import { FormState } from '../../../models/types/form-state';
 import { Card } from '../../../models/card';
@@ -55,6 +55,9 @@ export class ModifyDeckComponent implements OnInit {
       }
     });
 
+    this.store.select(fromDecks.selectCurrentDeck)
+        .subscribe((deck) => this.id = deck._id);
+
     this.store
       .select(fromDecks.selectIsLoading)
       .subscribe((isLoading) => (this.isLoading = isLoading));
@@ -81,6 +84,10 @@ export class ModifyDeckComponent implements OnInit {
   }
 
   onCardUpdated(event: CardUpdatedEvent, card: Card, isLast: boolean): void {
+    if (!event) {
+      return;
+    }
+
     switch (event.type) {
       case 'type-changed':
         break;

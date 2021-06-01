@@ -1,4 +1,4 @@
-<app-main-header [back]="true" [ellipsis]="true"></app-main-header>
+<app-main-header [back]="true" [ellipsis]="true" editLink="/decks/{{ deck._id }}/edit" [delete]="true"></app-main-header>
 <ion-content>
   <div class="content-wrapper">
     <div class="info-wrapper">
@@ -32,7 +32,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="12">
-            <ion-card>
+            <ion-card routerLink="/decks/{{deck._id}}/study">
               <ion-card-content class="ion-text-center">
                 <ion-text style="font-weight: bold">Study</ion-text>
               </ion-card-content>
@@ -41,7 +41,7 @@
         </ion-row>
         <ion-row>
           <ion-col size="7">
-            <ion-card>
+            <ion-card routerLink="/decks/{{ deck._id}}/assign">
               <ion-card-content class="ion-text-center">
                 <ion-text>Assign to group</ion-text>
               </ion-card-content>

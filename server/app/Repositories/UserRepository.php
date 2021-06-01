@@ -19,7 +19,7 @@ class UserRepository
         return User::query()
             ->where('id', '=', $identifier)
             ->orWhere('email', '=', $identifier)
-            ->orWhere('username', '=', $identifier)
+            ->orWhere('displayName', '=', $identifier)
             ->first();
     }
 

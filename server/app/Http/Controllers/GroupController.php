@@ -62,6 +62,8 @@ class GroupController extends Controller
     {
         $group->fill($request->validated());
         $request->user()->ownedGroups()->save($group);
+        $group->members()->attach($request->user()->_id);
+        $group->save();
 
         return $group;
     }
@@ -73,6 +75,8 @@ class GroupController extends Controller
      */
     public function listGroupDecks(Group $group): LengthAwarePaginator
     {
+//        dd($this->repository->associateDecks($group->_id, ['60add31e6c6c000092001824'])->refresh()->load('decks'));
+
         return $group->decks()->with('deck')->orderByDesc('active')->paginate();
     }
 

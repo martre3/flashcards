@@ -1,8 +1,14 @@
 <ng-container *ngIf="groupDecks">
-  <ion-card *ngFor="let groupDeck of groupDecks.data">
-    <ion-card-content *ngIf="groupDeck.deck">
+  <ion-button style="margin: 10px; width: 90%" routerLink="/decks">Add</ion-button>
+  <ion-card *ngFor="let groupDeck of groupDecks.data" style="width: 100%">
+    <ion-card-content *ngIf="groupDeck.deck" style="text-align: left">
       {{ groupDeck.deck.title }}
-      <ion-button (click)="toggleActive(groupDeck.deck)">{{ groupDeck.active ? 'Not' : 'Active' }}</ion-button>
+      <ion-icon
+              class="member-actions"
+              style="position: absolute; right: 20px"
+              size="small"
+              name="ellipsis-vertical-sharp"
+      ></ion-icon>
     </ion-card-content>
   </ion-card>
 </ng-container>

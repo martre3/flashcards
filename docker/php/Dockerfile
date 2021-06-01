@@ -31,8 +31,8 @@ RUN \
 # && apk del buildDeps
 
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS
-RUN pecl install xdebug \
- && docker-php-ext-enable xdebug
+# RUN pecl install xdebug \
+#  && docker-php-ext-enable xdebug
 
 #RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community mysqli php8-pdo pdo pdo_mysql php8-mysql
 RUN apk add mysql-client
@@ -47,10 +47,13 @@ RUN set -ex \
 #RUN docker-php-ext-install mysqli pdo_pgsql
 #RUN docker-php-ext-install pdo_mysql
 #RUN docker-php-ext-enable pdo_mysql
-#RUN mkdir -p /usr/src/php/ext/mongodb \
-#    && curl -fsSL https://pecl.php.net/get/mongodb | tar xvz -C "/usr/src/php/ext/mongodb" --strip 1 \
-#    && docker-php-ext-install mongodb
-RUN pickle install mongodb && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongo.ini
+RUN mkdir -p /usr/src/php/ext/mongodb \
+   && curl -fsSL https://pecl.php.net/get/mongodb | tar xvz -C "/usr/src/php/ext/mongodb" --strip 1 \
+   && docker-php-ext-install mongodb
+
+# buvo
+# RUN pickle install mongodb && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongo.ini
+
 #RUN echo "extension=mysql_pdo.so" >> /usr/local/etc/php/conf.d/mongo.ini
 #RUN pecl upgrade mongodb-1.9.0 && docker-php-ext-enable mongodb && echo "extension=mongodb.so" >> /usr/local/etc/php/php.ini
 

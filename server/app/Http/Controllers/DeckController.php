@@ -6,6 +6,7 @@ use App\Http\Requests\DeckRequest;
 use App\Http\Requests\SetGroupDecksRequest;
 use App\Models\Deck;
 use App\Models\Group;
+use App\Models\UserDeckSubscription;
 use App\Repositories\DeckRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -49,6 +50,10 @@ class DeckController extends Controller
     {
         $deck->fill($request->validated());
         $request->user()->ownedDecks()->save($deck);
+        UserDeckSubscription::create([
+            'deckId' => $deck->id,
+            'userId' => $request->user()->id,
+        ]);
 
         return $deck;
     }

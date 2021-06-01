@@ -3,4 +3,5 @@ export interface Page<T> {
   data: T[];
   from: number;
   lastPage: number;
+  total: number;
 }

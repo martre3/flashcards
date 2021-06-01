@@ -46,4 +46,8 @@ export class GroupsService {
       active,
     });
   }
+
+  assign(id: string): Observable<void> {
+    return
+  }
 }

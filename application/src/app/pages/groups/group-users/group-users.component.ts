@@ -35,6 +35,7 @@ export class GroupUsersComponent implements OnInit {
   slideOpts = {
     initialSlide: 0,
     speed: 400,
+
   };
 
   colorMap = {

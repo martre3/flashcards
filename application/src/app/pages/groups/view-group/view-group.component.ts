@@ -5,7 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { IonSlides } from '@ionic/angular';
 import { GroupsActions } from '../../../store/groups/groups.actions';
-import { selectActiveGroup } from '../../../store/groups/groups.selectors';
+import {fromGroup, selectActiveGroup} from '../../../store/groups/groups.selectors';
 import { GetGroupInvites } from '../../../store/group-invitations/group-invitations.actions';
 import { AppState } from '../../../store/app.states';
 import { Group } from '../../../models/group';
@@ -24,6 +24,7 @@ export class ViewGroupComponent implements OnInit {
 
   activeTab = 'Info';
   group: Group;
+
 
   slideOpts = {
     initialSlide: 0,

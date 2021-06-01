@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 Route::middleware('api')->group(function () {
     Route::group(['prefix' => 'auth'], function () {

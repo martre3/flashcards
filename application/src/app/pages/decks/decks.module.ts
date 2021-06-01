@@ -16,6 +16,7 @@ import { StudyComponent } from './study/study.component';
 import { ViewDeckComponent } from './view-deck/view-deck.component';
 import { RatingComponent } from './rating/rating.component';
 import { CommentsComponent } from './comments/comments.component';
+import {AssignComponent} from "./assign/assign.component";
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { CommentsComponent } from './comments/comments.component';
     StudyComponent,
     ViewDeckComponent,
     RatingComponent,
+    AssignComponent,
     CommentsComponent,
   ],
   providers: [DecimalPipe],

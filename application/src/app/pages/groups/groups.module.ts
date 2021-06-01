@@ -12,6 +12,7 @@ import { GroupDecksComponent } from './group-decks/group-decks.component';
 import { GroupUsersComponent } from './group-users/group-users.component';
 import { ViewGroupComponent } from './view-group/view-group.component';
 import { GroupInfoComponent } from './group-info/group-info.component';
+import {AssignComponent} from "../decks/assign/assign.component";
 
 @NgModule({
   imports: [

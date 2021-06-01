@@ -92,7 +92,7 @@ return [
         ],
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => 'mongodb://user@db:27017',
+            'dsn' => 'mongodb+srv://flashcards@cluster0.qil8g.mongodb.net/flashcards?retryWrites=true&w=majority',
 //            'dsn' => 'mongodb://user@db:27017',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', 27017),
