@@ -1,0 +1,14 @@
+<app-main-header [back]="true"></app-main-header>
+<ion-content>
+  <ng-container>
+    <ion-card *ngFor="let group of groups">
+      <ion-card-header>
+        <ion-skeleton-text *ngIf="isLoading" style="width: 40%" animated></ion-skeleton-text>
+        <ion-text *ngIf="!isLoading">{{ group.title }}</ion-text>
+      </ion-card-header>
+      <ion-button *ngIf="!isLoading" style="margin: 10px;" (click)="c(group)">{{ !!group.assigned ? 'Remove' : 'Assign' }}</ion-button>
+    </ion-card>
+  </ng-container>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  </ion-fab>
+</ion-content>
