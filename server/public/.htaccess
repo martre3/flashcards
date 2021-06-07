@@ -3,9 +3,9 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    php_flag xcache.cacher Off
-    php_flag xcache.size 0
-    php_flag xcache.stat Off
+#    php_flag xcache.cacher Off
+#    php_flag xcache.size 0
+#    php_flag xcache.stat Off
 
     RewriteEngine On
     # Handle Authorization Header
