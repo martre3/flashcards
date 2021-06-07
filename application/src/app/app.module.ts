@@ -16,6 +16,7 @@ import { CoreStoreModule } from './store/store.module';
 import { CanActivateRouteGuard } from './guards/CanActivateRouteGuard';
 import { getAuthServiceConfigs } from './config/get-auth-service-configs';
 import { CanActivateUnauthorizedRouteGuard } from './guards/CanActivateUnauthorizedRouteGuard';
+import {APIInterceptor} from "./interceptors/api.interceptor";
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,11 @@ import { CanActivateUnauthorizedRouteGuard } from './guards/CanActivateUnauthori
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIInterceptor,
       multi: true,
     },
     {

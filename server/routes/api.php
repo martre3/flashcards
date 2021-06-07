@@ -3,6 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
+Route::get('test', function () {
+    return [\App\Http\Controllers\AuthController::class, 'login'];
+});
+
+Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+    Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
+    Route::post('access', [\App\Http\Controllers\AuthController::class, 'access']);
+});
+
 Route::middleware('api')->group(function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
