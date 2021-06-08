@@ -26,7 +26,7 @@ export class DecksEffects {
   list$ = createEffect(() =>
     this.actions.pipe(
       ofType(DecksActionTypes.LIST),
-      delay(900),
+      delay(450),
       switchMap((options) => this.decksService.list(options)),
       switchMap((page) => [DecksActions.listSuccess(page), DecksActions.getSubscriptions()])
     )

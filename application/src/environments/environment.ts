@@ -7,8 +7,8 @@ export const environment = {
   authProviders: {
     google: '719415242187-pj49irrldtcccud8grvbvkh9t6p41sf8.apps.googleusercontent.com',
   },
-  // api: 'http://localhost:4200',
-  api: 'https://martre3-flashcards.herokuapp.com',
+  api: 'http://localhost:4200',
+  // api: 'https://martre3-flashcards.herokuapp.com',
 };
 
 /*

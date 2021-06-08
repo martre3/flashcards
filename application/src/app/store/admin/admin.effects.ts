@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.states';
 import { AdminActions } from './admin.actions';
-import { fromDecks } from '../decks/decks.selectors';
 import { BoxService } from '../../services/box.service';
 
 @Injectable()
@@ -15,12 +14,29 @@ export class AdminEffects {
     private store: Store<AppState>
   ) {}
 
-  createBox$ = createEffect(
+  list = createEffect(() =>
+    this.actions.pipe(
+      ofType(AdminActions.listBoxes),
+      switchMap(() => this.boxService.list()),
+      // map((card) => AdminActions.getCardSuccess({ card }))
+      map((boxes) => AdminActions.listBoxesSuccess({ boxes }))
+    )
+  );
+
+  createBox$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(AdminActions.createBox),
+      switchMap(() => this.boxService.create()),
+      // map((card) => AdminActions.getCardSuccess({ card }))
+      map(() => AdminActions.listBoxes())
+    )
+  );
+
+  save$ = createEffect(
     () =>
       this.actions.pipe(
-        ofType(AdminActions.createBox),
-        withLatestFrom(this.store.select(fromDecks.selectCurrentDeck)),
-        switchMap(([, deck]) => this.boxService.create())
+        ofType(AdminActions.save),
+        switchMap((box) => this.boxService.save(box))
         // map((card) => AdminActions.getCardSuccess({ card }))
       ),
     { dispatch: false }

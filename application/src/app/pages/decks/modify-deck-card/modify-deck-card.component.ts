@@ -98,7 +98,9 @@ export class ModifyDeckCardComponent {
     this.group = this.fb.group({
       question: this.fb.control(''),
       type: this.fb.control(''),
-      possibleAnswers: this.fb.array([]),
+      possibleAnswers: this.card?.possibleAnswers
+        ? this.fb.array(this.card.possibleAnswers.map((a) => this.fb.control(a)))
+        : this.fb.array([]),
       correctAnswers: this.fb.array(
         this.card?.correctAnswers.length === 0
           ? [this.fb.control('')]
@@ -142,9 +144,23 @@ export class ModifyDeckCardComponent {
   }
 
   setTest(e: { detail: { checked: boolean } }, answer: FormControl): void {
-    (this.group.controls.possibleAnswers as FormArray).controls = [answer];
+    if (e.detail.checked) {
+      (this.group.controls.possibleAnswers as FormArray).push(answer);
+    } else {
+      (this.group.controls.possibleAnswers as FormArray).removeAt(
+        (this.group.controls.possibleAnswers as FormArray).controls.findIndex(
+          (c) => c.value === answer.value
+        )
+      );
+    }
 
     this.save();
+  }
+
+  isChecked(answer: FormControl): boolean {
+    return (this.group.controls.possibleAnswers as FormArray).controls.some(
+      (c) => c.value === answer.value
+    );
   }
 
   trackAnswerBy = (index: number): number => index;

@@ -17,11 +17,21 @@ class BoxController extends Controller
 {
     public function __construct(private BoxRepository $boxRepository) {}
 
+    public function list()
+    {
+        return Box::query()->orderBy('order')->get();
+    }
+
     /**
      * @return JsonResponse
      */
     public function create(Request $request, Box $box)
     {
-        $box->fill(['interval' => 1, 'order' => 1])->save();
+        return $box->fill(['interval' => 1, 'order' => 1])->save();
+    }
+
+    public function update(Request $request, Box $box)
+    {
+        return $box->update($request->toArray());
     }
 }

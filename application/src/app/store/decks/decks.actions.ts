@@ -31,6 +31,7 @@ export enum DecksActionTypes {
   SET_LOAD = '[DECKS] SET_LOAD',
   SET_ACTIVE = '[DECKS] SET_ACTIVE',
   SET_ACTIVE_SUCCESS = '[DECKS] SET_ACTIVE_SUCCESS',
+  OPEN_NEW_DECK = '[DECKS] OPEN_NEW_DECK',
 }
 
 export const DecksActions = {
@@ -38,6 +39,7 @@ export const DecksActions = {
   getSuccess: createAction(DecksActionTypes.GET_SUCCESS, props<Deck>()),
   list: createAction(DecksActionTypes.LIST, props<PaginationOptions>()),
   listSuccess: createAction(DecksActionTypes.LIST_SUCCESS, props<Page<Deck>>()),
+  openNewDeck: createAction(DecksActionTypes.OPEN_NEW_DECK),
   create: createAction(DecksActionTypes.CREATE, props<Deck>()),
   createSuccess: createAction(DecksActionTypes.CREATE_SUCCESS, props<Deck>()),
   toggleAssignToGroup: createAction(

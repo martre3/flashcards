@@ -26,14 +26,15 @@ export class StudyEffects {
     )
   );
 
-  submit$ = createEffect(() =>
-    this.actions.pipe(
-      ofType(StudyActions.submit),
-      withLatestFrom(this.store.select(fromStudy.selectCard)),
-      switchMap(([payload, card]) =>
-        this.studyService.submit(card._id, card.deckId, payload.answers)
+  submit$ = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(StudyActions.submit),
+        withLatestFrom(this.store.select(fromStudy.selectCard)),
+        switchMap(([payload, card]) =>
+          this.studyService.submit(card._id, card.deckId, payload.answers)
+        )
       ),
-      map(() => StudyActions.getCard())
-    )
+    { dispatch: false }
   );
 }

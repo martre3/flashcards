@@ -64,7 +64,7 @@ export class GroupInvitationsEffects {
     this.actions.pipe(
       ofType(GroupInvitationsActionTypes.GET_USER_LIST),
       map(toPayload),
-      delay(1500),
+      delay(500),
       switchMap((payload: GetPagePayload) =>
         this.groupInvitationService.getUser(payload.userId, payload.options)
       ),

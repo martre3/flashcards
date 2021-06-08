@@ -1,11 +1,13 @@
 <div
   class="answer {{ getColor() }}"
   [ngClass]="{'active': active}"
+  (click)="clickToCheck && (isChecked = !isChecked)"
 >
   <ion-checkbox
     *ngIf="showCheckbox"
-    color="primary"
+    [color]="showColors ? getColor() : 'primary'"
     (click)="$event.stopPropagation()"
+    [checked]="isChecked"
     (ionChange)="check.emit($event)"
   ></ion-checkbox>
   <ion-text [color]="getColor()">{{ label }}</ion-text>

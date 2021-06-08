@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {delay, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import { delay, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { toPayload } from '../store-utils';
 import {
   GroupsActionTypes,
@@ -19,7 +20,6 @@ import { AppState } from '../app.states';
 import { fromDecks } from '../decks/decks.selectors';
 import { selectActiveGroup } from './groups.selectors';
 import { GetPayload } from '../../models/store/get.payload';
-import {Router} from "@angular/router";
 
 @Injectable()
 export class GroupsEffects {
@@ -27,7 +27,7 @@ export class GroupsEffects {
     private actions: Actions,
     private store: Store<AppState>,
     private groupsService: GroupsService,
-    private router: Router,
+    private router: Router
   ) {}
 
   create$ = createEffect(() =>
@@ -39,18 +39,20 @@ export class GroupsEffects {
     )
   );
 
-  successs$ = createEffect(() =>
+  successs$ = createEffect(
+    () =>
       this.actions.pipe(
-          ofType(GroupsActionTypes.CREATE_SUCCESS),
-          map(toPayload),
-          tap((group: Group) => this.router.navigate([`/groups/${group._id}`])),
-      ), {dispatch: false}
+        ofType(GroupsActionTypes.CREATE_SUCCESS),
+        map(toPayload),
+        tap((group: Group) => this.router.navigate([`/groups/${group._id}`]))
+      ),
+    { dispatch: false }
   );
 
   listGroups$ = createEffect(() =>
     this.actions.pipe(
       ofType(GroupsActionTypes.LIST),
-      delay(1500),
+      delay(500),
       switchMap((options: PaginationOptions) => this.groupsService.list(options)),
       map((page) => listReceived(page))
     )

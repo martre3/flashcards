@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { delay, filter, switchMap, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { IonSlides } from '@ionic/angular';
-import {from, of} from 'rxjs';
+import { from, of } from 'rxjs';
 import { DecksService } from '../../../services/decks.service';
 import { FormState } from '../../../models/types/form-state';
 import { Card } from '../../../models/card';
@@ -51,12 +51,14 @@ export class ModifyDeckComponent implements OnInit {
       this.state = data.state;
 
       if (this.state === FormState.Create) {
-        this.addNewCard();
+        this.store.dispatch(DecksActions.openNewDeck());
       }
     });
 
-    this.store.select(fromDecks.selectCurrentDeck)
-        .subscribe((deck) => this.id = deck._id);
+    this.store
+      .select(fromDecks.selectCurrentDeck)
+      .pipe(tap((deck) => console.log(deck)))
+      .subscribe((deck) => (this.id = deck?._id));
 
     this.store
       .select(fromDecks.selectIsLoading)
@@ -73,9 +75,9 @@ export class ModifyDeckComponent implements OnInit {
         this.deck.patchValue(deck);
         this.cards = [...deck.cards];
 
-        if (this.cards.length > 0) {
-          this.addNewCard();
-        }
+        // if (this.cards.length > 0) {
+        //   this.addNewCard();
+        // }
       });
   }
 

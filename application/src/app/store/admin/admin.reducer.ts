@@ -1,13 +1,14 @@
-import { createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { restoreState } from '../store-utils';
-import { Card } from '../../models/card';
+import { Box } from '../../models/box';
+import { AdminActions } from './admin.actions';
 
 export interface AdminState {
-  card: Card;
+  boxes: Box[];
 }
 
 const initialStateTemplate: AdminState = {
-  card: undefined,
+  boxes: [],
 };
 
 const initialState: AdminState = restoreState<AdminState>(
@@ -17,6 +18,6 @@ const initialState: AdminState = restoreState<AdminState>(
 );
 
 export const adminReducer = createReducer(
-  initialState
-  // on(AdminActions.getCardSuccess, (state, payload) => ({ ...state, card: payload.card }))
+  initialState,
+  on(AdminActions.listBoxesSuccess, (state, payload) => ({ ...state, boxes: payload.boxes }))
 );

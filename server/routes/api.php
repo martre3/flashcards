@@ -117,6 +117,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => 'boxes'], function () {
         Route::post('', [\App\Http\Controllers\BoxController::class, 'create']);
+        Route::get('', [\App\Http\Controllers\BoxController::class, 'list']);
+        Route::put('{box}', [\App\Http\Controllers\BoxController::class, 'update']);
     });
 });
 

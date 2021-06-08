@@ -36,7 +36,11 @@ export const decksReducer = createReducer(
   on(DecksActions.getSuccess, (state, deck) => ({ ...state, deck, isLoading: false })),
   on(DecksActions.list, (state) => ({ ...state, isLoading: true })),
   on(DecksActions.create, (state) => ({ ...state, isLoading: true })),
-  on(DecksActions.createSuccess, (state) => ({ ...state, isLoading: false })),
+  on(DecksActions.createSuccess, (state, deck) => ({
+    ...state,
+    isLoading: false,
+    deck: { ...deck },
+  })),
   on(DecksActions.listSuccess, (state, page) => ({ ...state, decks: page, isLoading: false })),
   on(DecksActions.setLoad, (state) => ({ ...state, isLoading: true })),
   on(DecksActions.toggleAssignToGroup, (state, payload) => ({
@@ -63,5 +67,9 @@ export const decksReducer = createReducer(
   on(DecksActions.getCommentsSuccess, (state, action) => ({
     ...state,
     comments: [...action.comments],
+  })),
+  on(DecksActions.openNewDeck, (state) => ({
+    ...state,
+    deck: undefined,
   }))
 );

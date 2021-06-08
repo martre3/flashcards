@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import {ActionSheetController} from "@ionic/angular";
-import {Route, Router} from "@angular/router";
+import { ActionSheetController } from '@ionic/angular';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-header',
@@ -16,19 +16,22 @@ export class MainHeaderComponent {
   @Input() editLink: string;
   @Input() delete: boolean;
 
-  constructor(private location: Location, public actionSheetController: ActionSheetController, private router: Router) {}
-
+  constructor(
+    private location: Location,
+    public actionSheetController: ActionSheetController,
+    private router: Router
+  ) {}
 
   async presentActionSheet() {
-    let buttons = [];
+    const buttons = [];
 
     if (this.editLink) {
       buttons.push({
         text: 'Edit',
         handler: () => {
           this.router.navigate([this.editLink]);
-        }
-      })
+        },
+      });
     }
 
     if (this.delete) {
@@ -36,13 +39,13 @@ export class MainHeaderComponent {
         text: 'Delete',
         handler: () => {
           this.router.navigate(['/groups']);
-        }
-      })
+        },
+      });
     }
 
     const actionSheet = await this.actionSheetController.create({
       header: 'Actions',
-      buttons: buttons,
+      buttons,
     });
     await actionSheet.present();
   }

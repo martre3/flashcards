@@ -4,7 +4,24 @@
     <ion-card-header>
       <ion-card-title>{{ card.question }}</ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="answers.length > 0" class="answers-container">
+    <ion-card-content *ngIf="showAnswers && card.type === 'single-look'">
+      <ion-text color="light">{{ card.correctAnswers[0] }}</ion-text>
+    </ion-card-content>
+    <ion-card-content *ngIf="card.type === 'test'" class="answers-container">
+      <ng-container *ngFor="let answer of card.correctAnswers">
+        <app-multi-input-entry
+          [showCheckbox]="true"
+          (check)="checkAnswer($event, answer)"
+          [clickToCheck]="true"
+          [label]="answer"
+          [showColors]="showAnswers"
+          [readOnly]="true"
+          [color]="getAnswerColor(answer)"
+        >
+        </app-multi-input-entry>
+      </ng-container>
+    </ion-card-content>
+    <ion-card-content *ngIf="card.type === 'multiple' && answers.length > 0" class="answers-container">
       <ng-container *ngFor="let answer of answers">
         <app-multi-input-entry
           [label]="answer"
@@ -15,7 +32,7 @@
       </ng-container>
     </ion-card-content>
     <div>
-      <ion-card-content>
+      <ion-card-content *ngIf="card.type !== 'test' && card.type !== 'single-look'">
         <ion-item *ngIf="!showAnswers">
           <ion-label position="stacked">
             {{ (card.type === 'single' || card.type === 'single-look') ? 'Answer' : 'Answers' }}
@@ -35,7 +52,18 @@
         </ng-container>
       </ion-card-content>
       <ion-card-header>
-        <ion-button class="submit" (click)="onButton()">{{ showAnswers ? 'Next' : 'Submit' }}</ion-button>
+        <ion-button *ngIf="card.type !== 'single-look'" class="submit"
+                    (click)="onButton()">{{ showAnswers ? 'Next' : 'Submit' }}</ion-button>
+        <ng-container *ngIf="card.type === 'single-look'">
+          <ion-button *ngIf="!showAnswers" class="submit" (click)="look()">{{ 'View answer' }}</ion-button>
+          <ion-text *ngIf="showAnswers" color="primary">Did you know the correct answer?</ion-text>
+          <div style="display: flex">
+            <ion-button style="display: flex; flex-grow: 1" *ngIf="showAnswers" class="submit" (click)="vote(true)">Yes
+            </ion-button>
+            <ion-button style="display: flex; flex-grow: 40%" *ngIf="showAnswers" class="submit" (click)="vote(false)">No
+            </ion-button>
+          </div>
+        </ng-container>
       </ion-card-header>
     </div>
   </ion-card>

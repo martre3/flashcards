@@ -1,4 +1,18 @@
 <app-main-header>Admin</app-main-header>
 <ion-content>
+  <ion-button style="width: 100%; padding: 0 10px" (click)="create()">Add</ion-button>
+  <ion-card *ngFor="let box of boxes; index as i">
+    <ion-card-content style="display: flex; justify-content: space-between">
+      <ion-text>{{ i }}</ion-text><ion-text style="display: flex; margin-right: 40px;">Interval
+      <ng-container *ngIf="box !== editing">{{ box.interval }}</ng-container>
+      <ion-input (keydown.enter)="save(box)" style="display: flex" [autofocus]="true" color="primary" *ngIf="box === editing" [(ngModel)]="interval"></ion-input>
+    </ion-text>
+      <ion-icon
+      color="primary"
+      class="open-more"
+      name="ellipsis-vertical-sharp"
+      (click)="open(box)"
+    ></ion-icon></ion-card-content>
+  </ion-card>
 
 </ion-content>
