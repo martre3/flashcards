@@ -25,6 +25,7 @@
       <ng-container *ngFor="let answer of answers">
         <app-multi-input-entry
           [label]="answer"
+          [showColors]="showAnswers"
           [readOnly]="showAnswers"
           [color]="getAnswerColor(answer)"
         >
