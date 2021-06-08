@@ -24,6 +24,10 @@ export class DecksService {
     return deck._id ? this.update(deck) : this.create(deck);
   }
 
+  delete(id: string): Observable<Deck> {
+    return this.http.delete<Deck>(`/api/decks/${id}`);
+  }
+
   get(id: string): Observable<Deck> {
     return this.http.get<Deck>(`/api/decks/${id}`);
   }

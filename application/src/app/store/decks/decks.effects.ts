@@ -139,21 +139,31 @@ export class DecksEffects {
     )
   );
 
-  commentSuccess$ = createEffect(
+  commentSuccess$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(DecksActions.createCommentSuccess),
+      switchMap(() =>
+        fromPromise(
+          this.toastController.create({
+            message: 'Comment created',
+            position: 'top',
+            color: 'success',
+            duration: 3000,
+          })
+        )
+      ),
+      map((toast) => toast.present()),
+      map(() => DecksActions.getComments())
+    )
+  );
+
+  delete$ = createEffect(
     () =>
       this.actions.pipe(
-        ofType(DecksActions.createCommentSuccess),
-        switchMap(() =>
-          fromPromise(
-            this.toastController.create({
-              message: 'Registration successful',
-              position: 'top',
-              color: 'success',
-              duration: 3000,
-            })
-          )
-        ),
-        map((toast) => toast.present())
+        ofType(DecksActions.delete),
+        withLatestFrom(this.store.select(fromDecks.selectCurrentDeck)),
+        switchMap(([_, deck]) => this.decksService.delete(deck._id)),
+        map(() => this.router.navigate(['/decks']))
       ),
     { dispatch: false }
   );

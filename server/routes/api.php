@@ -76,6 +76,7 @@ Route::middleware('auth:api')->group(function () {
     Route::group(['prefix' => 'decks'], function () {
         Route::post('', [\App\Http\Controllers\DeckController::class, 'create']);
         Route::get('', [\App\Http\Controllers\DeckController::class, 'list']);
+        Route::delete('{deck}', [\App\Http\Controllers\DeckController::class, 'delete']);
 
         Route::group(['prefix' => 'subscriptions'], function () {
             Route::get('', [\App\Http\Controllers\UserController::class, 'getSubscriptions']);

@@ -15,12 +15,15 @@ import { DecksService } from '../../../services/decks.service';
 })
 export class ViewDeckComponent implements OnInit {
   id: string;
-
+  isLoading;
   deck: Deck;
+  deleteAction = DecksActions.delete;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.store.select(fromDecks.selectIsLoading).subscribe((l) => (this.isLoading = l));
+
     this.route.paramMap
       .pipe(
         filter((params) => !!params.get('id')),

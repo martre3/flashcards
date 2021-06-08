@@ -33,6 +33,7 @@ const initialState: DecksState = restoreState<DecksState>(
 
 export const decksReducer = createReducer(
   initialState,
+  on(DecksActions.get, (state, deck) => ({ ...state, isLoading: true })),
   on(DecksActions.getSuccess, (state, deck) => ({ ...state, deck, isLoading: false })),
   on(DecksActions.list, (state) => ({ ...state, isLoading: true })),
   on(DecksActions.create, (state) => ({ ...state, isLoading: true })),

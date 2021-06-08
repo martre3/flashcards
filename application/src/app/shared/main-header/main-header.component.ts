@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActionSheetController } from '@ionic/angular';
 import { Route, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.states';
 
 @Component({
   selector: 'app-main-header',
@@ -14,12 +16,14 @@ export class MainHeaderComponent {
   @Input() add: string;
   @Input() done: string;
   @Input() editLink: string;
+  @Input() deleteAction: any;
   @Input() delete: boolean;
 
   constructor(
     private location: Location,
     public actionSheetController: ActionSheetController,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   async presentActionSheet() {
@@ -38,7 +42,8 @@ export class MainHeaderComponent {
       buttons.push({
         text: 'Delete',
         handler: () => {
-          this.router.navigate(['/groups']);
+          this.store.dispatch(this.deleteAction());
+          this.router.navigate(['/decks']);
         },
       });
     }

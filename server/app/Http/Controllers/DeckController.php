@@ -70,4 +70,9 @@ class DeckController extends Controller
 
         return $deck;
     }
+
+    public function delete(Deck $deck)
+    {
+        $deck->delete();
+    }
 }

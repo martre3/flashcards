@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, switchMap, tap } from 'rxjs/operators';
-import { IonSlides } from '@ionic/angular';
+import { ActionSheetController, IonSlides } from '@ionic/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AppState } from '../../../store/app.states';
 import { fromGroup, selectActiveGroup } from '../../../store/groups/groups.selectors';
@@ -15,6 +15,7 @@ import {
   InviteToGroup,
 } from '../../../store/group-invitations/group-invitations.actions';
 import { selectGroupInvites } from '../../../store/group-invitations/group-invitations.selectors';
+import { AdminActions } from '../../../store/admin/admin.actions';
 
 @Component({
   selector: 'app-group-users',
@@ -35,7 +36,6 @@ export class GroupUsersComponent implements OnInit {
   slideOpts = {
     initialSlide: 0,
     speed: 400,
-
   };
 
   colorMap = {
@@ -46,7 +46,10 @@ export class GroupUsersComponent implements OnInit {
     canceled: 'medium',
   };
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    public actionSheetController: ActionSheetController
+  ) {}
 
   ngOnInit(): void {
     this.store
@@ -63,6 +66,28 @@ export class GroupUsersComponent implements OnInit {
         switchMap(() => this.store.select(fromGroup.selectUsers))
       )
       .subscribe((page) => (this.users = page));
+  }
+
+  open(): void {
+    this.actionSheetController
+      .create({
+        header: 'Actions',
+        buttons: [
+          {
+            text: 'Kick',
+            handler: () => {
+              console.log('s');
+            },
+          },
+          {
+            text: 'Close',
+            handler: () => {
+              console.log('s');
+            },
+          },
+        ],
+      })
+      .then((p) => p.present());
   }
 
   scrollTo(index: number): void {

@@ -41,6 +41,7 @@
           <ion-input
             [formControl]="answer"
             (keydown.,)="nextAnswer($event)"
+            (keydown.enter)="nextAnswer($event)"
           ></ion-input>
         </ion-item>
         <ng-container *ngIf="showAnswers">
@@ -60,7 +61,7 @@
           <div style="display: flex">
             <ion-button style="display: flex; flex-grow: 1" *ngIf="showAnswers" class="submit" (click)="vote(true)">Yes
             </ion-button>
-            <ion-button style="display: flex; flex-grow: 40%" *ngIf="showAnswers" class="submit" (click)="vote(false)">No
+            <ion-button style="display: flex; flex-grow: 1" *ngIf="showAnswers" class="submit" (click)="vote(false)">No
             </ion-button>
           </div>
         </ng-container>
